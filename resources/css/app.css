@@ -1,0 +1,3046 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Styles personnalisés pour l'application */
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+    }
+    
+    .btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-blue-300;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500 disabled:bg-gray-100;
+    }
+    
+    .btn-danger {
+        @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 disabled:bg-red-300;
+    }
+    
+    .btn-success {
+        @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 disabled:bg-green-300;
+    }
+    
+    .form-input {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500;
+    }
+    
+    .form-select {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500;
+    }
+    
+    .form-error {
+        @apply border-red-300 focus:border-red-500 focus:ring-red-500;
+    }
+}
+
+/* Animations personnalisées */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Styles pour les notifications */
+.notification {
+    @apply fixed top-4 right-4 z-50 max-w-sm w-full;
+}
+
+/* Styles pour le menu mobile */
+.mobile-menu-enter {
+    @apply transition-all duration-300 ease-out;
+}
+
+.mobile-menu-enter-from {
+    @apply opacity-0 transform -translate-y-2;
+}
+
+.mobile-menu-enter-to {
+    @apply opacity-100 transform translate-y-0;
+}
+
+/* Styles pour les tableaux responsives */
+.table-responsive {
+    @apply overflow-x-auto shadow ring-1 ring-black ring-opacity-5 md:rounded-lg;
+}
+
+.table-responsive table {
+    @apply min-w-full divide-y divide-gray-300;
+}
+
+.table-responsive th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50;
+}
+
+.table-responsive td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Styles pour les cartes */
+.card {
+    @apply bg-white overflow-hidden shadow rounded-lg;
+}
+
+.card-header {
+    @apply px-4 py-5 sm:px-6 border-b border-gray-200;
+}
+
+.card-body {
+    @apply px-4 py-5 sm:p-6;
+}
+
+.card-footer {
+    @apply px-4 py-4 sm:px-6 bg-gray-50 border-t border-gray-200;
+}
+
+/* Styles pour les badges de statut */
+.status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.status-pending {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-confirmed {
+    @apply bg-green-100 text-green-800;
+}
+
+.status-cancelled {
+    @apply bg-red-100 text-red-800;
+}
+
+/* Styles pour les formulaires */
+.form-group {
+    @apply space-y-1;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-700;
+}
+
+.form-help {
+    @apply text-sm text-gray-500;
+}
+
+.form-error-message {
+    @apply text-sm text-red-600;
+}
+
+/* Styles pour les alertes */
+.alert {
+    @apply rounded-md p-4;
+}
+
+.alert-success {
+    @apply bg-green-50 border border-green-200 text-green-800;
+}
+
+.alert-error {
+    @apply bg-red-50 border border-red-200 text-red-800;
+}
+
+.alert-warning {
+    @apply bg-yellow-50 border border-yellow-200 text-yellow-800;
+}
+
+.alert-info {
+    @apply bg-blue-50 border border-blue-200 text-blue-800;
+}
+
+/* Styles pour les spinners de chargement */
+.spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 border-t-blue-600;
+}
+
+/* Styles pour les transitions */
+.transition-all {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+/* Styles pour les focus states */
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+/* Styles pour les hover states */
+.hover-lift {
+    @apply transition-transform duration-200 ease-in-out hover:transform hover:-translate-y-1;
+}
+
+/* Styles pour les ombres */
+.shadow-soft {
+    box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Styles pour les gradients */
+.gradient-blue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-green {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* Styles pour les icônes */
+.icon-sm {
+    @apply h-4 w-4;
+}
+
+.icon-md {
+    @apply h-5 w-5;
+}
+
+.icon-lg {
+    @apply h-6 w-6;
+}
+
+.icon-xl {
+    @apply h-8 w-8;
+}
+
+/* Styles pour les espacements */
+.space-y-section {
+    @apply space-y-8;
+}
+
+.space-y-component {
+    @apply space-y-4;
+}
+
+/* Styles pour les bordures */
+.border-soft {
+    @apply border border-gray-200;
+}
+
+.border-accent {
+    @apply border-2 border-blue-500;
+}
+
+/* Styles pour les couleurs de texte */
+.text-muted {
+    @apply text-gray-600;
+}
+
+.text-accent {
+    @apply text-blue-600;
+}
+
+.text-success {
+    @apply text-green-600;
+}
+
+.text-danger {
+    @apply text-red-600;
+}
+
+.text-warning {
+    @apply text-yellow-600;
+}
+
+/* Styles pour les arrière-plans */
+.bg-soft {
+    @apply bg-gray-50;
+}
+
+.bg-accent {
+    @apply bg-blue-50;
+}
+
+/* Styles pour les conteneurs */
+.container-fluid {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+}
+
+.container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Styles pour les grilles */
+.grid-auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* Styles pour les flexbox */
+.flex-center {
+    @apply flex items-center justify-center;
+}
+
+.flex-between {
+    @apply flex items-center justify-between;
+}
+
+.flex-start {
+    @apply flex items-center justify-start;
+}
+
+.flex-end {
+    @apply flex items-center justify-end;
+}
+
+/* Styles pour les positions */
+.sticky-top {
+    @apply sticky top-0 z-10;
+}
+
+.fixed-bottom {
+    @apply fixed bottom-0 left-0 right-0 z-50;
+}
+
+/* Styles pour les débordements */
+.overflow-hidden-x {
+    @apply overflow-x-hidden;
+}
+
+.overflow-scroll-y {
+    @apply overflow-y-auto;
+}
+
+/* Styles pour les curseurs */
+.cursor-not-allowed {
+    @apply cursor-not-allowed opacity-50;
+}
+
+.cursor-pointer {
+    @apply cursor-pointer;
+}
+
+/* Styles pour les sélections */
+.select-none {
+    @apply select-none;
+}
+
+.select-all {
+    @apply select-all;
+}
+
+/* Styles pour les impressions */
+@media print {
+    .print-hidden {
+        @apply hidden;
+    }
+    
+    .print-visible {
+        @apply block;
+    }
+    
+    .print-break-before {
+        page-break-before: always;
+    }
+    
+    .print-break-after {
+        page-break-after: always;
+    }
+    
+    .print-no-break {
+        page-break-inside: avoid;
+    }
+}
+
+/* Styles pour les écrans */
+@media screen {
+    .screen-only {
+        @apply block;
+    }
+}
+
+/* Styles pour l'accessibilité */
+.sr-only {
+    @apply sr-only;
+}
+
+.focus-visible {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500;
+}
+
+/* Styles pour les animations de chargement */
+.loading-dots::after {
+    content: '';
+    animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+/* Styles pour les tooltips */
+.tooltip {
+    @apply relative;
+}
+
+.tooltip::before {
+    @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 pointer-events-none transition-opacity duration-200;
+    content: attr(data-tooltip);
+}
+
+.tooltip:hover::before {
+    @apply opacity-100;
+}
+
+/* Styles pour les modales */
+.modal-backdrop {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40;
+}
+
+.modal-content {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.modal-dialog {
+    @apply bg-white rounded-lg shadow-xl max-w-md w-full max-h-full overflow-y-auto;
+}
+
+/* Styles pour les dropdowns */
+.dropdown {
+    @apply relative inline-block;
+}
+
+.dropdown-menu {
+    @apply absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50;
+}
+
+.dropdown-item {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900;
+}
+
+/* Styles pour les onglets */
+.tab-list {
+    @apply flex border-b border-gray-200;
+}
+
+.tab-item {
+    @apply px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent;
+}
+
+.tab-item.active {
+    @apply text-blue-600 border-blue-600;
+}
+
+.tab-content {
+    @apply mt-4;
+}
+
+.tab-panel {
+    @apply hidden;
+}
+
+.tab-panel.active {
+    @apply block;
+}
+
+/* Styles pour les accordéons */
+.accordion-item {
+    @apply border border-gray-200 rounded-md mb-2;
+}
+
+.accordion-header {
+    @apply px-4 py-3 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors;
+}
+
+.accordion-content {
+    @apply px-4 py-3 border-t border-gray-200;
+}
+
+/* Styles pour les barres de progression */
+.progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-fill {
+    @apply bg-blue-600 h-2 rounded-full transition-all duration-300;
+}
+
+/* Styles pour les badges */
+.badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-primary {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.badge-secondary {
+    @apply bg-gray-100 text-gray-800;
+}
+
+.badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-danger {
+    @apply bg-red-100 text-red-800;
+}
+
+.badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-info {
+    @apply bg-blue-100 text-blue-800;
+}
+
+/* Styles pour les listes */
+.list-unstyled {
+    @apply list-none p-0;
+}
+
+.list-inline {
+    @apply flex space-x-4;
+}
+
+.list-group {
+    @apply divide-y divide-gray-200;
+}
+
+.list-group-item {
+    @apply px-4 py-3 hover:bg-gray-50 transition-colors;
+}
+
+/* Styles pour les breadcrumbs */
+.breadcrumb {
+    @apply flex items-center space-x-2 text-sm text-gray-500;
+}
+
+.breadcrumb-item {
+    @apply flex items-center;
+}
+
+.breadcrumb-separator {
+    @apply mx-2 text-gray-400;
+}
+
+/* Styles pour les pagination */
+.pagination {
+    @apply flex items-center justify-between;
+}
+
+.pagination-info {
+    @apply text-sm text-gray-700;
+}
+
+.pagination-nav {
+    @apply flex space-x-2;
+}
+
+.pagination-link {
+    @apply px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50;
+}
+
+.pagination-link.active {
+    @apply bg-blue-600 text-white border-blue-600;
+}
+
+.pagination-link.disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+/* Styles pour les carousels */
+.carousel {
+    @apply relative overflow-hidden;
+}
+
+.carousel-inner {
+    @apply flex transition-transform duration-300;
+}
+
+.carousel-item {
+    @apply flex-shrink-0 w-full;
+}
+
+.carousel-controls {
+    @apply absolute inset-y-0 flex items-center;
+}
+
+.carousel-prev {
+    @apply left-0 pl-4;
+}
+
+.carousel-next {
+    @apply right-0 pr-4;
+}
+
+.carousel-indicators {
+    @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2;
+}
+
+.carousel-indicator {
+    @apply w-3 h-3 bg-white bg-opacity-50 rounded-full cursor-pointer hover:bg-opacity-75;
+}
+
+.carousel-indicator.active {
+    @apply bg-opacity-100;
+}
+
+/* Styles pour les masonry layouts */
+.masonry {
+    column-count: 1;
+    column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .masonry {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .masonry {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .masonry {
+        column-count: 4;
+    }
+}
+
+.masonry-item {
+    @apply break-inside-avoid mb-4;
+}
+
+/* Styles pour les sticky elements */
+.sticky-header {
+    @apply sticky top-0 z-30 bg-white border-b border-gray-200;
+}
+
+.sticky-sidebar {
+    @apply sticky top-4;
+}
+
+.sticky-footer {
+    @apply sticky bottom-0 bg-white border-t border-gray-200;
+}
+
+/* Styles pour les overlays */
+.overlay {
+    @apply absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center;
+}
+
+.overlay-content {
+    @apply bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4;
+}
+
+/* Styles pour les dividers */
+.divider {
+    @apply border-t border-gray-200 my-6;
+}
+
+.divider-vertical {
+    @apply border-l border-gray-200 mx-6;
+}
+
+.divider-text {
+    @apply relative flex justify-center text-sm;
+}
+
+.divider-text span {
+    @apply bg-white px-2 text-gray-500;
+}
+
+/* Styles pour les call-to-actions */
+.cta {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8 rounded-lg text-center;
+}
+
+.cta-title {
+    @apply text-2xl font-bold mb-4;
+}
+
+.cta-description {
+    @apply text-blue-100 mb-6;
+}
+
+.cta-button {
+    @apply bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors;
+}
+
+/* Styles pour les testimonials */
+.testimonial {
+    @apply bg-white p-6 rounded-lg shadow-md;
+}
+
+.testimonial-content {
+    @apply text-gray-600 mb-4 italic;
+}
+
+.testimonial-author {
+    @apply flex items-center;
+}
+
+.testimonial-avatar {
+    @apply w-12 h-12 rounded-full mr-4;
+}
+
+.testimonial-name {
+    @apply font-semibold text-gray-900;
+}
+
+.testimonial-title {
+    @apply text-sm text-gray-500;
+}
+
+/* Styles pour les pricing tables */
+.pricing-table {
+    @apply grid gap-6;
+}
+
+.pricing-card {
+    @apply bg-white border border-gray-200 rounded-lg p-6 text-center;
+}
+
+.pricing-card.featured {
+    @apply border-blue-500 relative;
+}
+
+.pricing-badge {
+    @apply absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium;
+}
+
+.pricing-title {
+    @apply text-xl font-semibold mb-2;
+}
+
+.pricing-price {
+    @apply text-3xl font-bold text-gray-900 mb-4;
+}
+
+.pricing-features {
+    @apply space-y-2 mb-6;
+}
+
+.pricing-feature {
+    @apply flex items-center justify-center text-sm text-gray-600;
+}
+
+.pricing-button {
+    @apply w-full;
+}
+
+/* Styles pour les stats */
+.stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.stat-card {
+    @apply bg-white p-6 rounded-lg shadow-md text-center;
+}
+
+.stat-icon {
+    @apply w-12 h-12 mx-auto mb-4 p-3 rounded-full;
+}
+
+.stat-number {
+    @apply text-3xl font-bold text-gray-900 mb-2;
+}
+
+.stat-label {
+    @apply text-sm text-gray-600;
+}
+
+/* Styles pour les timelines */
+.timeline {
+    @apply relative;
+}
+
+.timeline::before {
+    @apply absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200;
+    content: '';
+}
+
+.timeline-item {
+    @apply relative pl-10 pb-8;
+}
+
+.timeline-marker {
+    @apply absolute left-0 top-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center;
+}
+
+.timeline-content {
+    @apply bg-white p-4 rounded-lg shadow-md;
+}
+
+.timeline-title {
+    @apply font-semibold text-gray-900 mb-2;
+}
+
+.timeline-description {
+    @apply text-gray-600 text-sm;
+}
+
+.timeline-date {
+    @apply text-xs text-gray-500 mt-2;
+}
+
+/* Styles pour les feature grids */
+.feature-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.feature-card {
+    @apply text-center;
+}
+
+.feature-icon {
+    @apply w-16 h-16 mx-auto mb-4 p-4 bg-blue-100 rounded-full;
+}
+
+.feature-title {
+    @apply text-xl font-semibold text-gray-900 mb-2;
+}
+
+.feature-description {
+    @apply text-gray-600;
+}
+
+/* Styles pour les hero sections */
+.hero {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20;
+}
+
+.hero-content {
+    @apply max-w-4xl mx-auto text-center px-4;
+}
+
+.hero-title {
+    @apply text-4xl md:text-6xl font-bold mb-6;
+}
+
+.hero-description {
+    @apply text-xl text-blue-100 mb-8 max-w-2xl mx-auto;
+}
+
+.hero-buttons {
+    @apply flex flex-col sm:flex-row gap-4 justify-center;
+}
+
+/* Styles pour les footers */
+.footer {
+    @apply bg-gray-900 text-white;
+}
+
+.footer-content {
+    @apply max-w-7xl mx-auto px-4 py-12;
+}
+
+.footer-grid {
+    @apply grid grid-cols-1 md:grid-cols-4 gap-8;
+}
+
+.footer-section {
+    @apply space-y-4;
+}
+
+.footer-title {
+    @apply text-lg font-semibold mb-4;
+}
+
+.footer-links {
+    @apply space-y-2;
+}
+
+.footer-link {
+    @apply text-gray-400 hover:text-white transition-colors;
+}
+
+.footer-bottom {
+    @apply border-t border-gray-800 mt-8 pt-8 text-center text-gray-400;
+}
+
+/* Styles pour les headers */
+.header {
+    @apply bg-white shadow-sm border-b border-gray-200;
+}
+
+.header-content {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.header-nav {
+    @apply flex justify-between items-center h-16;
+}
+
+.header-logo {
+    @apply flex items-center;
+}
+
+.header-menu {
+    @apply hidden md:flex space-x-1;
+}
+
+.header-menu-item {
+    @apply flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors;
+}
+
+.header-menu-mobile {
+    @apply md:hidden;
+}
+
+/* Styles pour les sidebars */
+.sidebar {
+    @apply bg-white border-r border-gray-200 h-full;
+}
+
+.sidebar-content {
+    @apply p-4;
+}
+
+.sidebar-menu {
+    @apply space-y-1;
+}
+
+.sidebar-menu-item {
+    @apply flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors;
+}
+
+.sidebar-menu-item.active {
+    @apply bg-blue-100 text-blue-700;
+}
+
+.sidebar-menu-item:hover {
+    @apply bg-gray-100;
+}
+
+/* Styles pour les dashboards */
+.dashboard-grid {
+    @apply grid grid-cols-1 lg:grid-cols-4 gap-6;
+}
+
+.dashboard-main {
+    @apply lg:col-span-3 space-y-6;
+}
+
+.dashboard-sidebar {
+    @apply lg:col-span-1 space-y-6;
+}
+
+.dashboard-widget {
+    @apply bg-white p-6 rounded-lg shadow-md;
+}
+
+.dashboard-widget-title {
+    @apply text-lg font-semibold text-gray-900 mb-4;
+}
+
+.dashboard-widget-content {
+    @apply space-y-4;
+}
+
+/* Styles pour les forms avancés */
+.form-section {
+    @apply bg-gray-50 p-4 rounded-lg space-y-4;
+}
+
+.form-section-title {
+    @apply text-lg font-semibold text-gray-900 mb-4;
+}
+
+.form-row {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.form-actions {
+    @apply flex justify-end space-x-4 pt-6 border-t border-gray-200;
+}
+
+/* Styles pour les tables avancées */
+.table-container {
+    @apply bg-white shadow-md rounded-lg overflow-hidden;
+}
+
+.table-header {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
+}
+
+.table-title {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+.table-actions {
+    @apply flex space-x-2;
+}
+
+.table-body {
+    @apply overflow-x-auto;
+}
+
+.table-footer {
+    @apply px-6 py-4 border-t border-gray-200 bg-gray-50;
+}
+
+/* Styles pour les cartes avancées */
+.card-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.card-image {
+    @apply w-full h-48 object-cover;
+}
+
+.card-content {
+    @apply p-6;
+}
+
+.card-title {
+    @apply text-xl font-semibold text-gray-900 mb-2;
+}
+
+.card-description {
+    @apply text-gray-600 mb-4;
+}
+
+.card-actions {
+    @apply flex justify-between items-center;
+}
+
+/* Styles pour les notifications avancées */
+.notification-container {
+    @apply fixed top-4 right-4 z-50 space-y-2;
+}
+
+.notification {
+    @apply max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden;
+}
+
+.notification-content {
+    @apply p-4;
+}
+
+.notification-title {
+    @apply text-sm font-medium text-gray-900;
+}
+
+.notification-message {
+    @apply mt-1 text-sm text-gray-500;
+}
+
+.notification-actions {
+    @apply mt-3 flex space-x-2;
+}
+
+.notification-close {
+    @apply absolute top-2 right-2 text-gray-400 hover:text-gray-600;
+}
+
+/* Styles pour les modales avancées */
+.modal-overlay {
+    @apply fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40;
+}
+
+.modal-container {
+    @apply fixed inset-0 z-50 overflow-y-auto;
+}
+
+.modal-wrapper {
+    @apply flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0;
+}
+
+.modal-panel {
+    @apply relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg;
+}
+
+.modal-header {
+    @apply px-6 py-4 border-b border-gray-200;
+}
+
+.modal-title {
+    @apply text-lg font-medium text-gray-900;
+}
+
+.modal-body {
+    @apply px-6 py-4;
+}
+
+.modal-footer {
+    @apply px-6 py-4 border-t border-gray-200 flex justify-end space-x-2;
+}
+
+/* Styles pour les dropdowns avancés */
+.dropdown-container {
+    @apply relative;
+}
+
+.dropdown-trigger {
+    @apply inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+}
+
+.dropdown-panel {
+    @apply origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50;
+}
+
+.dropdown-section {
+    @apply py-1;
+}
+
+.dropdown-item {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900;
+}
+
+.dropdown-divider {
+    @apply border-t border-gray-100;
+}
+
+/* Styles pour les onglets avancés */
+.tabs-container {
+    @apply w-full;
+}
+
+.tabs-list {
+    @apply flex space-x-1 rounded-xl bg-blue-900/20 p-1;
+}
+
+.tabs-trigger {
+    @apply w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2;
+}
+
+.tabs-trigger.active {
+    @apply bg-white shadow;
+}
+
+.tabs-trigger:not(.active) {
+    @apply text-blue-100 hover:bg-white/[0.12] hover:text-white;
+}
+
+.tabs-panels {
+    @apply mt-2;
+}
+
+.tabs-panel {
+    @apply rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2;
+}
+
+/* Styles pour les accordéons avancés */
+.accordion-container {
+    @apply space-y-2;
+}
+
+.accordion-item {
+    @apply border border-gray-200 rounded-lg;
+}
+
+.accordion-trigger {
+    @apply w-full px-4 py-3 text-left bg-gray-50 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors;
+}
+
+.accordion-trigger.active {
+    @apply bg-blue-50 text-blue-700;
+}
+
+.accordion-content {
+    @apply px-4 py-3 border-t border-gray-200;
+}
+
+.accordion-icon {
+    @apply float-right transform transition-transform;
+}
+
+.accordion-icon.active {
+    @apply rotate-180;
+}
+
+/* Styles pour les tooltips avancés */
+.tooltip-container {
+    @apply relative inline-block;
+}
+
+.tooltip-trigger {
+    @apply cursor-help;
+}
+
+.tooltip-content {
+    @apply absolute z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+}
+
+.tooltip-content.show {
+    @apply opacity-100 pointer-events-auto;
+}
+
+.tooltip-arrow {
+    @apply absolute w-2 h-2 bg-gray-900 transform rotate-45;
+}
+
+/* Styles pour les popovers */
+.popover-container {
+    @apply relative;
+}
+
+.popover-trigger {
+    @apply cursor-pointer;
+}
+
+.popover-content {
+    @apply absolute z-50 w-64 p-4 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+}
+
+.popover-content.show {
+    @apply opacity-100 pointer-events-auto;
+}
+
+.popover-header {
+    @apply font-semibold text-gray-900 mb-2;
+}
+
+.popover-body {
+    @apply text-sm text-gray-600;
+}
+
+.popover-arrow {
+    @apply absolute w-3 h-3 bg-white border border-gray-200 transform rotate-45;
+}
+
+/* Styles pour les sliders */
+.slider-container {
+    @apply relative;
+}
+
+.slider-track {
+    @apply w-full h-2 bg-gray-200 rounded-full;
+}
+
+.slider-range {
+    @apply h-2 bg-blue-500 rounded-full;
+}
+
+.slider-thumb {
+    @apply absolute w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md cursor-pointer transform -translate-y-1/2;
+}
+
+.slider-thumb:hover {
+    @apply scale-110;
+}
+
+.slider-thumb:active {
+    @apply scale-125;
+}
+
+/* Styles pour les switches */
+.switch-container {
+    @apply relative inline-block w-12 h-6;
+}
+
+.switch-input {
+    @apply sr-only;
+}
+
+.switch-slider {
+    @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-colors duration-200;
+}
+
+.switch-slider::before {
+    @apply absolute content-[''] h-5 w-5 left-0.5 bottom-0.5 bg-white rounded-full transition-transform duration-200;
+}
+
+.switch-input:checked + .switch-slider {
+    @apply bg-blue-500;
+}
+
+.switch-input:checked + .switch-slider::before {
+    @apply transform translate-x-6;
+}
+
+/* Styles pour les radio buttons personnalisés */
+.radio-group {
+    @apply space-y-2;
+}
+
+.radio-item {
+    @apply relative flex items-center;
+}
+
+.radio-input {
+    @apply sr-only;
+}
+
+.radio-circle {
+    @apply w-5 h-5 border-2 border-gray-300 rounded-full mr-3 flex-shrink-0;
+}
+
+.radio-input:checked + .radio-circle {
+    @apply border-blue-500;
+}
+
+.radio-input:checked + .radio-circle::after {
+    @apply content-[''] w-3 h-3 bg-blue-500 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+}
+
+.radio-label {
+    @apply text-sm text-gray-700 cursor-pointer;
+}
+
+/* Styles pour les checkboxes personnalisés */
+.checkbox-group {
+    @apply space-y-2;
+}
+
+.checkbox-item {
+    @apply relative flex items-center;
+}
+
+.checkbox-input {
+    @apply sr-only;
+}
+
+.checkbox-box {
+    @apply w-5 h-5 border-2 border-gray-300 rounded mr-3 flex-shrink-0 flex items-center justify-center;
+}
+
+.checkbox-input:checked + .checkbox-box {
+    @apply border-blue-500 bg-blue-500;
+}
+
+.checkbox-check {
+    @apply w-3 h-3 text-white opacity-0;
+}
+
+.checkbox-input:checked + .checkbox-box .checkbox-check {
+    @apply opacity-100;
+}
+
+.checkbox-label {
+    @apply text-sm text-gray-700 cursor-pointer;
+}
+
+/* Styles pour les file uploads */
+.file-upload {
+    @apply relative;
+}
+
+.file-input {
+    @apply sr-only;
+}
+
+.file-label {
+    @apply flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100;
+}
+
+.file-icon {
+    @apply w-8 h-8 mb-2 text-gray-400;
+}
+
+.file-text {
+    @apply text-sm text-gray-500;
+}
+
+.file-preview {
+    @apply mt-4 grid grid-cols-2 md:grid-cols-4 gap-4;
+}
+
+.file-preview-item {
+    @apply relative bg-gray-100 rounded-lg p-2;
+}
+
+.file-preview-image {
+    @apply w-full h-20 object-cover rounded;
+}
+
+.file-preview-remove {
+    @apply absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs cursor-pointer;
+}
+
+/* Styles pour les date pickers */
+.datepicker-container {
+    @apply relative;
+}
+
+.datepicker-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.datepicker-popup {
+    @apply absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4;
+}
+
+.datepicker-header {
+    @apply flex items-center justify-between mb-4;
+}
+
+.datepicker-nav {
+    @apply p-1 hover:bg-gray-100 rounded;
+}
+
+.datepicker-title {
+    @apply font-semibold text-gray-900;
+}
+
+.datepicker-grid {
+    @apply grid grid-cols-7 gap-1;
+}
+
+.datepicker-day {
+    @apply w-8 h-8 flex items-center justify-center text-sm rounded hover:bg-blue-100 cursor-pointer;
+}
+
+.datepicker-day.selected {
+    @apply bg-blue-500 text-white;
+}
+
+.datepicker-day.disabled {
+    @apply text-gray-400 cursor-not-allowed;
+}
+
+/* Styles pour les color pickers */
+.colorpicker-container {
+    @apply relative;
+}
+
+.colorpicker-trigger {
+    @apply w-10 h-10 border border-gray-300 rounded cursor-pointer;
+}
+
+.colorpicker-popup {
+    @apply absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4;
+}
+
+.colorpicker-palette {
+    @apply grid grid-cols-8 gap-1 mb-4;
+}
+
+.colorpicker-swatch {
+    @apply w-6 h-6 rounded cursor-pointer border border-gray-200;
+}
+
+.colorpicker-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded text-sm;
+}
+
+/* Styles pour les range sliders */
+.range-slider {
+    @apply relative w-full;
+}
+
+.range-track {
+    @apply w-full h-2 bg-gray-200 rounded-full;
+}
+
+.range-fill {
+    @apply h-2 bg-blue-500 rounded-full;
+}
+
+.range-thumb {
+    @apply absolute w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md cursor-pointer transform -translate-y-1/2;
+}
+
+.range-labels {
+    @apply flex justify-between text-sm text-gray-500 mt-2;
+}
+
+/* Styles pour les multi-select */
+.multiselect-container {
+    @apply relative;
+}
+
+.multiselect-trigger {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.multiselect-dropdown {
+    @apply absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-50 max-h-60 overflow-y-auto;
+}
+
+.multiselect-option {
+    @apply flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer;
+}
+
+.multiselect-checkbox {
+    @apply mr-2;
+}
+
+.multiselect-tags {
+    @apply flex flex-wrap gap-1 mt-2;
+}
+
+.multiselect-tag {
+    @apply inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded;
+}
+
+.multiselect-tag-remove {
+    @apply ml-1 cursor-pointer;
+}
+
+/* Styles pour les autocomplete */
+.autocomplete-container {
+    @apply relative;
+}
+
+.autocomplete-input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.autocomplete-dropdown {
+    @apply absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-50 max-h-60 overflow-y-auto;
+}
+
+.autocomplete-option {
+    @apply px-3 py-2 hover:bg-gray-100 cursor-pointer;
+}
+
+.autocomplete-option.highlighted {
+    @apply bg-blue-100;
+}
+
+.autocomplete-no-results {
+    @apply px-3 py-2 text-gray-500 text-sm;
+}
+
+/* Styles pour les tags input */
+.tags-container {
+    @apply relative;
+}
+
+.tags-wrapper {
+    @apply flex flex-wrap gap-1 p-2 border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500;
+}
+
+.tags-tag {
+    @apply inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded;
+}
+
+.tags-tag-remove {
+    @apply ml-1 cursor-pointer;
+}
+
+.tags-input {
+    @apply flex-1 min-w-0 border-none outline-none;
+}
+
+/* Styles pour les code editors */
+.code-editor {
+    @apply relative border border-gray-300 rounded-md overflow-hidden;
+}
+
+.code-header {
+    @apply flex items-center justify-between px-4 py-2 bg-gray-100 border-b border-gray-300;
+}
+
+.code-language {
+    @apply text-sm font-medium text-gray-700;
+}
+
+.code-actions {
+    @apply flex space-x-2;
+}
+
+.code-content {
+    @apply relative;
+}
+
+.code-textarea {
+    @apply w-full p-4 font-mono text-sm bg-gray-900 text-gray-100 resize-none outline-none;
+}
+
+.code-line-numbers {
+    @apply absolute left-0 top-0 p-4 text-gray-500 font-mono text-sm select-none pointer-events-none;
+}
+
+/* Styles pour les markdown editors */
+.markdown-editor {
+    @apply border border-gray-300 rounded-md overflow-hidden;
+}
+
+.markdown-toolbar {
+    @apply flex items-center space-x-1 px-4 py-2 bg-gray-100 border-b border-gray-300;
+}
+
+.markdown-button {
+    @apply p-1 hover:bg-gray-200 rounded;
+}
+
+.markdown-content {
+    @apply grid grid-cols-1 md:grid-cols-2;
+}
+
+.markdown-input {
+    @apply w-full p-4 font-mono text-sm resize-none outline-none border-none;
+}
+
+.markdown-preview {
+    @apply p-4 bg-gray-50 border-l border-gray-300 prose prose-sm max-w-none;
+}
+
+/* Styles pour les rich text editors */
+.richtext-editor {
+    @apply border border-gray-300 rounded-md overflow-hidden;
+}
+
+.richtext-toolbar {
+    @apply flex items-center space-x-1 px-4 py-2 bg-gray-100 border-b border-gray-300;
+}
+
+.richtext-button {
+    @apply p-1 hover:bg-gray-200 rounded;
+}
+
+.richtext-button.active {
+    @apply bg-blue-100 text-blue-700;
+}
+
+.richtext-content {
+    @apply p-4 min-h-32 outline-none;
+}
+
+/* Styles pour les data tables */
+.datatable-container {
+    @apply bg-white shadow-md rounded-lg overflow-hidden;
+}
+
+.datatable-header {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between;
+}
+
+.datatable-title {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+.datatable-search {
+    @apply relative;
+}
+
+.datatable-search-input {
+    @apply pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm;
+}
+
+.datatable-search-icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400;
+}
+
+.datatable-filters {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50 flex space-x-4;
+}
+
+.datatable-table {
+    @apply min-w-full divide-y divide-gray-200;
+}
+
+.datatable-thead {
+    @apply bg-gray-50;
+}
+
+.datatable-th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100;
+}
+
+.datatable-th.sortable {
+    @apply select-none;
+}
+
+.datatable-sort-icon {
+    @apply ml-1 inline-block;
+}
+
+.datatable-tbody {
+    @apply bg-white divide-y divide-gray-200;
+}
+
+.datatable-tr {
+    @apply hover:bg-gray-50;
+}
+
+.datatable-td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+.datatable-footer {
+    @apply px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between;
+}
+
+.datatable-info {
+    @apply text-sm text-gray-700;
+}
+
+.datatable-pagination {
+    @apply flex space-x-2;
+}
+
+/* Styles pour les kanban boards */
+.kanban-board {
+    @apply flex space-x-6 overflow-x-auto pb-6;
+}
+
+.kanban-column {
+    @apply flex-shrink-0 w-80 bg-gray-100 rounded-lg p-4;
+}
+
+.kanban-header {
+    @apply flex items-center justify-between mb-4;
+}
+
+.kanban-title {
+    @apply font-semibold text-gray-900;
+}
+
+.kanban-count {
+    @apply bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs;
+}
+
+.kanban-cards {
+    @apply space-y-3;
+}
+
+.kanban-card {
+    @apply bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow;
+}
+
+.kanban-card-title {
+    @apply font-medium text-gray-900 mb-2;
+}
+
+.kanban-card-meta {
+    @apply flex items-center justify-between text-sm text-gray-500;
+}
+
+.kanban-add-card {
+    @apply w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-center text-gray-500 hover:border-gray-400 hover:text-gray-600 cursor-pointer;
+}
+
+/* Styles pour les calendars */
+.calendar-container {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.calendar-header {
+    @apply flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-200;
+}
+
+.calendar-nav {
+    @apply flex items-center space-x-2;
+}
+
+.calendar-nav-button {
+    @apply p-2 hover:bg-gray-200 rounded;
+}
+
+.calendar-title {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+.calendar-views {
+    @apply flex space-x-1;
+}
+
+.calendar-view-button {
+    @apply px-3 py-1 text-sm rounded;
+}
+
+.calendar-view-button.active {
+    @apply bg-blue-100 text-blue-700;
+}
+
+.calendar-grid {
+    @apply grid grid-cols-7;
+}
+
+.calendar-day-header {
+    @apply p-4 text-center text-sm font-medium text-gray-500 bg-gray-50 border-b border-gray-200;
+}
+
+.calendar-day {
+    @apply min-h-32 p-2 border-b border-r border-gray-200 hover:bg-gray-50;
+}
+
+.calendar-day-number {
+    @apply text-sm font-medium text-gray-900 mb-1;
+}
+
+.calendar-events {
+    @apply space-y-1;
+}
+
+.calendar-event {
+    @apply px-2 py-1 text-xs rounded bg-blue-100 text-blue-800 cursor-pointer;
+}
+
+/* Styles pour les charts */
+.chart-container {
+    @apply bg-white p-6 rounded-lg shadow-md;
+}
+
+.chart-header {
+    @apply flex items-center justify-between mb-6;
+}
+
+.chart-title {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+.chart-legend {
+    @apply flex space-x-4;
+}
+
+.chart-legend-item {
+    @apply flex items-center space-x-2;
+}
+
+.chart-legend-color {
+    @apply w-3 h-3 rounded-full;
+}
+
+.chart-legend-label {
+    @apply text-sm text-gray-600;
+}
+
+.chart-canvas {
+    @apply w-full h-64;
+}
+
+/* Styles pour les maps */
+.map-container {
+    @apply relative bg-gray-200 rounded-lg overflow-hidden;
+}
+
+.map-canvas {
+    @apply w-full h-96;
+}
+
+.map-controls {
+    @apply absolute top-4 right-4 space-y-2;
+}
+
+.map-control {
+    @apply bg-white p-2 rounded shadow-md cursor-pointer hover:bg-gray-50;
+}
+
+.map-markers {
+    @apply absolute inset-0 pointer-events-none;
+}
+
+.map-marker {
+    @apply absolute w-6 h-6 bg-red-500 rounded-full border-2 border-white shadow-md pointer-events-auto cursor-pointer;
+}
+
+.map-popup {
+    @apply absolute bg-white p-3 rounded shadow-lg border border-gray-200 z-10;
+}
+
+/* Styles pour les media players */
+.media-player {
+    @apply bg-black rounded-lg overflow-hidden;
+}
+
+.media-video {
+    @apply w-full h-auto;
+}
+
+.media-controls {
+    @apply flex items-center space-x-4 px-4 py-3 bg-gray-900 text-white;
+}
+
+.media-play-button {
+    @apply p-2 hover:bg-gray-800 rounded;
+}
+
+.media-progress {
+    @apply flex-1 mx-4;
+}
+
+.media-progress-bar {
+    @apply w-full h-1 bg-gray-600 rounded-full cursor-pointer;
+}
+
+.media-progress-fill {
+    @apply h-1 bg-white rounded-full;
+}
+
+.media-time {
+    @apply text-sm;
+}
+
+.media-volume {
+    @apply flex items-center space-x-2;
+}
+
+.media-volume-button {
+    @apply p-1 hover:bg-gray-800 rounded;
+}
+
+.media-volume-slider {
+    @apply w-20;
+}
+
+.media-fullscreen {
+    @apply p-2 hover:bg-gray-800 rounded;
+}
+
+/* Styles pour les image galleries */
+.gallery-container {
+    @apply space-y-6;
+}
+
+.gallery-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+.gallery-item {
+    @apply relative group cursor-pointer;
+}
+
+.gallery-image {
+    @apply w-full h-48 object-cover rounded-lg;
+}
+
+.gallery-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-opacity rounded-lg flex items-center justify-center;
+}
+
+.gallery-actions {
+    @apply opacity-0 group-hover:opacity-100 transition-opacity space-x-2;
+}
+
+.gallery-action {
+    @apply p-2 bg-white text-gray-900 rounded-full hover:bg-gray-100;
+}
+
+.gallery-lightbox {
+    @apply fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center;
+}
+
+.gallery-lightbox-image {
+    @apply max-w-full max-h-full object-contain;
+}
+
+.gallery-lightbox-controls {
+    @apply absolute top-4 right-4 space-x-2;
+}
+
+.gallery-lightbox-nav {
+    @apply absolute top-1/2 transform -translate-y-1/2 p-2 bg-white bg-opacity-20 text-white rounded-full hover:bg-opacity-30;
+}
+
+.gallery-lightbox-prev {
+    @apply left-4;
+}
+
+.gallery-lightbox-next {
+    @apply right-4;
+}
+
+/* Styles pour les file managers */
+.filemanager-container {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.filemanager-toolbar {
+    @apply flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50;
+}
+
+.filemanager-breadcrumb {
+    @apply flex items-center space-x-2 text-sm text-gray-600;
+}
+
+.filemanager-actions {
+    @apply flex space-x-2;
+}
+
+.filemanager-sidebar {
+    @apply w-64 border-r border-gray-200 bg-gray-50;
+}
+
+.filemanager-content {
+    @apply flex-1 p-6;
+}
+
+.filemanager-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4;
+}
+
+.filemanager-item {
+    @apply p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer;
+}
+
+.filemanager-icon {
+    @apply w-12 h-12 mx-auto mb-2;
+}
+
+.filemanager-name {
+    @apply text-sm text-center truncate;
+}
+
+.filemanager-size {
+    @apply text-xs text-gray-500 text-center;
+}
+
+/* Styles pour les chat interfaces */
+.chat-container {
+    @apply flex flex-col h-96 bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.chat-header {
+    @apply flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50;
+}
+
+.chat-title {
+    @apply font-semibold text-gray-900;
+}
+
+.chat-status {
+    @apply text-sm text-green-600;
+}
+
+.chat-messages {
+    @apply flex-1 overflow-y-auto p-4 space-y-4;
+}
+
+.chat-message {
+    @apply flex;
+}
+
+.chat-message.sent {
+    @apply justify-end;
+}
+
+.chat-message.received {
+    @apply justify-start;
+}
+
+.chat-bubble {
+    @apply max-w-xs px-4 py-2 rounded-lg;
+}
+
+.chat-bubble.sent {
+    @apply bg-blue-500 text-white;
+}
+
+.chat-bubble.received {
+    @apply bg-gray-200 text-gray-900;
+}
+
+.chat-timestamp {
+    @apply text-xs text-gray-500 mt-1;
+}
+
+.chat-input {
+    @apply flex items-center space-x-2 p-4 border-t border-gray-200;
+}
+
+.chat-input-field {
+    @apply flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.chat-send-button {
+    @apply p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600;
+}
+
+/* Styles pour les comment systems */
+.comments-container {
+    @apply space-y-6;
+}
+
+.comment {
+    @apply bg-white p-4 rounded-lg border border-gray-200;
+}
+
+.comment-header {
+    @apply flex items-center justify-between mb-3;
+}
+
+.comment-author {
+    @apply flex items-center space-x-3;
+}
+
+.comment-avatar {
+    @apply w-8 h-8 rounded-full;
+}
+
+.comment-name {
+    @apply font-medium text-gray-900;
+}
+
+.comment-date {
+    @apply text-sm text-gray-500;
+}
+
+.comment-actions {
+    @apply flex space-x-2;
+}
+
+.comment-action {
+    @apply text-sm text-gray-500 hover:text-gray-700;
+}
+
+.comment-content {
+    @apply text-gray-700 mb-3;
+}
+
+.comment-replies {
+    @apply ml-8 mt-4 space-y-4;
+}
+
+.comment-form {
+    @apply mt-6 p-4 bg-gray-50 rounded-lg;
+}
+
+.comment-form-textarea {
+    @apply w-full p-3 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.comment-form-actions {
+    @apply flex justify-end space-x-2 mt-3;
+}
+
+/* Styles pour les rating systems */
+.rating-container {
+    @apply flex items-center space-x-1;
+}
+
+.rating-star {
+    @apply w-5 h-5 cursor-pointer transition-colors;
+}
+
+.rating-star.filled {
+    @apply text-yellow-400;
+}
+
+.rating-star.empty {
+    @apply text-gray-300;
+}
+
+.rating-star:hover {
+    @apply text-yellow-300;
+}
+
+.rating-value {
+    @apply ml-2 text-sm text-gray-600;
+}
+
+.rating-count {
+    @apply text-sm text-gray-500;
+}
+
+/* Styles pour les progress indicators */
+.progress-container {
+    @apply space-y-2;
+}
+
+.progress-label {
+    @apply flex justify-between text-sm text-gray-700;
+}
+
+.progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-fill {
+    @apply bg-blue-600 h-2 rounded-full transition-all duration-300;
+}
+
+.progress-steps {
+    @apply flex items-center justify-between;
+}
+
+.progress-step {
+    @apply flex items-center;
+}
+
+.progress-step-circle {
+    @apply w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-medium;
+}
+
+.progress-step.completed .progress-step-circle {
+    @apply bg-blue-600 border-blue-600 text-white;
+}
+
+.progress-step.current .progress-step-circle {
+    @apply border-blue-600 text-blue-600;
+}
+
+.progress-step.pending .progress-step-circle {
+    @apply border-gray-300 text-gray-400;
+}
+
+.progress-step-line {
+    @apply flex-1 h-0.5 mx-4;
+}
+
+.progress-step.completed .progress-step-line {
+    @apply bg-blue-600;
+}
+
+.progress-step.pending .progress-step-line {
+    @apply bg-gray-300;
+}
+
+.progress-step-label {
+    @apply absolute top-full mt-2 text-xs text-center;
+}
+
+/* Styles pour les loading states */
+.loading-container {
+    @apply flex items-center justify-center p-8;
+}
+
+.loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600;
+}
+
+.loading-dots {
+    @apply flex space-x-1;
+}
+
+.loading-dot {
+    @apply w-2 h-2 bg-blue-600 rounded-full animate-pulse;
+}
+
+.loading-skeleton {
+    @apply animate-pulse;
+}
+
+.loading-skeleton-line {
+    @apply h-4 bg-gray-300 rounded mb-2;
+}
+
+.loading-skeleton-circle {
+    @apply w-12 h-12 bg-gray-300 rounded-full;
+}
+
+.loading-skeleton-rect {
+    @apply h-32 bg-gray-300 rounded;
+}
+
+/* Styles pour les empty states */
+.empty-state {
+    @apply text-center py-12;
+}
+
+.empty-state-icon {
+    @apply w-16 h-16 mx-auto mb-4 text-gray-400;
+}
+
+.empty-state-title {
+    @apply text-xl font-semibold text-gray-900 mb-2;
+}
+
+.empty-state-description {
+    @apply text-gray-600 mb-6;
+}
+
+.empty-state-action {
+    @apply inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700;
+}
+
+/* Styles pour les error states */
+.error-state {
+    @apply text-center py-12;
+}
+
+.error-state-icon {
+    @apply w-16 h-16 mx-auto mb-4 text-red-400;
+}
+
+.error-state-title {
+    @apply text-xl font-semibold text-gray-900 mb-2;
+}
+
+.error-state-description {
+    @apply text-gray-600 mb-6;
+}
+
+.error-state-actions {
+    @apply space-x-4;
+}
+
+/* Styles pour les success states */
+.success-state {
+    @apply text-center py-12;
+}
+
+.success-state-icon {
+    @apply w-16 h-16 mx-auto mb-4 text-green-400;
+}
+
+.success-state-title {
+    @apply text-xl font-semibold text-gray-900 mb-2;
+}
+
+.success-state-description {
+    @apply text-gray-600 mb-6;
+}
+
+.success-state-action {
+    @apply inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700;
+}
+
+/* Styles pour les maintenance modes */
+.maintenance-container {
+    @apply min-h-screen flex items-center justify-center bg-gray-100;
+}
+
+.maintenance-content {
+    @apply max-w-md mx-auto text-center p-8;
+}
+
+.maintenance-icon {
+    @apply w-20 h-20 mx-auto mb-6 text-gray-400;
+}
+
+.maintenance-title {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.maintenance-description {
+    @apply text-gray-600 mb-6;
+}
+
+.maintenance-eta {
+    @apply text-sm text-gray-500;
+}
+
+/* Styles pour les coming soon pages */
+.coming-soon-container {
+    @apply min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700;
+}
+
+.coming-soon-content {
+    @apply max-w-lg mx-auto text-center text-white p-8;
+}
+
+.coming-soon-title {
+    @apply text-4xl font-bold mb-4;
+}
+
+.coming-soon-description {
+    @apply text-xl text-blue-100 mb-8;
+}
+
+.coming-soon-countdown {
+    @apply grid grid-cols-4 gap-4 mb-8;
+}
+
+.coming-soon-countdown-item {
+    @apply text-center;
+}
+
+.coming-soon-countdown-number {
+    @apply text-3xl font-bold;
+}
+
+.coming-soon-countdown-label {
+    @apply text-sm text-blue-200;
+}
+
+.coming-soon-form {
+    @apply flex space-x-2;
+}
+
+.coming-soon-input {
+    @apply flex-1 px-4 py-2 rounded-md text-gray-900;
+}
+
+.coming-soon-button {
+    @apply px-6 py-2 bg-white text-blue-600 rounded-md font-semibold hover:bg-gray-100;
+}
+
+/* Styles pour les 404 pages */
+.not-found-container {
+    @apply min-h-screen flex items-center justify-center bg-gray-100;
+}
+
+.not-found-content {
+    @apply max-w-md mx-auto text-center p-8;
+}
+
+.not-found-number {
+    @apply text-6xl font-bold text-gray-400 mb-4;
+}
+
+.not-found-title {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.not-found-description {
+    @apply text-gray-600 mb-8;
+}
+
+.not-found-actions {
+    @apply space-y-4;
+}
+
+.not-found-home-button {
+    @apply w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700;
+}
+
+.not-found-back-button {
+    @apply w-full bg-gray-200 text-gray-900 py-3 px-6 rounded-md hover:bg-gray-300;
+}
+
+/* Styles pour les offline pages */
+.offline-container {
+    @apply min-h-screen flex items-center justify-center bg-gray-100;
+}
+
+.offline-content {
+    @apply max-w-md mx-auto text-center p-8;
+}
+
+.offline-icon {
+    @apply w-20 h-20 mx-auto mb-6 text-gray-400;
+}
+
+.offline-title {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.offline-description {
+    @apply text-gray-600 mb-8;
+}
+
+.offline-retry-button {
+    @apply bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700;
+}
+
+/* Styles pour les print layouts */
+@media print {
+    .print-container {
+        @apply max-w-none;
+    }
+    
+    .print-header {
+        @apply border-b border-gray-300 pb-4 mb-6;
+    }
+    
+    .print-title {
+        @apply text-2xl font-bold text-black;
+    }
+    
+    .print-subtitle {
+        @apply text-lg text-gray-700;
+    }
+    
+    .print-content {
+        @apply space-y-4;
+    }
+    
+    .print-section {
+        @apply mb-6;
+    }
+    
+    .print-section-title {
+        @apply text-lg font-semibold text-black border-b border-gray-300 pb-2 mb-4;
+    }
+    
+    .print-table {
+        @apply w-full border-collapse;
+    }
+    
+    .print-table th,
+    .print-table td {
+        @apply border border-gray-300 px-3 py-2 text-left;
+    }
+    
+    .print-table th {
+        @apply bg-gray-100 font-semibold;
+    }
+    
+    .print-footer {
+        @apply border-t border-gray-300 pt-4 mt-6 text-sm text-gray-600;
+    }
+    
+    .print-page-break {
+        page-break-before: always;
+    }
+    
+    .print-no-break {
+        page-break-inside: avoid;
+    }
+}
+
+/* Styles pour les responsive utilities */
+@media (max-width: 640px) {
+    .mobile-hidden {
+        @apply hidden;
+    }
+    
+    .mobile-visible {
+        @apply block;
+    }
+    
+    .mobile-full-width {
+        @apply w-full;
+    }
+    
+    .mobile-stack {
+        @apply flex-col;
+    }
+    
+    .mobile-center {
+        @apply text-center;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .tablet-hidden {
+        @apply hidden;
+    }
+    
+    .tablet-visible {
+        @apply block;
+    }
+}
+
+@media (min-width: 1025px) {
+    .desktop-hidden {
+        @apply hidden;
+    }
+    
+    .desktop-visible {
+        @apply block;
+    }
+}
+
+/* Styles pour les dark mode */
+@media (prefers-color-scheme: dark) {
+    .dark-mode {
+        @apply bg-gray-900 text-white;
+    }
+    
+    .dark-mode .bg-white {
+        @apply bg-gray-800;
+    }
+    
+    .dark-mode .text-gray-900 {
+        @apply text-white;
+    }
+    
+    .dark-mode .text-gray-600 {
+        @apply text-gray-300;
+    }
+    
+    .dark-mode .border-gray-200 {
+        @apply border-gray-700;
+    }
+    
+    .dark-mode .bg-gray-50 {
+        @apply bg-gray-700;
+    }
+}
+
+/* Styles pour les high contrast mode */
+@media (prefers-contrast: high) {
+    .high-contrast {
+        @apply contrast-125;
+    }
+    
+    .high-contrast .border-gray-200 {
+        @apply border-gray-900;
+    }
+    
+    .high-contrast .text-gray-600 {
+        @apply text-gray-900;
+    }
+}
+
+/* Styles pour les reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .reduced-motion * {
+        @apply transition-none;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Styles pour les focus visible */
+@supports selector(:focus-visible) {
+    .focus-visible-only:focus {
+        @apply outline-none;
+    }
+    
+    .focus-visible-only:focus-visible {
+        @apply outline-2 outline-blue-500 outline-offset-2;
+    }
+}
+
+/* Styles pour les container queries */
+@container (min-width: 400px) {
+    .container-sm {
+        @apply text-base;
+    }
+}
+
+@container (min-width: 600px) {
+    .container-md {
+        @apply text-lg;
+    }
+}
+
+@container (min-width: 800px) {
+    .container-lg {
+        @apply text-xl;
+    }
+}
+
+/* Styles pour les scroll snap */
+.scroll-snap-container {
+    scroll-snap-type: x mandatory;
+}
+
+.scroll-snap-item {
+    scroll-snap-align: start;
+}
+
+.scroll-snap-center {
+    scroll-snap-align: center;
+}
+
+.scroll-snap-end {
+    scroll-snap-align: end;
+}
+
+/* Styles pour les aspect ratios */
+.aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+.aspect-photo {
+    aspect-ratio: 4 / 3;
+}
+
+.aspect-golden {
+    aspect-ratio: 1.618 / 1;
+}
+
+/* Styles pour les grid areas */
+.grid-area-header {
+    grid-area: header;
+}
+
+.grid-area-sidebar {
+    grid-area: sidebar;
+}
+
+.grid-area-main {
+    grid-area: main;
+}
+
+.grid-area-footer {
+    grid-area: footer;
+}
+
+/* Styles pour les custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+}
+
+/* Styles pour les text truncation */
+.truncate-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.truncate-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Styles pour les glass morphism */
+.glass {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Styles pour les neumorphism */
+.neumorphism {
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+}
+
+.neumorphism-inset {
+    background: #e0e0e0;
+    box-shadow: inset 20px 20px 60px #bebebe, inset -20px -20px 60px #ffffff;
+}
+
+/* Styles pour les clip paths */
+.clip-triangle {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.clip-hexagon {
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+}
+
+.clip-arrow {
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+}
+
+/* Styles pour les masks */
+.mask-fade {
+    mask: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.mask-circle {
+    mask: radial-gradient(circle, black 50%, transparent 70%);
+}
+
+/* Styles pour les blend modes */
+.blend-multiply {
+    mix-blend-mode: multiply;
+}
+
+.blend-screen {
+    mix-blend-mode: screen;
+}
+
+.blend-overlay {
+    mix-blend-mode: overlay;
+}
+
+.blend-difference {
+    mix-blend-mode: difference;
+}
+
+/* Styles pour les filters */
+.filter-blur {
+    filter: blur(4px);
+}
+
+.filter-brightness {
+    filter: brightness(1.2);
+}
+
+.filter-contrast {
+    filter: contrast(1.2);
+}
+
+.filter-grayscale {
+    filter: grayscale(100%);
+}
+
+.filter-sepia {
+    filter: sepia(100%);
+}
+
+.filter-hue-rotate {
+    filter: hue-rotate(90deg);
+}
+
+.filter-invert {
+    filter: invert(100%);
+}
+
+.filter-saturate {
+    filter: saturate(2);
+}
+
+/* Styles pour les transforms 3D */
+.transform-3d {
+    transform-style: preserve-3d;
+}
+
+.rotate-x-45 {
+    transform: rotateX(45deg);
+}
+
+.rotate-y-45 {
+    transform: rotateY(45deg);
+}
+
+.rotate-z-45 {
+    transform: rotateZ(45deg);
+}
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.perspective-500 {
+    perspective: 500px;
+}
+
+/* Styles pour les animations avancées */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-up {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-in-down {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes zoom-in {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes zoom-out {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes rotate-in {
+    0% { transform: rotate(-360deg); opacity: 0; }
+    100% { transform: rotate(0deg); opacity: 1; }
+}
+
+@keyframes flip-in-x {
+    0% { transform: rotateX(-90deg); opacity: 0; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+@keyframes flip-in-y {
+    0% { transform: rotateY(-90deg); opacity: 0; }
+    100% { transform: rotateY(0deg); opacity: 1; }
+}
+
+/* Classes d'animation */
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-bounce-in {
+    animation: bounce-in 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slide-in-left 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out;
+}
+
+.animate-slide-in-up {
+    animation: slide-in-up 0.5s ease-out;
+}
+
+.animate-slide-in-down {
+    animation: slide-in-down 0.5s ease-out;
+}
+
+.animate-zoom-in {
+    animation: zoom-in 0.3s ease-out;
+}
+
+.animate-zoom-out {
+    animation: zoom-out 0.3s ease-out;
+}
+
+.animate-rotate-in {
+    animation: rotate-in 0.6s ease-out;
+}
+
+.animate-flip-in-x {
+    animation: flip-in-x 0.6s ease-out;
+}
+
+.animate-flip-in-y {
+    animation: flip-in-y 0.6s ease-out;
+}
+
+/* Styles pour les delays d'animation */
+.animate-delay-100 {
+    animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+    animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+    animation-delay: 300ms;
+}
+
+.animate-delay-500 {
+    animation-delay: 500ms;
+}
+
+.animate-delay-700 {
+    animation-delay: 700ms;
+}
+
+.animate-delay-1000 {
+    animation-delay: 1000ms;
+}
+
+/* Styles pour les durées d'animation */
+.animate-duration-75 {
+    animation-duration: 75ms;
+}
+
+.animate-duration-100 {
+    animation-duration: 100ms;
+}
+
+.animate-duration-150 {
+    animation-duration: 150ms;
+}
+
+.animate-duration-200 {
+    animation-duration: 200ms;
+}
+
+.animate-duration-300 {
+    animation-duration: 300ms;
+}
+
+.animate-duration-500 {
+    animation-duration: 500ms;
+}
+
+.animate-duration-700 {
+    animation-duration: 700ms;
+}
+
+.animate-duration-1000 {
+    animation-duration: 1000ms;
+}
+
+/* Styles pour les easings d'animation */
+.animate-ease-linear {
+    animation-timing-function: linear;
+}
+
+.animate-ease-in {
+    animation-timing-function: ease-in;
+}
+
+.animate-ease-out {
+    animation-timing-function: ease-out;
+}
+
+.animate-ease-in-out {
+    animation-timing-function: ease-in-out;
+}
+
+/* Styles pour les répétitions d'animation */
+.animate-infinite {
+    animation-iteration-count: infinite;
+}
+
+.animate-once {
+    animation-iteration-count: 1;
+}
+
+.animate-twice {
+    animation-iteration-count: 2;
+}
+
+/* Styles pour les directions d'animation */
+.animate-normal {
+    animation-direction: normal;
+}
+
+.animate-reverse {
+    animation-direction: reverse;
+}
+
+.animate-alternate {
+    animation-direction: alternate;
+}
+
+.animate-alternate-reverse {
+    animation-direction: alternate-reverse;
+}
+
+/* Styles pour les fill modes d'animation */
+.animate-fill-none {
+    animation-fill-mode: none;
+}
+
+.animate-fill-forwards {
+    animation-fill-mode: forwards;
+}
+
+.animate-fill-backwards {
+    animation-fill-mode: backwards;
+}
+
+.animate-fill-both {
+    animation-fill-mode: both;
+}
+
+/* Styles pour les play states d'animation */
+.animate-paused {
+    animation-play-state: paused;
+}
+
+.animate-running {
+    animation-play-state: running;
+}

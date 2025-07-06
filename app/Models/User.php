@@ -45,4 +45,28 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Vérifier si l'utilisateur est admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Vérifier si l'utilisateur est manager
+     */
+    public function isManager(): bool
+    {
+        return $this->role === 'manager';
+    }
+
+    /**
+     * Scope pour les utilisateurs actifs
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 }

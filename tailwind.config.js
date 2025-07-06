@@ -5,12 +5,14 @@ import typography from '@tailwindcss/typography';
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        './index.html', 
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.js',
-        "./resources/**/*.vue",
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php", // For Laravel's pagination views
+        "./storage/framework/views/*.php", // For cached Blade views
+        "./resources/views/**/*.blade.php", // Your application's Blade views
+        "./resources/js/**/*.js",          // Your JavaScript files (e.g., if you have custom JS where you use Tailwind)
+        "./resources/js/**/*.vue",         // If you're using Vue.js components
+        "./resources/js/**/*.jsx",         // If you're using React.js components
+        "./resources/js/**/*.ts",
+        "./resources/js/**/*.tsx",
     ],
 
     theme: {
@@ -86,7 +88,7 @@ export default {
                     '100%': { transform: 'scale(1)', opacity: '1' },
                 },
             },
-            'box-shadow': {
+            boxShadow: {
                 'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
                 'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                 'large': '0 10px 50px -12px rgba(0, 0, 0, 0.25)',
@@ -138,7 +140,8 @@ export default {
                 '.btn': {
                     padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
                     borderRadius: theme('borderRadius.md'),
-                    fontWeight: theme('fontWeight.medium'),
+                    //fontWeight: theme('fontWeight.medium'),
+                    fontWeight: '500',
                     fontSize: theme('fontSize.sm'),
                     lineHeight: theme('lineHeight.5'),
                     display: 'inline-flex',
@@ -148,7 +151,7 @@ export default {
                     cursor: 'pointer',
                     '&:focus': {
                         outline: 'none',
-                        boxShadow: `0 0 0 3px ${theme('colors.blue.500')}40`,
+                        boxShadow: `0 0 0 3px ${theme('colors.blue.500')} 40`,
                     },
                     '&:disabled': {
                         opacity: '0.5',
@@ -156,7 +159,7 @@ export default {
                     },
                 },
                 '.btn-primary': {
-                    backgroundColor: theme('colors.blue.600'),
+                    backgroundColor: theme('colors.primary.600'),
                     color: theme('colors.white'),
                     '&:hover': {
                         backgroundColor: theme('colors.blue.700'),
@@ -226,7 +229,8 @@ export default {
                     alignItems: 'center',
                     padding: `${theme('spacing.1')} ${theme('spacing.2')}`,
                     fontSize: theme('fontSize.xs'),
-                    fontWeight: theme('fontWeight.medium'),
+                    fontWeight: '500',
+                    // fontWeight: theme('fontWeight.medium'),
                     borderRadius: theme('borderRadius.full'),
                 },
                 '.badge-success': {

@@ -16,8 +16,8 @@ class TimeSlotSeeder extends Seeder
      */
     public function run(): void
     {
-        $startDate = Carbon::parse('2024-07-07');
-        $endDate = $startDate->copy()->addMonths(3);
+        $startDate = now()->format('Y-m-d');
+        $endDate = Carbon::parse($startDate)->addMonths(3);
 
         // Créneaux par défaut (8h-12h et 14h-18h)
         $defaultSlots = [
@@ -31,7 +31,7 @@ class TimeSlotSeeder extends Seeder
             ['17:00', '18:00'],
         ];
 
-        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
+        for ($date = Carbon::parse($startDate); $date->lte($endDate); $date->addDay()) {
             // Ignorer les weekends
             if ($date->isWeekend()) {
                 continue;

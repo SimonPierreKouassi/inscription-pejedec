@@ -23,6 +23,32 @@
             </h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div>
+                    <label for="civilite" class="block text-sm font-medium text-gray-700">
+                        Prise en charge <span class="text-red-500">*</span>
+                    </label>
+                    <select name="prise_en_charge" id="prise_en_charge" required 
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('prise_en_charge') border-red-300 @enderror">
+                        <option value="">Sélectionnez une zone de prise en charge</option>
+                        <option value="" >Siège Marcory zone 4C</option>
+                        <option value="" >Lycée professionnel de Yopougon</option>
+                        <option value="" >Bouaké</option>
+
+                    </select>
+                    @error('prise_en_charge')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div>
+                    <label for="sexe" class="block text-sm font-medium text-gray-700">
+                         <span class="text-red-500"></span>
+                    </label>
+                    
+                    @error('sexe')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
                 <div>
                     <label for="civilite" class="block text-sm font-medium text-gray-700">
                         Civilité <span class="text-red-500">*</span>
@@ -114,9 +140,7 @@
                     </label>
                     <select name="nationalite" id="nationalite" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('nationalite') border-red-300 @enderror">
-                        <option value="">Sélectionnez une nationalité</option>
                         <option value="ivoirienne" {{ old('nationalite') == 'ivoirienne' ? 'selected' : '' }}>Ivoirienne</option>
-                        <option value="etrangere" {{ old('nationalite') == 'etrangere' ? 'selected' : '' }}>Étrangère</option>
                     </select>
                     @error('nationalite')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -132,6 +156,7 @@
                         <option value="">Sélectionnez une situation</option>
                         <option value="celibataire" {{ old('situation_matrimoniale') == 'celibataire' ? 'selected' : '' }}>Célibataire</option>
                         <option value="marie" {{ old('situation_matrimoniale') == 'marie' ? 'selected' : '' }}>Marié(e)</option>
+                        <option value="veuf(ve)" {{ old('situation_matrimoniale') == 'veuf(ve)' ? 'selected' : '' }}>Veuf(ve)</option>
                     </select>
                     @error('situation_matrimoniale')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -148,7 +173,6 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
-                
                 <div>
                     <label for="chez_qui" class="block text-sm font-medium text-gray-700">
                         Chez qui résidez-vous <span class="text-red-500">*</span>
@@ -158,7 +182,10 @@
                         <option value="">Sélectionnez une option</option>
                         <option value="pere" {{ old('chez_qui') == 'pere' ? 'selected' : '' }}>Père</option>
                         <option value="mere" {{ old('chez_qui') == 'mere' ? 'selected' : '' }}>Mère</option>
+                        <option value="oncle" {{ old('chez_qui') == 'oncle' ? 'selected' : '' }}>Oncle</option>
+                        <option value="tante" {{ old('chez_qui') == 'tante' ? 'selected' : '' }}>Tante</option>
                         <option value="grand-mere" {{ old('chez_qui') == 'grand-mere' ? 'selected' : '' }}>Grand-mère</option>
+                        <option value="grand-pere" {{ old('chez_qui') == 'grand-pere' ? 'selected' : '' }}>Grand-père</option>
                     </select>
                     @error('chez_qui')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -183,6 +210,7 @@
                         <option value="">Sélectionnez un type</option>
                         <option value="CNI" {{ old('type_piece') == 'CNI' ? 'selected' : '' }}>Carte Nationale d'Identité</option>
                         <option value="passeport" {{ old('type_piece') == 'passeport' ? 'selected' : '' }}>Passeport</option>
+                        <option value="extrait de naissance" {{ old('type_piece') == 'extrait de naissance' ? 'selected' : '' }}>Extrait de naissance</option>
                     </select>
                     @error('type_piece')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -224,8 +252,14 @@
                     <label for="taille_vetement" class="block text-sm font-medium text-gray-700">
                         Taille de vêtement <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="taille_vetement" id="taille_vetement" value="{{ old('taille_vetement') }}" required 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('taille_vetement') border-red-300 @enderror">
+                    <select name="taille_vetement" id="taille_vetement" required 
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('taille_vetement') border-red-300 @enderror">
+                        <option value="">Sélectionnez une taille</option>
+                        <option value="M" {{ old('taille_vetement') == 'M' ? 'selected' : '' }}>M</option>
+                        <option value="L" {{ old('taille_vetement') == 'L' ? 'selected' : '' }}>L</option>
+                        <option value="XL" {{ old('taille_vetement') == 'XL' ? 'selected' : '' }}>XL</option>
+                    </select>
+                    
                     @error('taille_vetement')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -246,9 +280,35 @@
                     </label>
                     <select name="premier_choix_formation" id="premier_choix_formation" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('premier_choix_formation') border-red-300 @enderror">
-                        <option value="">Sélectionnez une formation</option>
-                        <option value="formation A" {{ old('premier_choix_formation') == 'formation A' ? 'selected' : '' }}>Formation A</option>
-                        <option value="formation B" {{ old('premier_choix_formation') == 'formation B' ? 'selected' : '' }}>Formation B</option>
+                        <option value="">Sélectionnez une formation</option>     
+                        <option value="Mecanique auto" {{ old('premier_choix_formation') == 'Mecanique auto' ? 'selected' : '' }}>Mecanique auto</option>
+                        <option value="Peinture auto" {{ old('premier_choix_formation') == 'Peinture auto' ? 'selected' : '' }}>Peinture auto</option>
+                        <option value="Carrossier" {{ old('premier_choix_formation') == 'Carrossier' ? 'selected' : '' }}>Carrossier</option>
+                        <option value="Chaudronnerie/Feronnerie" {{ old('premier_choix_formation') == 'Chaudronnerie/Feronnerie' ? 'selected' : '' }}>Chaudronnerie/Feronnerie</option>
+                        <option value="Menuiserie alu" {{ old('premier_choix_formation') == 'Menuiserie alu' ? 'selected' : '' }}>Menuiserie alu</option>
+                        <option value="Maçonnerie" {{ old('premier_choix_formation') == 'Maçonnerie' ? 'selected' : '' }}>Maçonnerie</option>
+                        <option value="Carrelage" {{ old('premier_choix_formation') == 'Carrelage' ? 'selected' : '' }}>Carrelage</option>
+                        <option value="Plomberie sanitaire" {{ old('premier_choix_formation') == 'Plomberie sanitaire' ? 'selected' : '' }}>Plomberie sanitaire</option>
+                        <option value="Peinture bat" {{ old('premier_choix_formation') == 'Peinture bat' ? 'selected' : '' }}>Peinture bâtiment</option>
+                        <option value="Électricité auto" {{ old('premier_choix_formation') == 'Électricité auto' ? 'selected' : '' }}>Électricité automobile</option>
+                        <option value="Électricité bat" {{ old('premier_choix_formation') == 'Électricité bat' ? 'selected' : '' }}>Électricité batiment</option>
+                        <option value="Froid climatisation" {{ old('premier_choix_formation') == 'Froid clim' ? 'selected' : '' }}>Froid climatisation</option>
+                        <option value="Électronique" {{ old('premier_choix_formation') == 'Électronique' ? 'selected' : '' }}>Électronique</option>
+                        <option value="Cuisine" {{ old('premier_choix_formation') == 'Cuisine' ? 'selected' : '' }}>Cuisine</option>
+                        <option value="Pâtisserie" {{ old('premier_choix_formation') == 'Pâtisserie' ? 'selected' : '' }}>Pâtisserie</option>
+                        <option value="Réception" {{ old('premier_choix_formation') == 'Réception' ? 'selected' : '' }}>Réception</option>
+                        <option value="Serveur/Barman" {{ old('premier_choix_formation') == 'Serveur/Barman' ? 'selected' : '' }}>Serveur/Barman</option>
+                        <option value="Valet de chambre" {{ old('premier_choix_formation') == 'Valet de chambre' ? 'selected' : '' }}>Valet de chambre</option>                
+                        <option value="Menuiserie/Ébenisterie" {{ old('premier_choix_formation') == 'Menuiserie/Ébenisterie' ? 'selected' : '' }}>Menuiserie/Ébenisterie</option>
+                        <option value="Tapisserie" {{ old('premier_choix_formation') == 'Tapisserie' ? 'selected' : '' }}>Tapisserie</option>
+                        <option value="Charpentier" {{ old('premier_choix_formation') == 'Charpentier' ? 'selected' : '' }}>Charpentier</option>
+                        <option value="Vernissage" {{ old('premier_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
+                        <option value="Infographie" {{ old('premier_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
+                        <option value="Serigraphie/Calligraphie" {{ old('premier_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
+                        <option value="Brodeur" {{ old('premier_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
+                        <option value="Piqueur" {{ old('premier_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
+                        <option value="Coiffure" {{ old('premier_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Esthétique" {{ old('premier_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
                     </select>
                     @error('premier_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -262,8 +322,34 @@
                     <select name="deuxieme_choix_formation" id="deuxieme_choix_formation" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('deuxieme_choix_formation') border-red-300 @enderror">
                         <option value="">Sélectionnez une formation</option>
-                        <option value="formation A" {{ old('deuxieme_choix_formation') == 'formation A' ? 'selected' : '' }}>Formation A</option>
-                        <option value="formation B" {{ old('deuxieme_choix_formation') == 'formation B' ? 'selected' : '' }}>Formation B</option>
+                        <option value="Mecanique auto" {{ old('deuxieme_choix_formation') == 'Mecanique auto' ? 'selected' : '' }}>Mecanique auto</option>
+                        <option value="Peinture auto" {{ old('deuxieme_choix_formation') == 'Peinture auto' ? 'selected' : '' }}>Peinture auto</option>
+                        <option value="Carrossier" {{ old('deuxieme_choix_formation') == 'Carrossier' ? 'selected' : '' }}>Carrossier</option>
+                        <option value="Chaudronnerie/Feronnerie" {{ old('deuxieme_choix_formation') == 'Chaudronnerie/Feronnerie' ? 'selected' : '' }}>Chaudronnerie/Feronnerie</option>
+                        <option value="Menuiserie alu" {{ old('deuxieme_choix_formation') == 'Menuiserie alu' ? 'selected' : '' }}>Menuiserie alu</option>
+                        <option value="Maçonnerie" {{ old('deuxieme_choix_formation') == 'Maçonnerie' ? 'selected' : '' }}>Maçonnerie</option>
+                        <option value="Carrelage" {{ old('deuxieme_choix_formation') == 'Carrelage' ? 'selected' : '' }}>Carrelage</option>
+                        <option value="Plomberie sanitaire" {{ old('deuxieme_choix_formation') == 'Plomberie sanitaire' ? 'selected' : '' }}>Plomberie sanitaire</option>
+                        <option value="Peinture bat" {{ old('deuxieme_choix_formation') == 'Peinture bat' ? 'selected' : '' }}>Peinture bâtiment</option>
+                        <option value="Électricité auto" {{ old('deuxieme_choix_formation') == 'Électricité auto' ? 'selected' : '' }}>Électricité automobile</option>
+                        <option value="Électricité bat" {{ old('deuxieme_choix_formation') == 'Électricité bat' ? 'selected' : '' }}>Électricité batiment</option>
+                        <option value="Froid climatisation" {{ old('deuxieme_choix_formation') == 'Froid clim' ? 'selected' : '' }}>Froid climatisation</option>
+                        <option value="Électronique" {{ old('deuxieme_choix_formation') == 'Électronique' ? 'selected' : '' }}>Électronique</option>
+                        <option value="Cuisine" {{ old('deuxieme_choix_formation') == 'Cuisine' ? 'selected' : '' }}>Cuisine</option>
+                        <option value="Pâtisserie" {{ old('deuxieme_choix_formation') == 'Pâtisserie' ? 'selected' : '' }}>Pâtisserie</option>
+                        <option value="Réception" {{ old('deuxieme_choix_formation') == 'Réception' ? 'selected' : '' }}>Réception</option>
+                        <option value="Serveur/Barman" {{ old('deuxieme_choix_formation') == 'Serveur/Barman' ? 'selected' : '' }}>Serveur/Barman</option>
+                        <option value="Valet de chambre" {{ old('deuxieme_choix_formation') == 'Valet de chambre' ? 'selected' : '' }}>Valet de chambre</option>                
+                        <option value="Menuiserie/Ébenisterie" {{ old('deuxieme_choix_formation') == 'Menuiserie/Ébenisterie' ? 'selected' : '' }}>Menuiserie/Ébenisterie</option>
+                        <option value="Tapisserie" {{ old('deuxieme_choix_formation') == 'Tapisserie' ? 'selected' : '' }}>Tapisserie</option>
+                        <option value="Charpentier" {{ old('deuxieme_choix_formation') == 'Charpentier' ? 'selected' : '' }}>Charpentier</option>
+                        <option value="Vernissage" {{ old('deuxieme_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
+                        <option value="Infographie" {{ old('deuxieme_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
+                        <option value="Serigraphie/Calligraphie" {{ old('deuxieme_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
+                        <option value="Brodeur" {{ old('deuxieme_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
+                        <option value="Piqueur" {{ old('deuxieme_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
+                        <option value="Coiffure" {{ old('deuxieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Esthétique" {{ old('deuxieme_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
                     </select>
                     @error('deuxieme_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -277,8 +363,34 @@
                     <select name="troisieme_choix_formation" id="troisieme_choix_formation" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('troisieme_choix_formation') border-red-300 @enderror">
                         <option value="">Sélectionnez une formation</option>
-                        <option value="formation A" {{ old('troisieme_choix_formation') == 'formation A' ? 'selected' : '' }}>Formation A</option>
-                        <option value="formation B" {{ old('troisieme_choix_formation') == 'formation B' ? 'selected' : '' }}>Formation B</option>
+                        <option value="Mecanique auto" {{ old('troisieme_choix_formation') == 'Mecanique auto' ? 'selected' : '' }}>Mecanique auto</option>
+                        <option value="Peinture auto" {{ old('troisieme_choix_formation') == 'Peinture auto' ? 'selected' : '' }}>Peinture auto</option>
+                        <option value="Carrossier" {{ old('troisieme_choix_formation') == 'Carrossier' ? 'selected' : '' }}>Carrossier</option>
+                        <option value="Chaudronnerie/Feronnerie" {{ old('troisieme_choix_formation') == 'Chaudronnerie/Feronnerie' ? 'selected' : '' }}>Chaudronnerie/Feronnerie</option>
+                        <option value="Menuiserie alu" {{ old('troisieme_choix_formation') == 'Menuiserie alu' ? 'selected' : '' }}>Menuiserie alu</option>
+                        <option value="Maçonnerie" {{ old('troisieme_choix_formation') == 'Maçonnerie' ? 'selected' : '' }}>Maçonnerie</option>
+                        <option value="Carrelage" {{ old('troisieme_choix_formation') == 'Carrelage' ? 'selected' : '' }}>Carrelage</option>
+                        <option value="Plomberie sanitaire" {{ old('troisieme_choix_formation') == 'Plomberie sanitaire' ? 'selected' : '' }}>Plomberie sanitaire</option>
+                        <option value="Peinture bat" {{ old('troisieme_choix_formation') == 'Peinture bat' ? 'selected' : '' }}>Peinture bâtiment</option>
+                        <option value="Électricité auto" {{ old('troisieme_choix_formation') == 'Électricité auto' ? 'selected' : '' }}>Électricité automobile</option>
+                        <option value="Électricité bat" {{ old('troisieme_choix_formation') == 'Électricité bat' ? 'selected' : '' }}>Électricité batiment</option>
+                        <option value="Froid climatisation" {{ old('troisieme_choix_formation') == 'Froid clim' ? 'selected' : '' }}>Froid climatisation</option>
+                        <option value="Électronique" {{ old('troisieme_choix_formation') == 'Électronique' ? 'selected' : '' }}>Électronique</option>
+                        <option value="Cuisine" {{ old('troisieme_choix_formation') == 'Cuisine' ? 'selected' : '' }}>Cuisine</option>
+                        <option value="Pâtisserie" {{ old('troisieme_choix_formation') == 'Pâtisserie' ? 'selected' : '' }}>Pâtisserie</option>
+                        <option value="Réception" {{ old('troisieme_choix_formation') == 'Réception' ? 'selected' : '' }}>Réception</option>
+                        <option value="Serveur/Barman" {{ old('troisieme_choix_formation') == 'Serveur/Barman' ? 'selected' : '' }}>Serveur/Barman</option>
+                        <option value="Valet de chambre" {{ old('troisieme_choix_formation') == 'Valet de chambre' ? 'selected' : '' }}>Valet de chambre</option>                
+                        <option value="Menuiserie/Ébenisterie" {{ old('troisieme_choix_formation') == 'Menuiserie/Ébenisterie' ? 'selected' : '' }}>Menuiserie/Ébenisterie</option>
+                        <option value="Tapisserie" {{ old('troisieme_choix_formation') == 'Tapisserie' ? 'selected' : '' }}>Tapisserie</option>
+                        <option value="Charpentier" {{ old('troisieme_choix_formation') == 'Charpentier' ? 'selected' : '' }}>Charpentier</option>
+                        <option value="Vernissage" {{ old('troisieme_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
+                        <option value="Infographie" {{ old('troisieme_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
+                        <option value="Serigraphie/Calligraphie" {{ old('troisieme_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
+                        <option value="Brodeur" {{ old('troisieme_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
+                        <option value="Piqueur" {{ old('troisieme_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
+                        <option value="Coiffure" {{ old('troisieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Esthétique" {{ old('troisieme_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
                     </select>
                     @error('troisieme_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -391,7 +503,11 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('lien_parente') border-red-300 @enderror">
                         <option value="">Sélectionnez un lien</option>
                         <option value="pere" {{ old('lien_parente') == 'pere' ? 'selected' : '' }}>Père</option>
-                        <option value="simple" {{ old('lien_parente') == 'simple' ? 'selected' : '' }}>Simple</option>
+                        <option value="mere" {{ old('lien_parente') == 'mere' ? 'selected' : '' }}>Mère</option>
+                        <option value="oncle" {{ old('lien_parente') == 'oncle' ? 'selected' : '' }}>Oncle</option>
+                        <option value="tante" {{ old('lien_parente') == 'tante' ? 'selected' : '' }}>Tante</option>
+                        <option value="grand-mere" {{ old('lien_parente') == 'grand-mere' ? 'selected' : '' }}>Grand-Mère</option>
+                        <option value="grand-pere" {{ old('lien_parente') == 'grand-pere' ? 'selected' : '' }}>Grand-Père</option>
                     </select>
                     @error('lien_parente')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

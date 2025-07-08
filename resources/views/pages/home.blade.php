@@ -5,6 +5,37 @@
 @section('content')
 <div class="space-y-12">
     <!-- Section Hero -->
+     <!-- Section Statistiques -->
+    <section class="bg-gray-50 py-12 rounded-lg">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+               
+            </h2>
+            <p class="text-gray-600">
+            
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @php
+            $logos = [
+                ['path' => 'resources/images/logos/logo_bcp-emploi.png'],
+                ['path' => 'resources/images/logos/logo-agefop.png'],
+                ['path' => 'resources/images/logos/logo-BM.png'],
+                ['path' => 'resources/images/logos/logo-pejedec.png']
+            ];
+            @endphp
+
+            @foreach($logos as $logo)
+                <x-card class="text-center">
+                    <div class="flex items-center justify-center h-full">
+                        <img src="{{ Vite::asset($logo['path']) }}" alt="Partner Logo" height="100">
+                    </div>
+                </x-card>
+            @endforeach
+        </div>
+    </section>
+
     <section class="text-center py-12">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-center mb-6">
@@ -20,8 +51,7 @@
             </h1>
             
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Une solution moderne et complète pour gérer vos rendez-vous, 
-                optimiser votre organisation et améliorer l'expérience de vos clients.
+                Bienvenue sur le portail de pré-inscription du volet formation par apprentissage du PEJEDEC 3
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -81,36 +111,7 @@
         </div>
     </section>
 
-    <!-- Section Statistiques -->
-    <section class="bg-gray-50 py-12 rounded-lg">
-        <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                Nos Partenaires
-            </h2>
-            <p class="text-gray-600">
-                Ils nous font confiances
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @php
-            $logos = [
-                ['path' => 'resources/images/logos/logo_bcp-emploi.png'],
-                ['path' => 'resources/images/logos/logo-agefop.png'],
-                ['path' => 'resources/images/logos/logo-BM.png'],
-                ['path' => 'resources/images/logos/logo-pejedec.png']
-            ];
-            @endphp
-
-            @foreach($logos as $logo)
-                <x-card class="text-center">
-                    <div class="flex items-center justify-center h-full">
-                        <img src="{{ Vite::asset($logo['path']) }}" alt="Partner Logo" height="100">
-                    </div>
-                </x-card>
-            @endforeach
-        </div>
-    </section>
+   
 
     <!-- Section Fonctionnalités -->
     <section>

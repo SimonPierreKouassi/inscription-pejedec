@@ -4,11 +4,13 @@
             <!-- Logo -->
             <div class="flex items-center">
                 <div class="flex-shrink-0 flex items-center">
+                    <!-- Expace pour le logo que je commente pour le moment -->
+                    <!--  
                     <svg class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
-                    </svg>
+                    </svg>-->
                     <span class="ml-2 text-xl font-bold text-gray-900">
-                        RDV Manager
+                        Gestionnaire de RDV
                     </span>
                 </div>
             </div>

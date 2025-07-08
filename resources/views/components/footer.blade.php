@@ -4,7 +4,7 @@
             <!-- Logo et description -->
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center mb-4">
-                    <svg class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-8 w-8 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
                     </svg>
                     <span class="ml-2 text-xl font-bold">RDV Manager</span>

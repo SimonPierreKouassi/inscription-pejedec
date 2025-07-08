@@ -924,3 +924,9 @@ document.addEventListener('visibilitychange', function() {
 
 // Initialisation terminée
 console.log('Application JavaScript initialisée');
+
+// import des fichiers glob
+import.meta.glob([
+  '../images/**',
+  '../fonts/**',
+]);

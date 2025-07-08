@@ -9,7 +9,7 @@
         <h1 class="text-3xl font-bold text-gray-900">Exports</h1>
         <div class="flex items-center space-x-2">
             <span class="text-sm text-gray-600" x-text="`${filteredCount} rendez-vous`"></span>
-            <x-button @click="exportExcel()" variant="success" :disabled="filteredCount === 0">
+            <x-button @click="exportExcel()" variant="success" x-data="{filteredCount}" x-bind:disabled="filteredCount === 0">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -35,7 +35,7 @@
                         Statut
                     </label>
                     <select x-model="filters.status" @change="applyFilters()"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Tous les statuts</option>
                         <option value="pending">En attente</option>
                         <option value="confirmed">Confirmé</option>
@@ -49,7 +49,7 @@
                         Date de début
                     </label>
                     <input type="date" x-model="filters.dateFrom" @change="applyFilters()"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
                 <!-- Filtre par date de fin -->
@@ -58,7 +58,7 @@
                         Date de fin
                     </label>
                     <input type="date" x-model="filters.dateTo" @change="applyFilters()"
-                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                           class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
                 <!-- Filtre par formation -->
@@ -67,7 +67,7 @@
                         Formation
                     </label>
                     <select x-model="filters.formation" @change="applyFilters()"
-                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Toutes les formations</option>
                         <option value="formation A">Formation A</option>
                         <option value="formation B">Formation B</option>
@@ -87,13 +87,14 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <x-card class="p-4">
             <div class="flex items-center">
-                <div class="p-2 bg-blue-100 rounded-lg">
-                    <svg class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-2 bg-orange-100 rounded-lg">
+                    <svg class="h-5 w-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                     </svg>
                 </div>
                 <div class="ml-3">
                     <p class="text-sm font-medium text-gray-600">Total</p>
+                    {{-- This Alpine.js usage is correct --}}
                     <p class="text-xl font-bold text-gray-900" x-text="filteredCount"></p>
                 </div>
             </div>
@@ -224,6 +225,9 @@
 <script>
 function exports() {
     return {
+        filteredCount: 0,
+        cancelledCount: 0,
+        pendingCount: 0,
         appointments: [],
         filteredAppointments: [],
         filters: {
@@ -250,22 +254,22 @@ function exports() {
         applyFilters() {
             let filtered = [...this.appointments];
             
-            // Filtrer par statut
+            // Filter by status
             if (this.filters.status) {
                 filtered = filtered.filter(app => app.status === this.filters.status);
             }
             
-            // Filtrer par date de début
+            // Filter by start date
             if (this.filters.dateFrom) {
                 filtered = filtered.filter(app => app.date_rdv >= this.filters.dateFrom);
             }
             
-            // Filtrer par date de fin
+            // Filter by end date
             if (this.filters.dateTo) {
                 filtered = filtered.filter(app => app.date_rdv <= this.filters.dateTo);
             }
             
-            // Filtrer par formation
+            // Filter by formation
             if (this.filters.formation) {
                 filtered = filtered.filter(app => 
                     app.premier_choix_formation === this.filters.formation ||
@@ -288,7 +292,8 @@ function exports() {
         },
         
         async exportExcel() {
-            if (this.filteredCount === 0) return;
+            // Correct Alpine.js usage: 'this' refers to the Alpine component data
+            if (this.filteredCount === 0) return; 
             
             const params = new URLSearchParams();
             Object.entries(this.filters).forEach(([key, value]) => {
@@ -309,10 +314,12 @@ function exports() {
             return labels[status] || 'Inconnu';
         },
         
+        // Getter for filteredCount
         get filteredCount() {
             return this.filteredAppointments.length;
         },
         
+        // Getters for other counts
         get confirmedCount() {
             return this.filteredAppointments.filter(app => app.status === 'confirmed').length;
         },

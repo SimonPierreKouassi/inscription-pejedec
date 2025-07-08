@@ -8,8 +8,8 @@
     <section class="text-center py-12">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-center mb-6">
-                <div class="p-4 bg-blue-100 rounded-full">
-                    <svg class="h-16 w-16 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-4 bg-orange-100 rounded-full">
+                    <svg class="h-16 w-16 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
                     </svg>
                 </div>
@@ -68,8 +68,8 @@
             @foreach($stats as $stat)
             <x-card class="text-center">
                 <div class="flex justify-center mb-4">
-                    <div class="p-3 bg-blue-100 rounded-full">
-                        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="p-3 bg-orange-100 rounded-full">
+                        <svg class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat['icon'] }}" />
                         </svg>
                     </div>
@@ -77,6 +77,37 @@
                 <p class="text-2xl font-bold text-gray-900 mb-2">{{ $stat['value'] }}</p>
                 <p class="text-gray-600">{{ $stat['label'] }}</p>
             </x-card>
+            @endforeach
+        </div>
+    </section>
+
+    <!-- Section Statistiques -->
+    <section class="bg-gray-50 py-12 rounded-lg">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Nos Partenaires
+            </h2>
+            <p class="text-gray-600">
+                Ils nous font confiances
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @php
+            $logos = [
+                ['path' => 'resources/images/logos/logo_bcp-emploi.png'],
+                ['path' => 'resources/images/logos/logo-agefop.png'],
+                ['path' => 'resources/images/logos/logo-BM.png'],
+                ['path' => 'resources/images/logos/logo-pejedec.png']
+            ];
+            @endphp
+
+            @foreach($logos as $logo)
+                <x-card class="text-center">
+                    <div class="flex items-center justify-center h-full">
+                        <img src="{{ Vite::asset($logo['path']) }}" alt="Partner Logo" height="100">
+                    </div>
+                </x-card>
             @endforeach
         </div>
     </section>
@@ -122,8 +153,8 @@
             @foreach($features as $feature)
             <x-card>
                 <div class="flex items-start space-x-4">
-                    <div class="p-3 bg-blue-100 rounded-lg">
-                        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="p-3 bg-orange-100 rounded-lg">
+                        <svg class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $feature['icon'] }}" />
                         </svg>
                     </div>
@@ -142,15 +173,15 @@
     </section>
 
     <!-- Section Call to Action -->
-    <section class="bg-blue-600 text-white py-12 rounded-lg">
+    <section class="bg-orange-600 text-white py-12 rounded-lg">
         <div class="text-center">
             <h2 class="text-3xl font-bold mb-4">
                 Prêt à commencer ?
             </h2>
-            <p class="text-xl mb-8 text-blue-100">
+            <p class="text-xl mb-8 text-orange-100">
                 Créez votre premier rendez-vous en moins de 5 minutes
             </p>
-            <x-button href="{{ route('appointment.form') }}" variant="secondary" size="lg" class="bg-white text-blue-600 hover:bg-gray-50">
+            <x-button href="{{ route('appointment.form') }}" variant="secondary" size="lg" class="bg-white text-orange-600 hover:bg-gray-50">
                 Commencer maintenant
             </x-button>
         </div>

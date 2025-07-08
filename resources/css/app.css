@@ -10,6 +10,13 @@
 | process and benefit from features like purging.
 |
 */
+@layer base {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="file"]),
+    select {
+        @apply py-2 px-3;
+    }
+}
+
 @layer components {
     /* --- Buttons --- */
     .btn {
@@ -39,13 +46,13 @@
     /* --- Form Elements --- */
     .form-input {
         @apply block w-full rounded-md 
-               border-gray-300 shadow-xs 
+               border-gray-300 shadow-xs px-2 py-3
                focus:border-blue-500 focus:ring-blue-500;
     }
     
     .form-select {
         @apply block w-full rounded-md 
-               border-gray-300 shadow-xs 
+               border-gray-300 shadow-xs px-2 py-3
                focus:border-blue-500 focus:ring-blue-500;
     }
     

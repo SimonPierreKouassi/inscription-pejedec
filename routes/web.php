@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\AppointmentWebController;
 use App\Http\Controllers\Web\DashboardWebController;
 use App\Http\Controllers\Web\ExportWebController;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 
 // Page d'accueil
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Routes pour les rendez-vous
@@ -36,9 +40,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
         return view('admin.appointments');
     })->name('admin.appointments');
     
-    Route::get('/time-slots', function () {
-        return view('admin.time-slots');
-    })->name('admin.time-slots');
+    Route::get('/timeslots', function () {
+        return view('timeslots.index');
+    })->name('admin.timeslots.index');
     
     Route::get('/exports', function () {
         return view('admin.exports');

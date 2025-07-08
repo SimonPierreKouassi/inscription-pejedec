@@ -21,8 +21,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <x-card class="p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-full bg-blue-500 bg-opacity-20">
-                    <svg class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-3 rounded-full bg-orange-500 bg-opacity-20">
+                    <svg class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
                     </svg>
                 </div>
@@ -121,7 +121,7 @@
                             <input type="checkbox" 
                                    x-model="selectAll"
                                    @change="toggleSelectAll()"
-                                   class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                   class="rounded border-gray-300 text-orange-600 focus:ring-orange-500">
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Client
@@ -147,7 +147,7 @@
                                 <input type="checkbox" 
                                        :value="appointment.id"
                                        x-model="selectedAppointments"
-                                       class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                       class="rounded border-gray-300 text-orange-600 focus:ring-orange-500">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -179,7 +179,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-2">
                                     <button @click="downloadPDF(appointment.id)" 
-                                            class="text-blue-600 hover:text-blue-900" 
+                                            class="text-orange-600 hover:text-orange-900" 
                                             title="Télécharger PDF">
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

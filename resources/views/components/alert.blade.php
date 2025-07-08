@@ -1,7 +1,7 @@
+{{-- resources/views/components/alert.blade.php --}}
 @props([
     'type' => 'info',
     'title' => null,
-    'message',
     'dismissible' => false,
     'class' => ''
 ])
@@ -11,14 +11,14 @@ $alertClasses = [
     'success' => 'bg-green-50 border-green-200 text-green-800',
     'error' => 'bg-red-50 border-red-200 text-red-800',
     'warning' => 'bg-yellow-50 border-yellow-200 text-yellow-800',
-    'info' => 'bg-blue-50 border-blue-200 text-blue-800'
+    'info' => 'bg-orange-50 border-orange-200 text-orange-800'
 ];
 
 $iconClasses = [
     'success' => 'text-green-400',
     'error' => 'text-red-400',
     'warning' => 'text-yellow-400',
-    'info' => 'text-blue-400'
+    'info' => 'text-orange-400'
 ];
 
 $icons = [
@@ -30,7 +30,7 @@ $icons = [
 @endphp
 
 <div class="rounded-md p-4 border {{ $alertClasses[$type] }} {{ $class }}" 
-     @if($dismissible) x-data="{ show: true }" x-show="show" @endif>
+     @if($dismissible) x-data="{ show: true }" x-show="show" x-transition @endif> {{-- Added x-transition for smoothness --}}
     <div class="flex">
         <div class="flex-shrink-0">
             <svg class="h-5 w-5 {{ $iconClasses[$type] }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,13 +44,13 @@ $icons = [
                 </h3>
             @endif
             <div class="text-sm {{ $title ? 'mt-1' : '' }}">
-                {{ $message }}
+                {{ $slot }} {{-- <--- Use $slot here to render content passed into the component --}}
             </div>
         </div>
         @if($dismissible)
             <div class="ml-auto pl-3">
                 <div class="-mx-1.5 -my-1.5">
-                    <button @click="show = false" 
+                    <button @click="show = false; $dispatch('dismiss')" {{-- Dispatch a 'dismiss' event --}}
                             class="inline-flex rounded-md p-1.5 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

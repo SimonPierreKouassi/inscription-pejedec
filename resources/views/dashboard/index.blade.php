@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
         <div class="flex space-x-2">
-            <x-button onclick="exportExcel()" variant="success" class="flex items-center">
+            <x-button x-on:click="await exportExcel()" variant="success" class="flex items-center" x-bind:disabled="selectedAppointments.length == 0">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -82,13 +82,13 @@
             <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-600" x-text="`${selectedAppointments.length} rendez-vous sélectionné(s)`"></span>
                 <div class="flex space-x-2">
-                    <x-button onclick="bulkAction('confirm')" variant="success" size="sm">
+                    <x-button x-on:click="await bulkAction('confirm')" variant="success" size="sm">
                         Confirmer
                     </x-button>
-                    <x-button onclick="bulkAction('cancel')" variant="secondary" size="sm">
+                    <x-button x-on:click="await bulkAction('cancel')" variant="secondary" size="sm">
                         Annuler
                     </x-button>
-                    <x-button onclick="bulkAction('delete')" variant="danger" size="sm">
+                    <x-button x-on:click="await bulkAction('delete')" variant="danger" size="sm">
                         Supprimer
                     </x-button>
                 </div>
@@ -120,7 +120,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             <input type="checkbox" 
                                    x-model="selectAll"
-                                   @change="toggleSelectAll()"
+                                   x-on:change="toggleSelectAll()"
                                    class="rounded border-gray-300 text-orange-600 focus:ring-orange-500">
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -178,7 +178,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-2">
-                                    <button @click="downloadPDF(appointment.id)" 
+                                    <button x-on:click="await downloadPDF(appointment.id)" 
                                             class="text-orange-600 hover:text-orange-900" 
                                             title="Télécharger PDF">
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -187,7 +187,7 @@
                                     </button>
                                     
                                     <template x-if="appointment.status === 'pending'">
-                                        <button @click="updateStatus(appointment.id, 'confirmed')" 
+                                        <button x-on:click="await updateStatus(appointment.id, 'confirmed')" 
                                                 class="text-green-600 hover:text-green-900" 
                                                 title="Confirmer">
                                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,7 +197,7 @@
                                     </template>
                                     
                                     <template x-if="appointment.status !== 'cancelled'">
-                                        <button @click="updateStatus(appointment.id, 'cancelled')" 
+                                        <button x-on:click="await updateStatus(appointment.id, 'cancelled')" 
                                                 class="text-red-600 hover:text-red-900" 
                                                 title="Annuler">
                                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -206,7 +206,7 @@
                                         </button>
                                     </template>
                                     
-                                    <button @click="deleteAppointment(appointment.id)" 
+                                    <button x-on:click="await deleteAppointment(appointment.id)" 
                                             class="text-red-600 hover:text-red-900" 
                                             title="Supprimer">
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -243,7 +243,7 @@ function dashboard() {
                     fetch('/api/appointments/stats/dashboard')
                 ]);
                 
-                this.appointments = await appointmentsResponse.json();
+                this.appointments = (await appointmentsResponse.json()).data;
                 this.stats = await statsResponse.json();
             } catch (error) {
                 console.error('Erreur lors du chargement des données:', error);
@@ -338,7 +338,8 @@ function dashboard() {
         },
         
         async exportExcel() {
-            window.open('/api/exports/excel', '_blank');
+            console.log("clicked on export button")
+            window.open('/api/exports/excel', '_blank');s
         },
         
         getStatusLabel(status) {

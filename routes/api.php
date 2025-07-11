@@ -21,39 +21,46 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Routes publiques pour les rendez-vous
 Route::prefix('appointments')->group(function () {
-    Route::get('/', [AppointmentController::class, 'index']);
-    Route::post('/', [AppointmentController::class, 'store']);
-    Route::get('/{appointment}', [AppointmentController::class, 'show']);
-    Route::put('/{appointment}', [AppointmentController::class, 'update']);
-    Route::delete('/{appointment}', [AppointmentController::class, 'destroy']);
-    
-    // Actions spécifiques
-    Route::patch('/{appointment}/confirm', [AppointmentController::class, 'confirm']);
-    Route::patch('/{appointment}/cancel', [AppointmentController::class, 'cancel']);
-    Route::post('/bulk-action', [AppointmentController::class, 'bulkAction']);
-    Route::get('/stats/dashboard', [AppointmentController::class, 'stats']);
+    Route::post('/', [AppointmentController::class, 'store'])->name('appointment.create');
 });
 
-// Routes pour les créneaux horaires
-Route::prefix('time-slots')->group(function () {
-    Route::get('/available', [TimeSlotController::class, 'available']);
-    Route::get('/for-date', [TimeSlotController::class, 'forDate']);
+Route::prefix('timeslots')->group(function () {
+    Route::get('/available', [TimeSlotController::class, 'available'])->name('timeslots.available');
+    Route::get('/appointments/{appointment}/pdf', [ExportController::class, 'pdf'])->name('export.pdf');
+    Route::get('/for-date', [TimeSlotController::class, 'forDate'])->name('timeslots.date');
+    Route::get('/', [TimeSlotController::class, 'index']);
+    Route::post('/', [TimeSlotController::class, 'store']);
     Route::post('/generate', [TimeSlotController::class, 'generate']);
-});
-
-// Routes pour les exports
-Route::prefix('exports')->group(function () {
-    Route::get('/excel', [ExportController::class, 'excel']);
-    Route::get('/appointments/{appointment}/pdf', [ExportController::class, 'pdf']);
-    Route::get('/stats', [ExportController::class, 'stats']);
+    Route::get('/{timeSlot}', [TimeSlotController::class, 'show']);
+    Route::put('/{timeSlot}', [TimeSlotController::class, 'update']);
+    Route::patch('/{timeSlot}/toggle', [TimeSlotController::class, 'toggleStatus']);
+    Route::delete('/{timeSlot}', [TimeSlotController::class, 'destroy']);
 });
 
 // Routes protégées (nécessitent une authentification)
-Route::middleware('auth:sanctum')->group(function () {
+// Route::middleware('auth:sanctum')->group(function () {
     // Routes administrateur
-    Route::middleware('role:admin')->group(function () {
+    // Route::middleware('role:admin')->group(function () {
         // Gestion des utilisateurs, configuration, etc.
-    });
-});
+        // Routes publiques pour les rendez-vous
+        Route::prefix('appointments')->group(function () {
+            Route::get('/', [AppointmentController::class, 'index'])->name('appointment.index');
+            Route::post('/', [AppointmentController::class, 'store'])->name('appointment.create');
+            Route::get('/{appointment}', [AppointmentController::class, 'show'])->name('appointment.show');
+            Route::put('/{appointment}', [AppointmentController::class, 'update'])->name('appointment.update');
+            Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+            
+            // Actions spécifiques
+            Route::patch('/{appointment}/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
+            Route::patch('/{appointment}/cancel', [AppointmentController::class, 'cancel'])->name('appointment.cancel');
+            Route::post('/bulk-action', [AppointmentController::class, 'bulkAction'])->name('appointment.bulk');
+            Route::get('/stats/dashboard', [AppointmentController::class, 'stats'])->name('appointment.stats');
+        });
+
+        // Routes pour les créneaux horaires
+        Route::prefix('timeslots')->group(function () {
+            Route::post('/generate', [TimeSlotController::class, 'generate'])->name('timeslots.generate');
+        });
+    // });
+// });

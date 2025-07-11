@@ -24,15 +24,15 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                  <div>
-                    <label for="civilite" class="block text-sm font-medium text-gray-700">
+                    <label for="prise_en_charge" class="block text-sm font-medium text-gray-700">
                         Prise en charge <span class="text-red-500">*</span>
                     </label>
                     <select name="prise_en_charge" id="prise_en_charge" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('prise_en_charge') border-red-300 @enderror">
                         <option value="">Sélectionnez une zone de prise en charge</option>
-                        <option value="" >Siège Marcory zone 4C</option>
-                        <option value="" >Lycée professionnel de Yopougon</option>
-                        <option value="" >Bouaké</option>
+                        <option value="zone_4c" >Siège Marcory zone 4C</option>
+                        <option value="yop" >Lycée professionnel de Yopougon</option>
+                        <option value="bouake" >Bouaké</option>
 
                     </select>
                     @error('prise_en_charge')
@@ -591,9 +591,11 @@ function appointmentForm() {
             if (!date) return;
             
             try {
-                const response = await fetch(`/api/time-slots/for-date?date=${date}`);
+                console.log(`/api/timeslots/for-date?date=${date}`)
+                const response = await fetch(`/api/timeslots/for-date?date=${date}`);
+                console.log(response)
                 const timeSlots = await response.json();
-                
+                console.log(timeSlots)
                 const select = document.getElementById('time_slot_id');
                 select.innerHTML = '';
                 

@@ -3,20 +3,20 @@
 @section('title', 'Gestion des Créneaux Horaires')
 
 @section('content')
-<div class="space-y-6" x-data="timeSlotsManager()">
+<div class="space-y-6" x-data="timeSlotsManager()" x-init="init()"> {{-- Added x-init here to initialize data on page load --}}
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-3xl font-bold text-gray-900">Gestion des Créneaux Horaires</h1>
             <p class="text-gray-600 mt-1">Gérez les créneaux disponibles pour les rendez-vous</p>
         </div>
         <div class="flex space-x-2">
-            <x-button @click="showGenerateModal = true" variant="primary" class="flex items-center">
+            <x-button x-on:click="openGenerateModal()" variant="primary" class="flex items-center" x-bind:disabled="isLoading">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
                 Générer des créneaux
             </x-button>
-            <x-button @click="showCreateModal = true" variant="success" class="flex items-center">
+            <x-button x-on:click="openCreateModal()" variant="success" class="flex items-center" x-bind:disabled="isLoading">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -25,12 +25,14 @@
         </div>
     </div>
 
-    <div x-show="message" x-transition>
+    {{-- Alert / Message Display Component --}}
+    {{-- Using `message.text` for `x-show` for direct control over visibility --}}
+    <div x-show="message.text" x-transition.opacity.duration.300ms>
         <x-alert 
-            x-bind:type="message && message.type ? message.type : 'info'" 
+            x-bind:type="message.type" 
             dismissible
-            @dismiss="message = null">
-            <span x-text="message && message.text ? message.text : ''"></span> {{-- Content goes in the slot --}}
+            x-on:dismiss="message.text = ''"> {{-- Clear only text to dismiss --}}
+            <span x-text="message.text"></span>
         </x-alert>
     </div>
 
@@ -49,7 +51,7 @@
                     <input 
                         type="date" 
                         x-model="filters.date" 
-                        @change="applyFilters()"
+                        x-on:change="applyFilters()" {{-- Changed to @change for consistency --}}
                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
                 </div>
@@ -58,7 +60,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
                     <select 
                         x-model="filters.status" 
-                        @change="applyFilters()"
+                        x-on:change="applyFilters()" {{-- Changed to @change for consistency --}}
                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
                         <option value="">Tous les statuts</option>
@@ -72,7 +74,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Disponibilité</label>
                     <select 
                         x-model="filters.availability" 
-                        @change="applyFilters()"
+                        x-on:change="applyFilters()" {{-- Changed to @change for consistency --}}
                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
                         <option value="">Toutes</option>
@@ -83,7 +85,7 @@
             </div>
 
             <div class="mt-4 flex justify-end">
-                <x-button @click="clearFilters()" variant="secondary" size="sm">
+                <x-button x-on:click="clearFilters()" variant="secondary" size="sm" x-bind:disabled="isLoading"> {{-- Disable button --}}
                     Réinitialiser les filtres
                 </x-button>
             </div>
@@ -149,13 +151,22 @@
     </div>
 
     <x-card>
-        <div class="px-6 py-4 border-b border-gray-200">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-900">
                 Liste des créneaux horaires
             </h2>
+            {{-- Loading spinner for the table header --}}
+            <div x-show="isLoading" class="flex items-center text-gray-500">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Chargement...
+            </div>
         </div>
         
-        <template x-if="filteredTimeSlots.length === 0">
+        {{-- Displayed ONLY if filteredTimeSlots are empty AND NOT loading --}}
+        <template x-if="filteredTimeSlots.length === 0 && !isLoading">
             <div class="p-6 text-center text-gray-500">
                 <svg class="h-12 w-12 mx-auto mb-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -164,7 +175,9 @@
             </div>
         </template>
 
-        <div x-show="filteredTimeSlots.length > 0" class="overflow-x-auto">
+        {{-- The table is shown if there are filteredTimeSlots OR if it's currently loading --}}
+        {{-- The loading overlay will then cover the table content during load --}}
+        <div x-show="filteredTimeSlots.length > 0 || isLoading" class="overflow-x-auto relative"> {{-- Added 'relative' for absolute positioning of overlay --}}
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -190,7 +203,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <template x-for="slot in filteredTimeSlots" :key="slot.id">
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50" :class="isLoading ? 'opacity-50' : ''"> {{-- Add opacity when loading --}}
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900" x-text="formatDate(slot.date)"></div>
                             </td>
@@ -226,9 +239,10 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-2">
                                     <button
-                                        @click="editTimeSlot(slot)"
+                                        x-on:click="editTimeSlot(slot)"
                                         class="text-blue-600 hover:text-blue-900"
                                         title="Modifier"
+                                        x-bind:disabled="isLoading" {{-- Disable during loading --}}
                                     >
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -236,9 +250,10 @@
                                     </button>
                                     
                                     <button
-                                        @click="toggleTimeSlotStatus(slot)"
+                                        x-on:click="toggleTimeSlotStatus(slot)"
                                         :class="slot.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'"
                                         :title="slot.is_active ? 'Désactiver' : 'Activer'"
+                                        x-bind:disabled="isLoading" {{-- Disable during loading --}}
                                     >
                                         <svg x-show="slot.is_active" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -249,9 +264,10 @@
                                     </button>
                                     
                                     <button
-                                        @click="deleteTimeSlot(slot)"
+                                        x-on:click="await deleteTimeSlot(slot)"
                                         class="text-red-600 hover:text-red-900"
                                         title="Supprimer"
+                                        x-bind:disabled="isLoading" {{-- Disable during loading --}}
                                     >
                                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -263,139 +279,168 @@
                     </template>
                 </tbody>
             </table>
+            {{-- Loading overlay for table --}}
+            <div x-show="isLoading" class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-lg">
+                <svg class="animate-spin h-10 w-10 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
         </div>
     </x-card>
 
-    <div x-show="showGenerateModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" x-transition>
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">Générer des créneaux</h3>
-                
-                <form @submit.prevent="generateTimeSlots()">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Date de début</label>
-                            <input 
-                                type="date" 
-                                x-model="generateForm.startDate" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Date de fin</label>
-                            <input 
-                                type="date" 
-                                x-model="generateForm.endDate" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Capacité par créneau</label>
-                            <input 
-                                type="number" 
-                                x-model="generateForm.capacity" 
-                                min="1" 
-                                max="50" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
+    {{-- Generate Time Slots Modal --}}
+    <div x-show="showGenerateModal" 
+         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4" 
+         x-transition.opacity
+         x-on:click.outside="showGenerateModal = false" {{-- Close when clicking outside --}}
+         x-on:keydown.escape.window="showGenerateModal = false" {{-- Close with escape key --}}
+    >
+        <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6" x-on:click.stop> {{-- Prevent clicks inside from closing modal --}}
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Générer des créneaux</h3>
+            
+            <form x-on:submit.prevent="await generateTimeSlots()">
+                <div class="space-y-4">
+                    <div>
+                        <label for="generateStartDate" class="block text-sm font-medium text-gray-700">Date de début</label>
+                        <input 
+                            type="date" 
+                            id="generateStartDate"
+                            x-model="generateForm.startDate" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
                     </div>
                     
-                    <div class="flex justify-end space-x-2 mt-6">
-                        <x-button type="button" @click="showGenerateModal = false" variant="secondary">
-                            Annuler
-                        </x-button>
-                        <x-button type="submit" variant="primary">
-                            Générer
-                        </x-button>
+                    <div>
+                        <label for="generateEndDate" class="block text-sm font-medium text-gray-700">Date de fin</label>
+                        <input 
+                            type="date" 
+                            id="generateEndDate"
+                            x-model="generateForm.endDate" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
                     </div>
-                </form>
-            </div>
+                    
+                    <div>
+                        <label for="generateCapacity" class="block text-sm font-medium text-gray-700">Capacité par créneau</label>
+                        <input 
+                            type="number" 
+                            id="generateCapacity"
+                            x-model="generateForm.capacity" 
+                            min="1" 
+                            max="50" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-2 mt-6">
+                    <x-button type="button" x-on:click="showGenerateModal = false" variant="secondary" x-bind:disabled="isLoading">
+                        Annuler
+                    </x-button>
+                    <x-button type="submit" variant="primary" x-bind:disabled="isLoading">
+                        Générer
+                    </x-button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div x-show="showCreateModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" x-transition>
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4" x-text="editingSlot ? 'Modifier le créneau' : 'Nouveau créneau'"></h3>
-                
-                <form @submit.prevent="saveTimeSlot()">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Date</label>
-                            <input 
-                                type="date" 
-                                x-model="slotForm.date" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Heure de début</label>
-                            <input 
-                                type="time" 
-                                x-model="slotForm.startTime" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Heure de fin</label>
-                            <input 
-                                type="time" 
-                                x-model="slotForm.endTime" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Capacité maximale</label>
-                            <input 
-                                type="number" 
-                                x-model="slotForm.maxCapacity" 
-                                min="1" 
-                                max="50" 
-                                required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                        </div>
-                        
-                        <div>
-                            <label class="flex items-center">
-                                <input 
-                                    type="checkbox" 
-                                    x-model="slotForm.isActive"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                >
-                                <span class="ml-2 text-sm text-gray-700">Créneau actif</span>
-                            </label>
-                        </div>
+    {{-- Create/Edit Time Slot Modal --}}
+    <div x-show="showCreateModal" 
+         class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center p-4" 
+         x-transition.opacity
+         x-on:click.outside="closeModal()" {{-- Call the dedicated close function --}}
+         x-on:keydown.escape.window="closeModal()" {{-- Call the dedicated close function --}}
+    >
+        <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6" x-on:click.stop> {{-- Prevent clicks inside from closing modal --}}
+            <h3 class="text-lg font-medium text-gray-900 mb-4" x-text="editingSlot ? 'Modifier le créneau' : 'Nouveau créneau'"></h3>
+            
+            <form x-on:submit.prevent="await saveTimeSlot()">
+                <div class="space-y-4">
+                    <div>
+                        <label for="slotDate" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input 
+                            type="date" 
+                            id="slotDate"
+                            x-model="slotForm.date" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
                     </div>
                     
-                    <div class="flex justify-end space-x-2 mt-6">
-                        <x-button type="button" @click="closeModal()" variant="secondary">
-                            Annuler
-                        </x-button>
-                        <x-button type="submit" variant="primary">
-                            <span x-text="editingSlot ? 'Modifier' : 'Créer'"></span>
-                        </x-button>
+                    <div>
+                        <label for="startTime" class="block text-sm font-medium text-gray-700">Heure de début</label>
+                        <input 
+                            type="time" 
+                            id="startTime"
+                            x-model="slotForm.startTime" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
                     </div>
-                </form>
-            </div>
+                    
+                    <div>
+                        <label for="endTime" class="block text-sm font-medium text-gray-700">Heure de fin</label>
+                        <input 
+                            type="time" 
+                            id="endTime"
+                            x-model="slotForm.endTime" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label for="maxCapacity" class="block text-sm font-medium text-gray-700">Capacité maximale</label>
+                        <input 
+                            type="number" 
+                            id="maxCapacity"
+                            x-model="slotForm.maxCapacity" 
+                            min="1" 
+                            max="50" 
+                            required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                x-model="slotForm.isActive"
+                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            >
+                            <span class="ml-2 text-sm text-gray-700">Créneau actif</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-2 mt-6">
+                    <x-button type="button" x-on:click="closeModal()" variant="secondary" x-bind:disabled="isLoading">
+                        Annuler
+                    </x-button>
+                    <x-button type="submit" variant="primary" x-bind:disabled="isLoading">
+                        <span x-text="editingSlot ? 'Modifier' : 'Créer'"></span>
+                    </x-button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 @push('scripts')
 <script>
+document.addEventListener('alpine:init', () => {
+    console.log(Alpine.data())
+})
+document.addEventListener('alpine:initialized', () => {
+    console.log(Alpine.data())
+})
+
 function timeSlotsManager() {
     return {
         timeSlots: [],
@@ -411,7 +456,11 @@ function timeSlotsManager() {
             full: 0,
             inactive: 0
         },
-        message: null, // Initializing as null, it will be an object { text, type } when set
+        isLoading: false, // <-- Added isLoading property
+        message: {        // <-- Modified message to be an object always
+            text: '',
+            type: 'info'
+        }, 
         showGenerateModal: false,
         showCreateModal: false,
         editingSlot: null,
@@ -433,20 +482,30 @@ function timeSlotsManager() {
         },
         
         async loadTimeSlots() {
+            this.isLoading = true; // Start loading
+            this.message.text = ''; // Clear previous messages
             try {
-                const response = await fetch('/api/time-slots/available');
+                const response = await fetch('/api/timeslots'); // Changed to base API for full list, if that's what's intended
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 this.timeSlots = await response.json();
-                this.applyFilters();
+                this.applyFilters(); // Apply filters after loading initial data
                 this.updateStats();
             } catch (error) {
                 console.error('Erreur lors du chargement des créneaux:', error);
-                this.showMessage('Erreur lors du chargement des créneaux', 'error');
+                this.showMessage('Erreur lors du chargement des créneaux: ' + error.message, 'error');
+                this.timeSlots = []; // Clear data on error
+                this.filteredTimeSlots = [];
+                this.updateStats(); // Update stats based on empty data
+            } finally {
+                this.isLoading = false; // End loading
             }
         },
         
         applyFilters() {
-            let filtered = [...this.timeSlots];
-            
+            let filtered = [...this.timeSlots]; // Start with all slots
+
             if (this.filters.date) {
                 filtered = filtered.filter(slot => slot.date === this.filters.date);
             }
@@ -478,7 +537,8 @@ function timeSlotsManager() {
                 status: '',
                 availability: ''
             };
-            this.applyFilters();
+            this.applyFilters(); // Re-apply filters to show all slots
+            this.showMessage('Filtres réinitialisés', 'info');
         },
         
         updateStats() {
@@ -489,10 +549,46 @@ function timeSlotsManager() {
                 inactive: this.timeSlots.filter(slot => !slot.is_active).length
             };
         },
+
+        // --- Modal Control Functions ---
+        openGenerateModal() {
+            this.showGenerateModal = true;
+            // Optionally, reset form fields here if needed every time it opens
+            this.generateForm = { startDate: '', endDate: '', capacity: 10 }; 
+            this.message.text = ''; // Clear messages when opening a new modal
+        },
+
+        openCreateModal() {
+            this.showCreateModal = true;
+            this.editingSlot = null; // Ensure no slot is being edited initially
+            this.resetSlotForm();
+            this.message.text = ''; // Clear messages
+        },
+        
+        closeModal() {
+            this.showCreateModal = false;
+            this.showGenerateModal = false; // Also ensure generate modal can be closed by this
+            this.editingSlot = null;
+            this.resetSlotForm();
+            this.message.text = ''; // Clear messages
+        },
+
+        resetSlotForm() {
+            this.slotForm = {
+                date: '',
+                startTime: '',
+                endTime: '',
+                maxCapacity: 10,
+                isActive: true
+            };
+        },
+        // --- End Modal Control Functions ---
         
         async generateTimeSlots() {
+            this.isLoading = true;
+            this.message.text = '';
             try {
-                const response = await fetch('/api/time-slots/generate', {
+                const response = await fetch('/api/timeslots/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -508,22 +604,34 @@ function timeSlotsManager() {
                 const result = await response.json();
                 
                 if (response.ok) {
-                    this.showMessage(result.message, 'success');
-                    this.showGenerateModal = false;
-                    this.loadTimeSlots();
+                    this.showMessage(result.message || 'Créneaux générés avec succès.', 'success');
+                    this.closeModal(); // Use the close modal function
+                    this.loadTimeSlots(); // Reload data
                 } else {
-                    this.showMessage(result.message || 'Erreur lors de la génération', 'error');
+                    // Check for validation errors from Laravel
+                    if (response.status === 422 && result.errors) {
+                        let errorMessages = Object.values(result.errors).flat().join('<br>');
+                        this.showMessage(`Erreur de validation: <br>${errorMessages}`, 'error');
+                    } else {
+                        this.showMessage(result.message || 'Erreur lors de la génération.', 'error');
+                    }
                 }
             } catch (error) {
                 console.error('Erreur lors de la génération des créneaux:', error);
-                this.showMessage('Erreur lors de la génération des créneaux', 'error');
+                this.showMessage('Erreur de connexion lors de la génération des créneaux.', 'error');
+            } finally {
+                this.isLoading = false;
             }
         },
         
         editTimeSlot(slot) {
             this.editingSlot = slot;
+            // Ensure date is formatted for input type="date" (YYYY-MM-DD)
+            const slotDate = new Date(slot.date);
+            const formattedDate = slotDate.toISOString().split('T')[0];
+
             this.slotForm = {
-                date: slot.date,
+                date: formattedDate,
                 startTime: slot.start_time,
                 endTime: slot.end_time,
                 maxCapacity: slot.max_capacity,
@@ -533,10 +641,12 @@ function timeSlotsManager() {
         },
         
         async saveTimeSlot() {
+            this.isLoading = true;
+            this.message.text = '';
             try {
                 const url = this.editingSlot 
-                    ? `/api/time-slots/${this.editingSlot.id}`
-                    : '/api/time-slots';
+                    ? `/api/timeslots/${this.editingSlot.id}`
+                    : '/api/timeslots';
                 
                 const method = this.editingSlot ? 'PUT' : 'POST';
                 
@@ -558,21 +668,30 @@ function timeSlotsManager() {
                 const result = await response.json();
                 
                 if (response.ok) {
-                    this.showMessage(result.message, 'success');
-                    this.closeModal();
-                    this.loadTimeSlots();
+                    this.showMessage(result.message || 'Créneau enregistré avec succès.', 'success');
+                    this.closeModal(); // Use the close modal function
+                    this.loadTimeSlots(); // Reload data
                 } else {
-                    this.showMessage(result.message || 'Erreur lors de la sauvegarde', 'error');
+                     if (response.status === 422 && result.errors) {
+                        let errorMessages = Object.values(result.errors).flat().join('<br>');
+                        this.showMessage(`Erreur de validation: <br>${errorMessages}`, 'error');
+                    } else {
+                        this.showMessage(result.message || 'Erreur lors de la sauvegarde du créneau.', 'error');
+                    }
                 }
             } catch (error) {
                 console.error('Erreur lors de la sauvegarde du créneau:', error);
-                this.showMessage('Erreur lors de la sauvegarde du créneau', 'error');
+                this.showMessage('Erreur de connexion lors de la sauvegarde du créneau.', 'error');
+            } finally {
+                this.isLoading = false;
             }
         },
         
         async toggleTimeSlotStatus(slot) {
+            this.isLoading = true;
+            this.message.text = '';
             try {
-                const response = await fetch(`/api/time-slots/${slot.id}/toggle`, {
+                const response = await fetch(`/api/timeslots/${slot.id}/toggle`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -583,22 +702,26 @@ function timeSlotsManager() {
                 const result = await response.json();
                 
                 if (response.ok) {
-                    this.showMessage(result.message, 'success');
+                    this.showMessage(result.message || 'Statut du créneau mis à jour.', 'success');
                     this.loadTimeSlots();
                 } else {
-                    this.showMessage(result.message || 'Erreur lors de la modification', 'error');
+                    this.showMessage(result.message || 'Erreur lors de la modification du statut.', 'error');
                 }
             } catch (error) {
                 console.error('Erreur lors de la modification du statut:', error);
-                this.showMessage('Erreur lors de la modification du statut', 'error');
+                this.showMessage('Erreur de connexion lors de la modification du statut.', 'error');
+            } finally {
+                this.isLoading = false;
             }
         },
         
         async deleteTimeSlot(slot) {
-            if (!confirm('Êtes-vous sûr de vouloir supprimer ce créneau ?')) return;
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce créneau ? Cette action est irréversible.')) return;
             
+            this.isLoading = true;
+            this.message.text = '';
             try {
-                const response = await fetch(`/api/time-slots/${slot.id}`, {
+                const response = await fetch(`/api/timeslots/${slot.id}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
@@ -608,41 +731,32 @@ function timeSlotsManager() {
                 const result = await response.json();
                 
                 if (response.ok) {
-                    this.showMessage(result.message, 'success');
+                    this.showMessage(result.message || 'Créneau supprimé avec succès.', 'success');
                     this.loadTimeSlots();
                 } else {
-                    this.showMessage(result.message || 'Erreur lors de la suppression', 'error');
+                    this.showMessage(result.message || 'Erreur lors de la suppression du créneau.', 'error');
                 }
             } catch (error) {
                 console.error('Erreur lors de la suppression du créneau:', error);
-                this.showMessage('Erreur lors de la suppression du créneau', 'error');
+                this.showMessage('Erreur de connexion lors de la suppression du créneau.', 'error');
+            } finally {
+                this.isLoading = false;
             }
         },
         
-        closeModal() {
-            this.showCreateModal = false;
-            this.editingSlot = null;
-            this.slotForm = {
-                date: '',
-                startTime: '',
-                endTime: '',
-                maxCapacity: 10,
-                isActive: true
-            };
-        },
-        
-        formatDate(date) {
-            // Ensure date is a valid Date object
-            const d = new Date(date);
-            if (isNaN(d.getTime())) {
-                return date; // Return original if invalid date
+        formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            try {
+                const date = new Date(dateString);
+                // Check if date is valid
+                if (isNaN(date.getTime())) {
+                    return dateString; // Return original string if it's not a valid date
+                }
+                return date.toLocaleDateString('fr-FR', options);
+            } catch (e) {
+                console.error("Error formatting date:", e);
+                return dateString; // Fallback
             }
-            return d.toLocaleDateString('fr-FR', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
         },
         
         getStatusLabel(slot) {
@@ -651,10 +765,10 @@ function timeSlotsManager() {
             return 'Disponible';
         },
         
-        showMessage(text, type) {
+        showMessage(text, type = 'info') {
             this.message = { text, type };
             setTimeout(() => {
-                this.message = null;
+                this.message.text = ''; // Only clear the text to allow the alert component to fade out
             }, 5000);
         }
     }

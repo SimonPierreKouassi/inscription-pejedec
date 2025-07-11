@@ -9,7 +9,7 @@
         <h1 class="text-3xl font-bold text-gray-900">Exports</h1>
         <div class="flex items-center space-x-2">
             <span class="text-sm text-gray-600" x-text="`${filteredCount} rendez-vous`"></span>
-            <x-button @click="exportExcel()" variant="success" x-data="{filteredCount}" x-bind:disabled="filteredCount === 0">
+            <x-button x-on:click="await exportExcel()" variant="success" x-data="{filteredCount}" x-bind:disabled="filteredCount === 0">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -34,7 +34,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Statut
                     </label>
-                    <select x-model="filters.status" @change="applyFilters()"
+                    <select x-model="filters.status" x-on:change="applyFilters()"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Tous les statuts</option>
                         <option value="pending">En attente</option>
@@ -48,7 +48,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Date de début
                     </label>
-                    <input type="date" x-model="filters.dateFrom" @change="applyFilters()"
+                    <input type="date" x-model="filters.dateFrom" x-on:change="applyFilters()"
                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
@@ -57,7 +57,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Date de fin
                     </label>
-                    <input type="date" x-model="filters.dateTo" @change="applyFilters()"
+                    <input type="date" x-model="filters.dateTo" x-on:change="applyFilters()"
                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
@@ -66,7 +66,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">
                         Formation
                     </label>
-                    <select x-model="filters.formation" @change="applyFilters()"
+                    <select x-model="filters.formation" x-on:change="applyFilters()"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Toutes les formations</option>
                         <option value="formation A">Formation A</option>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="mt-4 flex justify-end">
-                <x-button @click="clearFilters()" variant="secondary" size="sm">
+                <x-button x-on:click="clearFilters()" variant="secondary" size="sm">
                     Réinitialiser les filtres
                 </x-button>
             </div>
@@ -244,7 +244,7 @@ function exports() {
         async loadAppointments() {
             try {
                 const response = await fetch('/api/appointments');
-                this.appointments = await response.json();
+                this.appointments = (await response.json()).data;
                 this.applyFilters();
             } catch (error) {
                 console.error('Erreur lors du chargement des rendez-vous:', error);

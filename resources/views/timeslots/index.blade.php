@@ -199,7 +199,7 @@
                             Date
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Heure
+                            Lieu de prise en charge
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Capacité
@@ -222,7 +222,7 @@
                                 <div class="text-sm font-medium text-gray-900" x-text="formatDate(slot.date)"></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900" x-text="`${slot.start_time} - ${slot.end_time}`"></div>
+                                <div class="text-sm text-gray-900" x-text="slot.location"></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900" x-text="slot.max_capacity"></div>
@@ -336,6 +336,16 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
                     </div>
+
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-700">Lieu de prise en charge</label>
+                        <select x-model="generateForm.location" id="location" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                            <option value="zone_4c" >Siège Marcory zone 4C</option>
+                            <option value="yop" >Lycée professionnel de Yopougon</option>
+                            <option value="bouake" >Bouaké</option>
+                        </select>
+                    </div>
                     
                     <div>
                         <label for="generateCapacity" class="block text-sm font-medium text-gray-700">Capacité par créneau</label>
@@ -344,7 +354,7 @@
                             id="generateCapacity"
                             x-model="generateForm.capacity" 
                             min="1" 
-                            max="50" 
+                            max="500" 
                             required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -409,13 +419,23 @@
                     </div> --}}
                     
                     <div>
+                        <label for="location" class="block text-sm font-medium text-gray-700">Lieu de prise en charge</label>
+                        <select x-model="slotForm.location" id="location" required
+                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                            <option value="zone_4c" >Siège Marcory zone 4C</option>
+                            <option value="yop" >Lycée professionnel de Yopougon</option>
+                            <option value="bouake" >Bouaké</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label for="maxCapacity" class="block text-sm font-medium text-gray-700">Capacité maximale</label>
                         <input 
                             type="number" 
                             id="maxCapacity"
                             x-model="slotForm.maxCapacity" 
                             min="1" 
-                            max="50" 
+                            max="500" 
                             required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -476,6 +496,7 @@ function timeSlotsManager() {
         generateForm: {
             startDate: '',
             endDate: '',
+            location: '',
             capacity: 10
         },
         slotForm: {
@@ -517,7 +538,7 @@ function timeSlotsManager() {
             let filtered = [...this.timeSlots]; // Start with all slots
 
             if (this.filters.date) {
-                filtered = filtered.filter(slot => slot.date === this.filters.date);
+                filtered = filtered.filter(slot => slot.date.split('T')[0] === this.filters.date);
             }
             
             if (this.filters.status) {
@@ -541,9 +562,9 @@ function timeSlotsManager() {
             if (this.filters.location) {
                 if (this.filters.location === 'zone_4c') {
                     filtered = filtered.filter(slot => slot.location == 'zone_4c');
-                } else if (this.filters.availability === 'yop') {
+                } else if (this.filters.location === 'yop') {
                     filtered = filtered.filter(slot => slot.location == 'yop');
-                }else if(this.filters.availability === 'bouake') {
+                }else if(this.filters.location === 'bouake') {
                     filtered = filtered.filter(slot => slot.location == 'bouake');
                 }
             }
@@ -575,7 +596,7 @@ function timeSlotsManager() {
         openGenerateModal() {
             this.showGenerateModal = true;
             // Optionally, reset form fields here if needed every time it opens
-            this.generateForm = { startDate: '', endDate: '', capacity: 10,  }; 
+            this.generateForm = { startDate: '', endDate: '', capacity: 10, location: '' }; 
             this.message.text = ''; // Clear messages when opening a new modal
         },
 
@@ -618,6 +639,7 @@ function timeSlotsManager() {
                     },
                     body: JSON.stringify({
                         start_date: this.generateForm.startDate,
+                        location: this.generateForm.location,
                         end_date: this.generateForm.endDate,
                         capacity: this.generateForm.capacity
                     })
@@ -654,8 +676,9 @@ function timeSlotsManager() {
 
             this.slotForm = {
                 date: formattedDate,
-                startTime: slot.start_time,
-                endTime: slot.end_time,
+                location: slot.location,
+                // startTime: slot.start_time,
+                // endTime: slot.end_time,
                 maxCapacity: slot.max_capacity,
                 isActive: slot.is_active
             };
@@ -680,8 +703,9 @@ function timeSlotsManager() {
                     },
                     body: JSON.stringify({
                         date: this.slotForm.date,
-                        start_time: this.slotForm.startTime,
-                        end_time: this.slotForm.endTime,
+                        location: this.slotForm.location,
+                        // start_time: this.slotForm.startTime,
+                        // end_time: this.slotForm.endTime,
                         max_capacity: this.slotForm.maxCapacity,
                         is_active: this.slotForm.isActive
                     })

@@ -82,10 +82,10 @@
             <div class="flex items-center justify-between">
                 <span class="text-sm text-gray-600" x-text="`${selectedAppointments.length} rendez-vous sélectionné(s)`"></span>
                 <div class="flex space-x-2">
-                    <x-button x-on:click="await bulkAction('confirm')" variant="success" size="sm">
+                    <x-button x-on:click="await bulkAction('confirmed')" variant="success" size="sm">
                         Confirmer
                     </x-button>
-                    <x-button x-on:click="await bulkAction('cancel')" variant="secondary" size="sm">
+                    <x-button x-on:click="await bulkAction('cancelled')" variant="secondary" size="sm">
                         Annuler
                     </x-button>
                     <x-button x-on:click="await bulkAction('delete')" variant="danger" size="sm">
@@ -305,7 +305,7 @@ function dashboard() {
             
             const confirmMessage = action === 'delete' 
                 ? 'Êtes-vous sûr de vouloir supprimer les rendez-vous sélectionnés ?'
-                : `Êtes-vous sûr de vouloir ${action === 'confirm' ? 'confirmer' : 'annuler'} les rendez-vous sélectionnés ?`;
+                : `Êtes-vous sûr de vouloir ${action === 'confirmed' ? 'confirmer' : 'annuler'} les rendez-vous sélectionnés ?`;
             
             if (!confirm(confirmMessage)) return;
             

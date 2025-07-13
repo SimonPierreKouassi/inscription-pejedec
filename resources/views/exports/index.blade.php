@@ -28,7 +28,7 @@
                 <h2 class="text-lg font-semibold text-gray-900">Filtres</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <!-- Filtre par statut -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -99,6 +99,17 @@
                         <option value="Esthétique">Esthétique</option>
                     </select>
                 </div>
+
+                <div>
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lieu de prise en charge</label>
+                    <select x-model="filters.location" id="location" x-on:change="applyFilters()"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
+                        <option value="" >Partout</option>
+                        <option value="zone_4c" >Siège Marcory zone 4C</option>
+                        <option value="yop" >Lycée professionnel de Yopougon</option>
+                        <option value="bouake" >Bouaké</option>
+                    </select>
+                </div>
             </div>
 
             <div class="mt-4 flex justify-end">
@@ -130,7 +141,7 @@
             <div class="flex items-center">
                 <div class="p-2 bg-green-100 rounded-lg">
                     <svg class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm7-7h.01" />
                     </svg>
                 </div>
                 <div class="ml-3">
@@ -144,7 +155,7 @@
             <div class="flex items-center">
                 <div class="p-2 bg-yellow-100 rounded-lg">
                     <svg class="h-5 w-5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm7-7h.01" />
                     </svg>
                 </div>
                 <div class="ml-3">
@@ -158,7 +169,7 @@
             <div class="flex items-center">
                 <div class="p-2 bg-red-100 rounded-lg">
                     <svg class="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm7-7h.01" />
                     </svg>
                 </div>
                 <div class="ml-3">
@@ -257,6 +268,7 @@ function exports() {
         appointments: [],
         filteredAppointments: [],
         filters: {
+            location: '',
             status: '',
             dateFrom: '',
             dateTo: '',
@@ -302,6 +314,16 @@ function exports() {
                     app.deuxieme_choix_formation === this.filters.formation ||
                     app.troisieme_choix_formation === this.filters.formation
                 );
+            }
+
+            if (this.filters.location) {
+                if (this.filters.location === 'zone_4c') {
+                    filtered = filtered.filter(slot => slot.time_slot.location == 'zone_4c');
+                } else if (this.filters.location === 'yop') {
+                    filtered = filtered.filter(slot => slot.time_slot.location == 'yop');
+                }else if(this.filters.location === 'bouake') {
+                    filtered = filtered.filter(slot => slot.time_slot.location == 'bouake');
+                }
             }
             
             this.filteredAppointments = filtered;

@@ -27,7 +27,7 @@
                     <label for="prise_en_charge" class="block text-sm font-medium text-gray-700">
                         Prise en charge <span class="text-red-500">*</span>
                     </label>
-                    <select name="prise_en_charge" id="prise_en_charge" required 
+                    <select name="prise_en_charge" id="prise_en_charge" required  x-on:change="loadTimeSlots()" x-model="prise_en_charge"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('prise_en_charge') border-red-300 @enderror">
                         <option value="">Sélectionnez une zone de prise en charge</option>
                         <option value="zone_4c" >Siège Marcory zone 4C</option>
@@ -541,7 +541,8 @@
                     </label>
                     <input type="date" name="date_rdv" id="date_rdv" value="{{ old('date_rdv') }}" 
                            min="2024-07-07" required 
-                           x-on:change="loadTimeSlots($event.target.value)"
+                           x-model="date_rdv"
+                           x-on:change="loadTimeSlots()"
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('date_rdv') border-red-300 @enderror">
                     @error('date_rdv')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -587,12 +588,16 @@
 function appointmentForm() {
     return {
         noSlotsAvailable: false,
+        date_rdv: '',
+        prise_en_charge: '',
         
-        async loadTimeSlots(date) {
-            if (!date) return;
+        async loadTimeSlots() {
+            // if (!date) return;
+            console.log(this.date_rdv, )
+            console.log(this.prise_en_charge)
             
             try {
-                const response = await fetch(`/api/timeslots/for-date?date=${date}`);
+                const response = await fetch(`/api/timeslots/for-date?date=${this.date_rdv}&location=${this.prise_en_charge}`);
                 const timeSlots = await response.json();
                 const select = document.getElementById('time_slot_id');
                 select.innerHTML = '';

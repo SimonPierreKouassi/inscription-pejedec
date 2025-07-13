@@ -62,12 +62,15 @@ class TimeSlotController extends Controller
     public function forDate(Request $request): JsonResponse
     {
         $request->validate([
-            'date' => 'required|date|after_or_equal:today'
+            'date' => 'required|date|after_or_equal:today',
+            'location' => 'nullable'
         ]);
-
         
-        $timeSlots = TimeSlot::forDate(Carbon::parse($request->query('date')))
+        $timeSlots = TimeSlot::query()->forDate(Carbon::parse($request->query('date')))
                             // ->orderBy('start_time')
+                            ->when(request('location'), function($q) {
+                                return $q->where('location', request('location'));
+                            })
                             ->get()
                             ->map(function ($slot) {
                                 return [
@@ -82,7 +85,7 @@ class TimeSlotController extends Controller
                                     'is_available' => $slot->isAvailable(),
                                 ];
                             });
-
+        
         return response()->json($timeSlots);
     }
 
@@ -96,7 +99,7 @@ class TimeSlotController extends Controller
             'location' => 'required',
             // 'start_time' => 'required|date_format:H:i',
             // 'end_time' => 'required|date_format:H:i|after:start_time',
-            'max_capacity' => 'required|integer|min:1|max:50',
+            'max_capacity' => 'required|integer|min:1|max:500',
             'is_active' => 'boolean'
         ]);
 
@@ -144,7 +147,7 @@ class TimeSlotController extends Controller
             'location' => 'required',
             // 'start_time' => 'required|date_format:H:i',
             // 'end_time' => 'required|date_format:H:i|after:start_time',
-            'max_capacity' => 'required|integer|min:1|max:50',
+            'max_capacity' => 'required|integer|min:1|max:500',
             'is_active' => 'boolean'
         ]);
 
@@ -233,8 +236,8 @@ class TimeSlotController extends Controller
         $request->validate([
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
-            'capacity' => 'required|integer|min:1|max:50',
-            'location' => 'required',
+            'capacity' => 'required|integer|min:1|max:500',
+            'location' => 'required'
         ]);
 
         $startDate = Carbon::parse($request->start_date);

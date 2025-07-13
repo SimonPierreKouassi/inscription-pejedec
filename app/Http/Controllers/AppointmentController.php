@@ -202,13 +202,13 @@ class AppointmentController extends Controller
 
             foreach ($appointments as $appointment) {
                 switch ($request->action) {
-                    case 'confirm':
+                    case 'confirmed':
                         if ($appointment->status === 'pending') {
                             $appointment->confirm();
                             $count++;
                         }
                         break;
-                    case 'cancel':
+                    case 'cancelled':
                         if ($appointment->status !== 'cancelled') {
                             $appointment->cancel();
                             $count++;

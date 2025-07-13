@@ -25,6 +25,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = $request->user();
+            $user->createToken( uniqid(), ['*']);
 
             return redirect()->intended('dashboard');
         }

@@ -99,9 +99,9 @@
                     </div>
                 </div>
                 @else
-                <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                {{-- <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                     Connexion
-                </a>
+                </a> --}}
                 @endauth
             </div>
 

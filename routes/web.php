@@ -24,7 +24,7 @@ Route::prefix('appointment')->name('appointment.')->group(function () {
 });
 
 // // Routes pour le dashboard (nécessitent une authentification en production)
-Route::get('/dashboard', [DashboardWebController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardWebController::class, 'index'])->name('dashboard')->middleware('auth');
 
 // // Routes pour les exports
 Route::prefix('exports')->name('exports.')->group(function () {
@@ -34,22 +34,10 @@ Route::prefix('exports')->name('exports.')->group(function () {
 });
 
 // // Routes pour l'interface d'administration (à protéger en production)
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/', function () {
-//         return view('admin.dashboard');
-//     })->name('admin.dashboard');
-    
-//     Route::get('/appointments', function () {
-//         return view('admin.appointments');
-//     })->name('admin.appointments');
-    
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {    
     Route::get('/timeslots', function () {
         return view('timeslots.index');
     })->name('admin.timeslots.index');
-    
-//     Route::get('/exports', function () {
-//         return view('admin.exports');
-//     })->name('admin.exports');
 });
 
 // // Routes d'erreur personnalisées

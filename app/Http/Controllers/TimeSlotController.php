@@ -99,7 +99,7 @@ class TimeSlotController extends Controller
             'location' => 'required',
             // 'start_time' => 'required|date_format:H:i',
             // 'end_time' => 'required|date_format:H:i|after:start_time',
-            'max_capacity' => 'required|integer|min:1|max:500',
+            'max_capacity' => 'required|integer|min:1',
             'is_active' => 'boolean'
         ]);
 
@@ -147,7 +147,7 @@ class TimeSlotController extends Controller
             'location' => 'required',
             // 'start_time' => 'required|date_format:H:i',
             // 'end_time' => 'required|date_format:H:i|after:start_time',
-            'max_capacity' => 'required|integer|min:1|max:500',
+            'max_capacity' => 'required|integer|min:1',
             'is_active' => 'boolean'
         ]);
 
@@ -236,7 +236,7 @@ class TimeSlotController extends Controller
         $request->validate([
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
-            'capacity' => 'required|integer|min:1|max:500',
+            'capacity' => 'required|integer|min:1',
             'location' => 'required'
         ]);
 

@@ -27,6 +27,7 @@
     "description": "Application Laravel de gestion de rendez-vous",
     "dependencies": {
         "chart.js": "^4.4.0",
-        "date-fns": "^3.0.6"
+        "date-fns": "^3.0.6",
+        "moment": "^2.30.1"
     }
 }

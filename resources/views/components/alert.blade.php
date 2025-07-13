@@ -44,7 +44,7 @@ $icons = [
                 </h3>
             @endif
             <div class="text-sm {{ $title ? 'mt-1' : '' }}">
-                {{ $slot }} {{-- <--- Use $slot here to render content passed into the component --}}
+                {{ $slot }}
             </div>
         </div>
         @if($dismissible)

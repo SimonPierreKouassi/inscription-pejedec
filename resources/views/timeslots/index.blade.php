@@ -45,7 +45,7 @@
                 <h2 class="text-lg font-semibold text-gray-900">Filtres</h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
                     <input 
@@ -80,6 +80,20 @@
                         <option value="">Toutes</option>
                         <option value="available">Disponible</option>
                         <option value="unavailable">Non disponible</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lieu de prise en charge</label>
+                    <select 
+                        x-model="filters.location" 
+                        x-on:change="applyFilters()" {{-- Changed to @change for consistency --}}
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+                        <option value="">Tous</option>
+                        <option value="zone_4c" >Siège Marcory zone 4C</option>
+                        <option value="yop" >Lycée professionnel de Yopougon</option>
+                        <option value="bouake" >Bouaké</option>
                     </select>
                 </div>
             </div>
@@ -372,7 +386,7 @@
                         >
                     </div>
                     
-                    <div>
+                    {{-- <div>
                         <label for="startTime" class="block text-sm font-medium text-gray-700">Heure de début</label>
                         <input 
                             type="time" 
@@ -392,7 +406,7 @@
                             required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                    </div>
+                    </div> --}}
                     
                     <div>
                         <label for="maxCapacity" class="block text-sm font-medium text-gray-700">Capacité maximale</label>
@@ -434,12 +448,6 @@
 
 @push('scripts')
 <script>
-document.addEventListener('alpine:init', () => {
-    console.log(Alpine.data())
-})
-document.addEventListener('alpine:initialized', () => {
-    console.log(Alpine.data())
-})
 
 function timeSlotsManager() {
     return {
@@ -448,6 +456,7 @@ function timeSlotsManager() {
         filters: {
             date: '',
             status: '',
+            location: '',
             availability: ''
         },
         stats: {
@@ -456,8 +465,8 @@ function timeSlotsManager() {
             full: 0,
             inactive: 0
         },
-        isLoading: false, // <-- Added isLoading property
-        message: {        // <-- Modified message to be an object always
+        isLoading: false,
+        message: {
             text: '',
             type: 'info'
         }, 
@@ -471,8 +480,9 @@ function timeSlotsManager() {
         },
         slotForm: {
             date: '',
-            startTime: '',
-            endTime: '',
+            // startTime: '',
+            // endTime: '',
+            location: '',
             maxCapacity: 10,
             isActive: true
         },
@@ -527,6 +537,16 @@ function timeSlotsManager() {
                     filtered = filtered.filter(slot => slot.current_bookings >= slot.max_capacity || !slot.is_active);
                 }
             }
+
+            if (this.filters.location) {
+                if (this.filters.location === 'zone_4c') {
+                    filtered = filtered.filter(slot => slot.location == 'zone_4c');
+                } else if (this.filters.availability === 'yop') {
+                    filtered = filtered.filter(slot => slot.location == 'yop');
+                }else if(this.filters.availability === 'bouake') {
+                    filtered = filtered.filter(slot => slot.location == 'bouake');
+                }
+            }
             
             this.filteredTimeSlots = filtered;
         },
@@ -535,7 +555,8 @@ function timeSlotsManager() {
             this.filters = {
                 date: '',
                 status: '',
-                availability: ''
+                availability: '',
+                location: ''
             };
             this.applyFilters(); // Re-apply filters to show all slots
             this.showMessage('Filtres réinitialisés', 'info');
@@ -554,7 +575,7 @@ function timeSlotsManager() {
         openGenerateModal() {
             this.showGenerateModal = true;
             // Optionally, reset form fields here if needed every time it opens
-            this.generateForm = { startDate: '', endDate: '', capacity: 10 }; 
+            this.generateForm = { startDate: '', endDate: '', capacity: 10,  }; 
             this.message.text = ''; // Clear messages when opening a new modal
         },
 
@@ -576,8 +597,9 @@ function timeSlotsManager() {
         resetSlotForm() {
             this.slotForm = {
                 date: '',
-                startTime: '',
-                endTime: '',
+                location: '',
+                // startTime: '',
+                // endTime: '',
                 maxCapacity: 10,
                 isActive: true
             };

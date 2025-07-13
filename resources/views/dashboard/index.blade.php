@@ -334,12 +334,12 @@ function dashboard() {
         },
         
         async downloadPDF(id) {
-            window.open(`/api/exports/appointments/${id}/pdf`, '_blank');
+            window.open(`/exports/appointments/${id}/pdf`, '_blank');
         },
         
         async exportExcel() {
             console.log("clicked on export button")
-            window.open('/api/exports/excel', '_blank');s
+            window.open('/exports/excel', '_blank');s
         },
         
         getStatusLabel(status) {

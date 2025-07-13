@@ -29,9 +29,16 @@
             
             <x-button href="{{ route('appointment.form') }}" variant="secondary" class="w-full flex items-center justify-center">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V7a4 4 0 118 0v4z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm7-7h.01" />
                 </svg>
                 Prendre un autre rendez-vous
+            </x-button>
+
+            <x-button href="{{ route('exports.pdf', ['appointment'=>$appointment->id]) }}" variant="success" class="w-full flex items-center justify-center">
+                <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+                Telecharger la fiche de rendez-vous
             </x-button>
         </div>
         

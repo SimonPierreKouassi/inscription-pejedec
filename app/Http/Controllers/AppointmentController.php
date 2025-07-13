@@ -189,7 +189,7 @@ class AppointmentController extends Controller
     public function bulkAction(Request $request): JsonResponse
     {
         $request->validate([
-            'action' => 'required|in:confirm,cancel,delete',
+            'action' => 'required|in:confirmed,cancelled,delete',
             'appointment_ids' => 'required|array',
             'appointment_ids.*' => 'exists:appointments,id'
         ]);

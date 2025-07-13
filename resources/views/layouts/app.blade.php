@@ -34,27 +34,30 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <!-- Notifications globales -->
                 @if(session('success'))
-                    @include('components.alert', [
-                        'type' => 'success',
-                        'message' => session('success'),
-                        'dismissible' => true
-                    ])
+                    <x-alert 
+                        type="success" 
+                        dismissible=true
+                        dismiss="">
+                        <span>{{session('success')}}</span>
+                    </x-alert>
                 @endif
 
                 @if(session('error'))
-                    @include('components.alert', [
-                        'type' => 'error',
-                        'message' => session('error'),
-                        'dismissible' => true
-                    ])
+                    <x-alert 
+                        type="error" 
+                        dismissible=true
+                        dismiss="">
+                        <span>{{session('error')}}</span>
+                    </x-alert>
                 @endif
 
                 @if($errors->any())
-                    @include('components.alert', [
-                        'type' => 'error',
-                        'message' => 'Veuillez corriger les erreurs dans le formulaire.',
-                        'dismissible' => true
-                    ])
+                    <x-alert 
+                        type="error" 
+                        dismissible=true
+                        dismiss="">
+                        <span>Veuillez corriger les erreurs dans le formulaire.</span>
+                    </x-alert>
                 @endif
                 
                 <!-- Contenu de la page -->

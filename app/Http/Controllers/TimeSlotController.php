@@ -14,7 +14,9 @@ class TimeSlotController extends Controller
 {
     public function index()
     {
-        $timeSlots = TimeSlot::orderBy('date')->orderBy('start_time')->get();
+        $timeSlots = TimeSlot::orderBy('date')
+            // ->orderBy('start_time')
+            ->get();
         return response()->json($timeSlots);
     }
 
@@ -34,15 +36,16 @@ class TimeSlotController extends Controller
         }
 
         $timeSlots = $query->orderBy('date')
-                          ->orderBy('start_time')
+                        //   ->orderBy('start_time')
                           ->get()
                           ->map(function ($slot) {
                               return [
                                   'id' => $slot->id,
                                   'date' => $slot->date->format('Y-m-d'),
-                                  'start_time' => $slot->start_time->format('H:i'),
-                                  'end_time' => $slot->end_time->format('H:i'),
-                                  'formatted_time' => $slot->formatted_time,
+                                  'location' => $slot->location,
+                                //   'start_time' => $slot->start_time->format('H:i'),
+                                //   'end_time' => $slot->end_time->format('H:i'),
+                                //   'formatted_time' => $slot->formatted_time,
                                   'max_capacity' => $slot->max_capacity,
                                   'current_bookings' => $slot->current_bookings,
                                   'remaining_capacity' => $slot->remaining_capacity,
@@ -64,14 +67,15 @@ class TimeSlotController extends Controller
 
         
         $timeSlots = TimeSlot::forDate(Carbon::parse($request->query('date')))
-                            ->orderBy('start_time')
+                            // ->orderBy('start_time')
                             ->get()
                             ->map(function ($slot) {
                                 return [
                                     'id' => $slot->id,
-                                    'start_time' => $slot->start_time->format('H:i'),
-                                    'end_time' => $slot->end_time->format('H:i'),
-                                    'formatted_time' => $slot->formatted_time,
+                                    'location' => $slot->location,
+                                    // 'start_time' => $slot->start_time->format('H:i'),
+                                    // 'end_time' => $slot->end_time->format('H:i'),
+                                    // 'formatted_time' => $slot->formatted_time,
                                     'max_capacity' => $slot->max_capacity,
                                     'current_bookings' => $slot->current_bookings,
                                     'remaining_capacity' => $slot->remaining_capacity,
@@ -89,22 +93,23 @@ class TimeSlotController extends Controller
     {
         $request->validate([
             'date' => 'required|date|after_or_equal:today',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'location' => 'required',
+            // 'start_time' => 'required|date_format:H:i',
+            // 'end_time' => 'required|date_format:H:i|after:start_time',
             'max_capacity' => 'required|integer|min:1|max:50',
             'is_active' => 'boolean'
         ]);
 
         // Vérifier qu'il n'y a pas de conflit d'horaires
         $existing = TimeSlot::where('date', $request->date)
-                           ->where(function ($query) use ($request) {
-                               $query->whereBetween('start_time', [$request->start_time, $request->end_time])
-                                     ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
-                                     ->orWhere(function ($q) use ($request) {
-                                         $q->where('start_time', '<=', $request->start_time)
-                                           ->where('end_time', '>=', $request->end_time);
-                                     });
-                           })
+                        //    ->where(function ($query) use ($request) {
+                        //        $query->whereBetween('start_time', [$request->start_time, $request->end_time])
+                        //              ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
+                        //              ->orWhere(function ($q) use ($request) {
+                        //                  $q->where('start_time', '<=', $request->start_time)
+                        //                    ->where('end_time', '>=', $request->end_time);
+                        //              });
+                        //    })
                            ->exists();
 
         if ($existing) {
@@ -115,8 +120,9 @@ class TimeSlotController extends Controller
 
         $timeSlot = TimeSlot::create([
             'date' => $request->date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'location' => $request->location,
+            // 'start_time' => $request->start_time,
+            // 'end_time' => $request->end_time,
             'max_capacity' => $request->max_capacity,
             'current_bookings' => 0,
             'is_active' => $request->boolean('is_active', true)
@@ -135,8 +141,9 @@ class TimeSlotController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'location' => 'required',
+            // 'start_time' => 'required|date_format:H:i',
+            // 'end_time' => 'required|date_format:H:i|after:start_time',
             'max_capacity' => 'required|integer|min:1|max:50',
             'is_active' => 'boolean'
         ]);
@@ -151,14 +158,14 @@ class TimeSlotController extends Controller
         // Vérifier qu'il n'y a pas de conflit d'horaires (sauf avec lui-même)
         $existing = TimeSlot::where('date', $request->date)
                            ->where('id', '!=', $timeSlot->id)
-                           ->where(function ($query) use ($request) {
-                               $query->whereBetween('start_time', [$request->start_time, $request->end_time])
-                                     ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
-                                     ->orWhere(function ($q) use ($request) {
-                                         $q->where('start_time', '<=', $request->start_time)
-                                           ->where('end_time', '>=', $request->end_time);
-                                     });
-                           })
+                        //    ->where(function ($query) use ($request) {
+                        //        $query->whereBetween('start_time', [$request->start_time, $request->end_time])
+                        //              ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
+                        //              ->orWhere(function ($q) use ($request) {
+                        //                  $q->where('start_time', '<=', $request->start_time)
+                        //                    ->where('end_time', '>=', $request->end_time);
+                        //              });
+                        //    })
                            ->exists();
 
         if ($existing) {
@@ -169,8 +176,9 @@ class TimeSlotController extends Controller
 
         $timeSlot->update([
             'date' => $request->date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
+            'location' => $request->location,
+            // 'start_time' => $request->start_time,
+            // 'end_time' => $request->end_time,
             'max_capacity' => $request->max_capacity,
             'is_active' => $request->boolean('is_active', true)
         ]);
@@ -225,25 +233,27 @@ class TimeSlotController extends Controller
         $request->validate([
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
-            'capacity' => 'required|integer|min:1|max:50'
+            'capacity' => 'required|integer|min:1|max:50',
+            'location' => 'required',
         ]);
 
         $startDate = Carbon::parse($request->start_date);
         $endDate = Carbon::parse($request->end_date);
         $capacity = $request->capacity;
+        $location = $request->location;
         $created = 0;
 
         // Créneaux par défaut (8h-12h et 14h-18h)
-        $defaultSlots = [
-            ['08:00', '09:00'],
-            ['09:00', '10:00'],
-            ['10:00', '11:00'],
-            ['11:00', '12:00'],
-            ['14:00', '15:00'],
-            ['15:00', '16:00'],
-            ['16:00', '17:00'],
-            ['17:00', '18:00'],
-        ];
+        // $defaultSlots = [
+        //     ['08:00', '09:00'],
+        //     ['09:00', '10:00'],
+        //     ['10:00', '11:00'],
+        //     ['11:00', '12:00'],
+        //     ['14:00', '15:00'],
+        //     ['15:00', '16:00'],
+        //     ['16:00', '17:00'],
+        //     ['17:00', '18:00'],
+        // ];
 
         for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
             // Ignorer les weekends
@@ -251,25 +261,27 @@ class TimeSlotController extends Controller
                 continue;
             }
 
-            foreach ($defaultSlots as $slot) {
+            // foreach ($defaultSlots as $slot) {
                 // Vérifier si le créneau existe déjà
                 $existing = TimeSlot::where('date', $date->format('Y-m-d'))
-                                  ->where('start_time', $slot[0])
-                                  ->where('end_time', $slot[1])
+                                  ->where('location', $location)
+                                //   ->where('start_time', $slot[0])
+                                //   ->where('end_time', $slot[1])
                                   ->exists();
 
                 if (!$existing) {
                     TimeSlot::create([
                         'date' => $date->format('Y-m-d'),
-                        'start_time' => $slot[0],
-                        'end_time' => $slot[1],
+                        // 'start_time' => $slot[0],
+                        // 'end_time' => $slot[1],
                         'max_capacity' => $capacity,
+                        'location' => $location,
                         'current_bookings' => 0,
                         'is_active' => true,
                     ]);
                     $created++;
                 }
-            }
+            // }
         }
 
         return response()->json([

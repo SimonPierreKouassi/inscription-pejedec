@@ -9,7 +9,7 @@
         <h1 class="text-3xl font-bold text-gray-900">Exports</h1>
         <div class="flex items-center space-x-2">
             <span class="text-sm text-gray-600" x-text="`${filteredCount} rendez-vous`"></span>
-            <x-button x-on:click="await exportExcel()" variant="success" x-data="{filteredCount}" x-bind:disabled="filteredCount === 0">
+            <x-button x-on:click="await exportExcel()" variant="success" x-data="{filteredCount}" x-bind:disabled="filteredAppointments.length === 0">
                 <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -69,8 +69,34 @@
                     <select x-model="filters.formation" x-on:change="applyFilters()"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Toutes les formations</option>
-                        <option value="formation A">Formation A</option>
-                        <option value="formation B">Formation B</option>
+                        <option value="Mecanique auto">Mecanique auto</option>
+                        <option value="Peinture auto">Peinture auto</option>
+                        <option value="Carrossier">Carrossier</option>
+                        <option value="Chaudronnerie/Feronnerie">Chaudronnerie/Feronnerie</option>
+                        <option value="Menuiserie alu">Menuiserie alu</option>
+                        <option value="Maçonnerie">Maçonnerie</option>
+                        <option value="Carrelage">Carrelage</option>
+                        <option value="Plomberie sanitaire">Plomberie sanitaire</option>
+                        <option value="Peinture bat">Peinture bâtiment</option>
+                        <option value="Électricité automobile">Électricité automobile</option>
+                        <option value="Électricité batiment">Électricité batiment</option>
+                        <option value="Froid climatisation">Froid climatisation</option>
+                        <option value="Électronique">Électronique</option>
+                        <option value="Cuisine">Cuisine</option>
+                        <option value="Pâtisserie">Pâtisserie</option>
+                        <option value="Réception">Réception</option>
+                        <option value="Serveur/Barman">Serveur/Barman</option>
+                        <option value="Valet de chambre">Valet de chambre</option>                
+                        <option value="Menuiserie/Ébenisterie">Menuiserie/Ébenisterie</option>
+                        <option value="Tapisserie">Tapisserie</option>
+                        <option value="Charpentier">Charpentier</option>
+                        <option value="Vernissage">Vernissage</option>
+                        <option value="Infographie">Infographie</option>
+                        <option value="Serigraphie/Calligraphie">Serigraphie/Calligraphie</option>
+                        <option value="Brodeur">Brodeur</option>
+                        <option value="Piqueur">Piqueur</option>
+                        <option value="Coiffure">Coiffure</option>
+                        <option value="Esthétique">Esthétique</option>
                     </select>
                 </div>
             </div>
@@ -292,7 +318,6 @@ function exports() {
         },
         
         async exportExcel() {
-            // Correct Alpine.js usage: 'this' refers to the Alpine component data
             if (this.filteredCount === 0) return; 
             
             const params = new URLSearchParams();
@@ -302,7 +327,7 @@ function exports() {
                 }
             });
             
-            window.open(`/api/exports/excel?${params.toString()}`, '_blank');
+            window.open(`/exports/excel?${params.toString()}`, '_blank');
         },
         
         getStatusLabel(status) {

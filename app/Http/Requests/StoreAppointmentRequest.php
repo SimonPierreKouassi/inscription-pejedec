@@ -25,6 +25,8 @@ class StoreAppointmentRequest extends FormRequest
     {
         return [
             // Informations personnelles
+            'prise_en_charge' => 'required',
+
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'civilite' => 'required|in:MR,Mme',
@@ -46,9 +48,9 @@ class StoreAppointmentRequest extends FormRequest
             'taille_vetement' => 'required|string|max:10',
             
             // Formations
-            'premier_choix_formation' => 'required|in:formation A,formation B',
-            'deuxieme_choix_formation' => 'required|in:formation A,formation B',
-            'troisieme_choix_formation' => 'required|in:formation A,formation B',
+            'premier_choix_formation' => 'required',
+            'deuxieme_choix_formation' => 'required',
+            'troisieme_choix_formation' => 'required',
             
             // Informations académiques/professionnelles
             'occupation_actuelle' => 'required|string|max:255',
@@ -61,7 +63,7 @@ class StoreAppointmentRequest extends FormRequest
             // Personne à contacter
             'nom_personne_contact' => 'required|string|max:255',
             'prenom_personne_contact' => 'required|string|max:255',
-            'lien_parente' => 'required|in:pere,simple',
+            'lien_parente' => 'required',
             'numero_personne_contact' => 'required|string|max:20',
             
             // Rendez-vous
@@ -81,7 +83,7 @@ class StoreAppointmentRequest extends FormRequest
             ],
             
             // Optionnel
-            'notes' => 'nullable|string|max:1000',
+            // 'notes' => 'nullable|string|max:1000',
         ];
     }
 
@@ -109,11 +111,11 @@ class StoreAppointmentRequest extends FormRequest
         // Calculer le créneau horaire à partir du time_slot_id
         if ($this->has('time_slot_id')) {
             $timeSlot = \App\Models\TimeSlot::find($this->time_slot_id);
-            if ($timeSlot) {
-                $this->merge([
-                    'creneau_horaire' => $timeSlot->formatted_time
-                ]);
-            }
+            // if ($timeSlot) {
+            //     $this->merge([
+            //         'creneau_horaire' => $timeSlot->formatted_time
+            //     ]);
+            // }
         }
     }
 }

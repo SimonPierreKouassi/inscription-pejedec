@@ -16,6 +16,7 @@ return new class extends Migration
             
             // Informations personnelles
             $table->string('nom');
+            $table->string('prise_en_charge');
             $table->string('prenom');
             $table->enum('civilite', ['MR', 'Mme']);
             $table->enum('sexe', ['homme', 'femme']);
@@ -23,12 +24,12 @@ return new class extends Migration
             $table->string('lieu_naissance');
             $table->string('numero_cmu');
             $table->enum('nationalite', ['ivoirienne', 'etrangere']);
-            $table->enum('situation_matrimoniale', ['celibataire', 'marie']);
+            $table->string('situation_matrimoniale');
             $table->integer('nombre_enfants')->default(0);
-            $table->enum('chez_qui', ['pere', 'mere', 'grand-mere']);
+            $table->string('chez_qui');
             
             // Pièces d'identité
-            $table->enum('type_piece', ['CNI', 'passeport']);
+            $table->string('type_piece');
             $table->string('numero_piece');
             
             // Informations physiques
@@ -36,13 +37,13 @@ return new class extends Migration
             $table->string('taille_vetement');
             
             // Formations
-            $table->enum('premier_choix_formation', ['formation A', 'formation B']);
-            $table->enum('deuxieme_choix_formation', ['formation A', 'formation B']);
-            $table->enum('troisieme_choix_formation', ['formation A', 'formation B']);
+            $table->string('premier_choix_formation');
+            $table->string('deuxieme_choix_formation');
+            $table->string('troisieme_choix_formation');
             
             // Informations académiques/professionnelles
             $table->string('occupation_actuelle');
-            $table->enum('niveau_actuel', ['primaire', 'college', 'lycee']);
+            $table->string('niveau_actuel');
             
             // Contact
             $table->string('numero_phone');
@@ -51,16 +52,16 @@ return new class extends Migration
             // Personne à contacter
             $table->string('nom_personne_contact');
             $table->string('prenom_personne_contact');
-            $table->enum('lien_parente', ['pere', 'simple']);
+            $table->string('lien_parente');
             $table->string('numero_personne_contact');
             
             // Rendez-vous
             $table->date('date_rdv');
-            $table->string('creneau_horaire');
+            $table->string('creneau_horaire')->nullable();
             $table->foreignId('time_slot_id')->constrained()->onDelete('cascade');
             
             // Statut et métadonnées
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->string('status')->default('pending');
             $table->text('notes')->nullable();
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamp('cancelled_at')->nullable();

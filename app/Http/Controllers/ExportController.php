@@ -19,7 +19,7 @@ class ExportController extends Controller
     /**
      * Exporter les rendez-vous en Excel
      */
-    public function excel(Request $request): Response
+    public function excel(Request $request)
     {
         $query = Appointment::with('timeSlot');
 
@@ -60,7 +60,7 @@ class ExportController extends Controller
     /**
      * Exporter les statistiques
      */
-    public function stats(): Response
+    public function stats()
     {
         $stats = [
             'total_appointments' => Appointment::count(),

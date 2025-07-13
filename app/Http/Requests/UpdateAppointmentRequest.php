@@ -54,9 +54,9 @@ class UpdateAppointmentRequest extends FormRequest
             'taille_vetement' => 'sometimes|required|string|max:10',
             
             // Formations
-            'premier_choix_formation' => 'sometimes|required|in:formation A,formation B',
-            'deuxieme_choix_formation' => 'sometimes|required|in:formation A,formation B',
-            'troisieme_choix_formation' => 'sometimes|required|in:formation A,formation B',
+            'premier_choix_formation' => 'sometimes|required',
+            'deuxieme_choix_formation' => 'sometimes|required',
+            'troisieme_choix_formation' => 'sometimes|required',
             
             // Informations académiques/professionnelles
             'occupation_actuelle' => 'sometimes|required|string|max:255',
@@ -75,7 +75,7 @@ class UpdateAppointmentRequest extends FormRequest
             // Personne à contacter
             'nom_personne_contact' => 'sometimes|required|string|max:255',
             'prenom_personne_contact' => 'sometimes|required|string|max:255',
-            'lien_parente' => 'sometimes|required|in:pere,simple',
+            'lien_parente' => 'sometimes|required',
             'numero_personne_contact' => 'sometimes|required|string|max:20',
             
             // Rendez-vous
@@ -97,8 +97,8 @@ class UpdateAppointmentRequest extends FormRequest
             ],
             
             // Statut et notes
-            'status' => 'sometimes|in:pending,confirmed,cancelled',
-            'notes' => 'nullable|string|max:1000',
+            // 'status' => 'sometimes|in:pending,confirmed,cancelled',
+            // 'notes' => 'nullable|string|max:1000',
         ];
     }
 

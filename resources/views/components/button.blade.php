@@ -35,7 +35,7 @@ if ($isDisabled) {
 @endphp
 
 @if($href)
-    <a href="{{ $href }}" class="{{ $classes }}">
+    <a {{ $attributes }} href="{{ $href }}" class="{{ $classes }}">
         @if($loading)
             <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -45,7 +45,7 @@ if ($isDisabled) {
         {{ $slot }}
     </a>
 @else
-    <button type="{{ $type }}" 
+    <button {{ $attributes }} type="{{ $type }}" 
             @if($isDisabled) disabled @endif
             class="{{ $classes }}">
         @if($loading)

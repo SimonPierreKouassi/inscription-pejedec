@@ -141,6 +141,7 @@
                     <select name="nationalite" id="nationalite" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('nationalite') border-red-300 @enderror">
                         <option value="ivoirienne" {{ old('nationalite') == 'ivoirienne' ? 'selected' : '' }}>Ivoirienne</option>
+                        <option value="ivoirienne" {{ old('etrangere') == 'etrangere' ? 'selected' : '' }}>Etrangère</option>
                     </select>
                     @error('nationalite')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -591,11 +592,8 @@ function appointmentForm() {
             if (!date) return;
             
             try {
-                console.log(`/api/timeslots/for-date?date=${date}`)
                 const response = await fetch(`/api/timeslots/for-date?date=${date}`);
-                console.log(response)
                 const timeSlots = await response.json();
-                console.log(timeSlots)
                 const select = document.getElementById('time_slot_id');
                 select.innerHTML = '';
                 
@@ -610,7 +608,8 @@ function appointmentForm() {
                         if (slot.is_available) {
                             const option = document.createElement('option');
                             option.value = slot.id;
-                            option.textContent = `${slot.formatted_time} (${slot.remaining_capacity} places disponibles)`;
+                            // option.textContent = `${slot.formatted_time} (${slot.remaining_capacity} places disponibles)`;
+                            option.textContent = `(${slot.remaining_capacity} places disponibles)`;
                             select.appendChild(option);
                         }
                     });

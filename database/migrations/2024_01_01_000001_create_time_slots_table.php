@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->string('location');
+            // $table->time('start_time');
+            // $table->time('end_time');
             $table->integer('max_capacity')->default(10);
             $table->integer('current_bookings')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             
             // Index pour optimiser les requêtes
-            $table->index(['date', 'start_time']);
+            // $table->index(['date', 'start_time']);
             $table->index(['date', 'is_active']);
         });
     }

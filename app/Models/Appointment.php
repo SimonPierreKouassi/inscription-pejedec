@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  * Modèle Appointment - Gestion des rendez-vous
  * 
  * @property int $id
+ * @property string $prise_en_charge
  * @property string $nom
  * @property string $prenom
  * @property string $civilite
@@ -53,6 +54,7 @@ class Appointment extends Model
 
     protected $fillable = [
         'nom',
+        'prise_en_charge',
         'prenom',
         'civilite',
         'sexe',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAppointmentRequest;
+use App\Models\Appointment;
 use App\Services\AppointmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +34,7 @@ class AppointmentWebController extends Controller
         try {
             DB::beginTransaction();
 
-            $appointment = $this->appointmentService->createAppointment($request->validated());
+            $this->appointmentService->createAppointment($request->validated());
 
             DB::commit();
 
@@ -55,6 +56,7 @@ class AppointmentWebController extends Controller
      */
     public function success()
     {
-        return view('forms.success');
+        $appointment = Appointment::first(); 
+        return view('forms.success', compact('appointment'));
     }
 }

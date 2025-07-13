@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Exports\AppointmentsExport;
+use App\Exports\StatsExport;
 use App\Models\Appointment;
 use Illuminate\Http\Response;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,11 +17,12 @@ class ExportService
     /**
      * Exporter les rendez-vous en Excel
      */
-    public function exportToExcel($appointments): Response
+    public function exportToExcel($appointments)
     {
         $data = $appointments->map(function ($appointment) {
             return [
                 'ID' => $appointment->id,
+                'Prise en charge' => $appointment->prise_en_charge,
                 'Nom' => $appointment->nom,
                 'Prénom' => $appointment->prenom,
                 'Civilité' => $appointment->civilite,
@@ -54,7 +57,7 @@ class ExportService
         })->toArray();
 
         return Excel::download(
-            new \App\Exports\AppointmentsExport($data),
+            new AppointmentsExport($data),
             'rendez-vous-' . now()->format('Y-m-d') . '.xlsx'
         );
     }
@@ -74,7 +77,7 @@ class ExportService
     /**
      * Exporter les statistiques en Excel
      */
-    public function exportStatsToExcel(array $stats): Response
+    public function exportStatsToExcel(array $stats)
     {
         $data = [
             ['Statistique', 'Valeur'],
@@ -100,7 +103,7 @@ class ExportService
         }
 
         return Excel::download(
-            new \App\Exports\StatsExport($data),
+            new StatsExport($data),
             'statistiques-' . now()->format('Y-m-d') . '.xlsx'
         );
     }

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $max_capacity
  * @property int $current_bookings
  * @property bool $is_active
+ * @property string $location
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  */
@@ -30,6 +31,7 @@ class TimeSlot extends Model
         'max_capacity',
         'current_bookings',
         'is_active',
+        'location',
     ];
 
     protected $casts = [
@@ -99,8 +101,8 @@ class TimeSlot extends Model
     /**
      * Formater l'heure pour l'affichage
      */
-    public function getFormattedTimeAttribute(): string
-    {
-        return $this->start_time->format('H:i') . ' - ' . $this->end_time->format('H:i');
-    }
+    // public function getFormattedTimeAttribute(): string
+    // {
+    //     return $this->start_time->format('H:i') . ' - ' . $this->end_time->format('H:i');
+    // }
 }

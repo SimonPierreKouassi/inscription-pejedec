@@ -41,6 +41,8 @@ class LoginController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        $request->user()->currentAccessToken()->delete();
+        
         Auth::logout();
     
         $request->session()->invalidate();

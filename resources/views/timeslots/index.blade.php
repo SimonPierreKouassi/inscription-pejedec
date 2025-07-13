@@ -354,7 +354,6 @@
                             id="generateCapacity"
                             x-model="generateForm.capacity" 
                             min="1" 
-                            max="500" 
                             required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -435,7 +434,6 @@
                             id="maxCapacity"
                             x-model="slotForm.maxCapacity" 
                             min="1" 
-                            max="500" 
                             required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >

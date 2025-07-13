@@ -13,6 +13,37 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <meta
+        property="og:image"
+        content="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
+    <meta
+        property="og:description"
+        content="Bienvenue sur le portail administrateur de pré-inscription du volet formation par apprentissage du PEJEDEC 3" />
+    <meta
+        name="description"
+        content="Bienvenue sur le portail de pré-inscription du volet formation par apprentissage du PEJEDEC 3" />
+    <meta property="og:title" content="Portail de connexion" />
+
+    <!-- iPad Pro with high-resolution Retina display: -->
+    <link
+        rel="apple-touch-icon"
+        sizes="167x167"
+        href="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
+    <!-- 3x resolution iPhone: -->
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
+    <!-- non-Retina iPad, iPad mini, etc.: -->
+    <link
+        rel="apple-touch-icon"
+        sizes="152x152"
+        href="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
+    <!-- 2x resolution iPhone and other devices: -->
+    <link rel="apple-touch-icon" href="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
+    <!-- basic favicon -->
+    <link rel="icon" href="{{ Vite::asset('resources/images/logos/logo-pejedec.png')}}" />
     
     <!-- Additional CSS -->
     @stack('styles')

@@ -159,7 +159,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900" x-text="appointment.date_rdv"></div>
+                                <div class="text-sm text-gray-900" x-text="`${appointment.date_rdv.split('T')[0]}`"></div>
                                 <div class="text-sm text-gray-500" x-text="appointment.creneau_horaire"></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -339,7 +339,7 @@ function dashboard() {
         
         async exportExcel() {
             console.log("clicked on export button")
-            window.open('/exports/excel', '_blank');s
+            window.open('/exports/excel', '_blank');
         },
         
         getStatusLabel(status) {

@@ -31,10 +31,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 <!-- Filtre par statut -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
                         Statut
                     </label>
-                    <select x-model="filters.status" x-on:change="applyFilters()"
+                    <select id="status" name="status" x-model="filters.status" x-on:change="applyFilters()"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Tous les statuts</option>
                         <option value="pending">En attente</option>
@@ -45,28 +45,28 @@
 
                 <!-- Filtre par date de début -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="dateFrom" class="block text-sm font-medium text-gray-700 mb-1">
                         Date de début
                     </label>
-                    <input type="date" x-model="filters.dateFrom" x-on:change="applyFilters()"
+                    <input id="dateFrom" name="dateFrom" type="date" x-model="filters.dateFrom" x-on:change="applyFilters()"
                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
                 <!-- Filtre par date de fin -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="dateTo" class="block text-sm font-medium text-gray-700 mb-1">
                         Date de fin
                     </label>
-                    <input type="date" x-model="filters.dateTo" x-on:change="applyFilters()"
+                    <input id="dateTo" name="dateTo" type="date" x-model="filters.dateTo" x-on:change="applyFilters()"
                            class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                 </div>
 
                 <!-- Filtre par formation -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="formation" class="block text-sm font-medium text-gray-700 mb-1">
                         Formation
                     </label>
-                    <select x-model="filters.formation" x-on:change="applyFilters()"
+                    <select id="formation" name="formation" x-model="filters.formation" x-on:change="applyFilters()"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="">Toutes les formations</option>
                         <option value="Mecanique auto">Mecanique auto</option>
@@ -102,7 +102,7 @@
 
                 <div>
                     <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lieu de prise en charge</label>
-                    <select x-model="filters.location" id="location" x-on:change="applyFilters()"
+                    <select name="location" x-model="filters.location" id="location" x-on:change="applyFilters()"
                         class="w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500">
                         <option value="" >Partout</option>
                         <option value="zone_4c" >Siège Marcory zone 4C</option>
@@ -226,7 +226,7 @@
                                      x-text="`${appointment.civilite} ${appointment.nom} ${appointment.prenom}`"></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900" x-text="appointment.date_rdv"></div>
+                                <div class="text-sm text-gray-900" x-text="`${appointment.date_rdv.split('T')[0]}`"></div>
                                 <div class="text-sm text-gray-500" x-text="appointment.creneau_horaire"></div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -340,7 +340,8 @@ function exports() {
         },
         
         async exportExcel() {
-            if (this.filteredCount === 0) return; 
+            console.log(`/exports/excel`, this.filteredCount)
+            if (this.filteredAppointments.length === 0) return; 
             
             const params = new URLSearchParams();
             Object.entries(this.filters).forEach(([key, value]) => {
@@ -348,7 +349,7 @@ function exports() {
                     params.append(key, value);
                 }
             });
-            
+            console.log(`/exports/excel?${params.toString()}`)
             window.open(`/exports/excel?${params.toString()}`, '_blank');
         },
         

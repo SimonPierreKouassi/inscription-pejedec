@@ -494,14 +494,14 @@ function timeSlotsManager() {
         generateForm: {
             startDate: '',
             endDate: '',
-            location: '',
+            location: 'zone_4c',
             capacity: 10
         },
         slotForm: {
             date: '',
             // startTime: '',
             // endTime: '',
-            location: '',
+            location: 'zone_4c',
             maxCapacity: 10,
             isActive: true
         },
@@ -594,7 +594,7 @@ function timeSlotsManager() {
         openGenerateModal() {
             this.showGenerateModal = true;
             // Optionally, reset form fields here if needed every time it opens
-            this.generateForm = { startDate: '', endDate: '', capacity: 10, location: '' }; 
+            this.generateForm = { startDate: '', endDate: '', capacity: 10, location: 'zone_4c' }; 
             this.message.text = ''; // Clear messages when opening a new modal
         },
 
@@ -616,7 +616,7 @@ function timeSlotsManager() {
         resetSlotForm() {
             this.slotForm = {
                 date: '',
-                location: '',
+                location: 'zone_4c',
                 // startTime: '',
                 // endTime: '',
                 maxCapacity: 10,

@@ -61,7 +61,7 @@ class AppointmentController extends Controller
 
         $appointments = $query->orderBy('date_rdv', 'desc')
                              ->orderBy('created_at', 'desc')
-                             ->paginate(20);
+                             ->paginate(100);
 
         return response()->json($appointments);
     }

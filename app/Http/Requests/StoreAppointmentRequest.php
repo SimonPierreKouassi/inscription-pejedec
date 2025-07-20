@@ -29,18 +29,18 @@ class StoreAppointmentRequest extends FormRequest
 
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'civilite' => 'required|in:MR,Mme',
+            'civilite' => 'required|in:Mr,Mme,Mlle',
             'sexe' => 'required|in:homme,femme',
             'date_naissance' => 'required|date|before:today',
             'lieu_naissance' => 'required|string|max:255',
-            'numero_cmu' => 'required|string|max:255',
-            'nationalite' => 'required|in:ivoirienne,etrangere',
-            'situation_matrimoniale' => 'required|in:celibataire,marie',
+            'numero_cmu' => 'nullable|string|max:255',
+            'nationalite' => 'required|in:ivoirienne',
+            'situation_matrimoniale' => 'required|in:celibataire,marie,concubinage,veuf(ve)',
             'nombre_enfants' => 'required|integer|min:0',
-            'chez_qui' => 'required|in:pere,mere,grand-mere',
+            'chez_qui' => 'required|in:pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
             
             // Pièces d'identité
-            'type_piece' => 'required|in:CNI,passeport',
+            'type_piece' => 'required|in:CNI,certificat de nationalité,attestation d_identité,récépissé d_enrolement,extrait de naissance',
             'numero_piece' => 'required|string|max:255|unique:appointments,numero_piece',
             
             // Informations physiques
@@ -58,7 +58,7 @@ class StoreAppointmentRequest extends FormRequest
             
             // Contact
             'numero_phone' => 'required|string|max:20',
-            'adresse_email' => 'required|email|max:255|unique:appointments,adresse_email',
+            'adresse_email' => 'nullable|email|max:255|unique:appointments,adresse_email',
             
             // Personne à contacter
             'nom_personne_contact' => 'required|string|max:255',

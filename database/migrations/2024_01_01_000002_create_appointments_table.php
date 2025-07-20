@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prise_en_charge');
             $table->string('prenom');
-            $table->enum('civilite', ['MR', 'Mme']);
+            $table->enum('civilite', ['MR', 'Mme', 'Mlle']);
             $table->enum('sexe', ['homme', 'femme']);
             $table->date('date_naissance');
             $table->string('lieu_naissance');
-            $table->string('numero_cmu');
-            $table->enum('nationalite', ['ivoirienne', 'etrangere']);
+            $table->string('numero_cmu')->nullable();
+            $table->enum('nationalite', ['ivoirienne']);
             $table->string('situation_matrimoniale');
             $table->integer('nombre_enfants')->default(0);
             $table->string('chez_qui');
@@ -47,7 +47,7 @@ return new class extends Migration
             
             // Contact
             $table->string('numero_phone');
-            $table->string('adresse_email');
+            $table->string('adresse_email')->nullable();
             
             // Personne à contacter
             $table->string('nom_personne_contact');

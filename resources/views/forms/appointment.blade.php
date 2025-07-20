@@ -58,6 +58,7 @@
                         <option value="">Sélectionnez une civilité</option>
                         <option value="MR" {{ old('civilite') == 'MR' ? 'selected' : '' }}>Monsieur</option>
                         <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Madame</option>
+                        <option value="Mlle" {{ old('civilite') == 'Mlle' ? 'selected' : '' }}>Mademoiselle</option>
                     </select>
                     @error('civilite')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -125,9 +126,9 @@
                 
                 <div>
                     <label for="numero_cmu" class="block text-sm font-medium text-gray-700">
-                        Numéro CMU <span class="text-red-500">*</span>
+                        Numéro CMU <span class="text-red-500"></span>
                     </label>
-                    <input type="text" name="numero_cmu" id="numero_cmu" value="{{ old('numero_cmu') }}" required 
+                    <input type="text" name="numero_cmu" id="numero_cmu" value="{{ old('numero_cmu') }}" 
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('numero_cmu') border-red-300 @enderror">
                     @error('numero_cmu')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -141,7 +142,6 @@
                     <select name="nationalite" id="nationalite" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('nationalite') border-red-300 @enderror">
                         <option value="ivoirienne" {{ old('nationalite') == 'ivoirienne' ? 'selected' : '' }}>Ivoirienne</option>
-                        <option value="ivoirienne" {{ old('etrangere') == 'etrangere' ? 'selected' : '' }}>Etrangère</option>
                     </select>
                     @error('nationalite')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -156,6 +156,7 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('situation_matrimoniale') border-red-300 @enderror">
                         <option value="">Sélectionnez une situation</option>
                         <option value="celibataire" {{ old('situation_matrimoniale') == 'celibataire' ? 'selected' : '' }}>Célibataire</option>
+                        <option value="concubinage" {{ old('situation_matrimoniale') == 'concubinage' ? 'selected' : '' }}>Concubinage</option>
                         <option value="marie" {{ old('situation_matrimoniale') == 'marie' ? 'selected' : '' }}>Marié(e)</option>
                         <option value="veuf(ve)" {{ old('situation_matrimoniale') == 'veuf(ve)' ? 'selected' : '' }}>Veuf(ve)</option>
                     </select>
@@ -183,6 +184,8 @@
                         <option value="">Sélectionnez une option</option>
                         <option value="pere" {{ old('chez_qui') == 'pere' ? 'selected' : '' }}>Père</option>
                         <option value="mere" {{ old('chez_qui') == 'mere' ? 'selected' : '' }}>Mère</option>
+                        <option value="mere" {{ old('chez_qui') == 'frere' ? 'selected' : '' }}>Frère</option>
+                        <option value="mere" {{ old('chez_qui') == 'soeur' ? 'selected' : '' }}>Soeur</option>
                         <option value="oncle" {{ old('chez_qui') == 'oncle' ? 'selected' : '' }}>Oncle</option>
                         <option value="tante" {{ old('chez_qui') == 'tante' ? 'selected' : '' }}>Tante</option>
                         <option value="grand-mere" {{ old('chez_qui') == 'grand-mere' ? 'selected' : '' }}>Grand-mère</option>
@@ -210,7 +213,9 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('type_piece') border-red-300 @enderror">
                         <option value="">Sélectionnez un type</option>
                         <option value="CNI" {{ old('type_piece') == 'CNI' ? 'selected' : '' }}>Carte Nationale d'Identité</option>
-                        <option value="passeport" {{ old('type_piece') == 'passeport' ? 'selected' : '' }}>Passeport</option>
+                        <option value="certificat de nationalité" {{ old('type_piece') == 'certificat de nationalité' ? 'selected' : '' }}>Certificat de nationalité</option>
+                        <option value="attestation d_identité" {{ old('type_piece') == 'attestation d_identité' ? 'selected' : '' }}>Attestation d'identité</option>
+                        <option value="récépissé d_enrolement" {{ old('type_piece') == 'récépissé d_enrolement' ? 'selected' : '' }}>Récépissé d'enrolement</option>
                         <option value="extrait de naissance" {{ old('type_piece') == 'extrait de naissance' ? 'selected' : '' }}>Extrait de naissance</option>
                     </select>
                     @error('type_piece')
@@ -259,6 +264,7 @@
                         <option value="M" {{ old('taille_vetement') == 'M' ? 'selected' : '' }}>M</option>
                         <option value="L" {{ old('taille_vetement') == 'L' ? 'selected' : '' }}>L</option>
                         <option value="XL" {{ old('taille_vetement') == 'XL' ? 'selected' : '' }}>XL</option>
+                        <option value="XXL" {{ old('taille_vetement') == 'XXL' ? 'selected' : '' }}>XXL</option>
                     </select>
                     
                     @error('taille_vetement')
@@ -297,19 +303,25 @@
                         <option value="Électronique" {{ old('premier_choix_formation') == 'Électronique' ? 'selected' : '' }}>Électronique</option>
                         <option value="Cuisine" {{ old('premier_choix_formation') == 'Cuisine' ? 'selected' : '' }}>Cuisine</option>
                         <option value="Pâtisserie" {{ old('premier_choix_formation') == 'Pâtisserie' ? 'selected' : '' }}>Pâtisserie</option>
-                        <option value="Réception" {{ old('premier_choix_formation') == 'Réception' ? 'selected' : '' }}>Réception</option>
+                        <option value="Réceptionniste" {{ old('premier_choix_formation') == 'Réceptionniste' ? 'selected' : '' }}>Réceptionniste</option>
                         <option value="Serveur/Barman" {{ old('premier_choix_formation') == 'Serveur/Barman' ? 'selected' : '' }}>Serveur/Barman</option>
                         <option value="Valet de chambre" {{ old('premier_choix_formation') == 'Valet de chambre' ? 'selected' : '' }}>Valet de chambre</option>                
                         <option value="Menuiserie/Ébenisterie" {{ old('premier_choix_formation') == 'Menuiserie/Ébenisterie' ? 'selected' : '' }}>Menuiserie/Ébenisterie</option>
-                        <option value="Tapisserie" {{ old('premier_choix_formation') == 'Tapisserie' ? 'selected' : '' }}>Tapisserie</option>
+                        <option value="Tapisserie automobile" {{ old('premier_choix_formation') == 'Tapisserie automobile' ? 'selected' : '' }}>Tapisserie automobile</option>
                         <option value="Charpentier" {{ old('premier_choix_formation') == 'Charpentier' ? 'selected' : '' }}>Charpentier</option>
                         <option value="Vernissage" {{ old('premier_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
                         <option value="Infographie" {{ old('premier_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
                         <option value="Serigraphie/Calligraphie" {{ old('premier_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
-                        <option value="Brodeur" {{ old('premier_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
-                        <option value="Piqueur" {{ old('premier_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
-                        <option value="Coiffure" {{ old('premier_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Broderie" {{ old('premier_choix_formation') == 'Broderie' ? 'selected' : '' }}>Broderie</option>
+                        <option value="Couture piqueur" {{ old('premier_choix_formation') == 'Couture piqueur' ? 'selected' : '' }}>Couture piqueur</option>
+                        <option value="Coiffure" {{ old('premier_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure (Homme et Femme)</option>
                         <option value="Esthétique" {{ old('premier_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
+                        <option value="Boulangerie" {{ old('premier_choix_formation') == 'Boulangerie' ? 'selected' : '' }}>Boulangerie</option>
+                        <option value="Patisserie" {{ old('premier_choix_formation') == 'Patisserie' ? 'selected' : '' }}>Patisserie</option>
+                        <option value="Conducteur de presse" {{ old('premier_choix_formation') == 'Conducteur de presse' ? 'selected' : '' }}>Conducteur de presse</option>
+                        <option value="Installation de parabole" {{ old('premier_choix_formation') == 'Installation de parabole' ? 'selected' : '' }}>Installation de parabole et equipement TNT</option>
+                        <option value="Staff" {{ old('premier_choix_formation') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                        <option value="Vulcanisateur" {{ old('premier_choix_formation') == 'Vulcanisateur' ? 'selected' : '' }}>Vulcanisateur</option>
                     </select>
                     @error('premier_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -347,10 +359,16 @@
                         <option value="Vernissage" {{ old('deuxieme_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
                         <option value="Infographie" {{ old('deuxieme_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
                         <option value="Serigraphie/Calligraphie" {{ old('deuxieme_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
-                        <option value="Brodeur" {{ old('deuxieme_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
-                        <option value="Piqueur" {{ old('deuxieme_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
-                        <option value="Coiffure" {{ old('deuxieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Broderie" {{ old('deuxieme_choix_formation') == 'Broderie' ? 'selected' : '' }}>Broderie</option>
+                        <option value="Couture piqueur" {{ old('deuxieme_choix_formation') == 'Couture piqueur' ? 'selected' : '' }}>Couture piqueur</option>
+                        <option value="Coiffure" {{ old('deuxieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure (Homme et Femme)</option>
                         <option value="Esthétique" {{ old('deuxieme_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
+                        <option value="Boulangerie" {{ old('deuxieme_choix_formation') == 'Boulangerie' ? 'selected' : '' }}>Boulangerie</option>
+                        <option value="Patisserie" {{ old('deuxieme_choix_formation') == 'Patisserie' ? 'selected' : '' }}>Patisserie</option>
+                        <option value="Conducteur de presse" {{ old('deuxieme_choix_formation') == 'Conducteur de presse' ? 'selected' : '' }}>Conducteur de presse</option>
+                        <option value="Installation de parabole" {{ old('deuxieme_choix_formation') == 'Installation de parabole' ? 'selected' : '' }}>Installation de parabole et equipement TNT</option>
+                        <option value="Staff" {{ old('deuxieme_choix_formation') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                        <option value="Vulcanisateur" {{ old('deuxieme_choix_formation') == 'Vulcanisateur' ? 'selected' : '' }}>Vulcanisateur</option>
                     </select>
                     @error('deuxieme_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -388,10 +406,16 @@
                         <option value="Vernissage" {{ old('troisieme_choix_formation') == 'Vernissage' ? 'selected' : '' }}>Vernissage</option>
                         <option value="Infographie" {{ old('troisieme_choix_formation') == 'Infographie' ? 'selected' : '' }}>Infographie</option>
                         <option value="Serigraphie/Calligraphie" {{ old('troisieme_choix_formation') == 'Serigraphie/Calligraphie' ? 'selected' : '' }}>Serigraphie/Calligraphie</option>
-                        <option value="Brodeur" {{ old('troisieme_choix_formation') == 'Brodeur' ? 'selected' : '' }}>Brodeur</option>
-                        <option value="Piqueur" {{ old('troisieme_choix_formation') == 'Piqueur' ? 'selected' : '' }}>Piqueur</option>
-                        <option value="Coiffure" {{ old('troisieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure</option>
+                        <option value="Broderie" {{ old('troisieme_choix_formation') == 'Broderie' ? 'selected' : '' }}>Broderie</option>
+                        <option value="Couture piqueur" {{ old('troisieme_choix_formation') == 'Couture piqueur' ? 'selected' : '' }}>Couture piqueur</option>
+                        <option value="Coiffure" {{ old('troisieme_choix_formation') == 'Coiffure' ? 'selected' : '' }}>Coiffure (Homme et Femme)</option>
                         <option value="Esthétique" {{ old('troisieme_choix_formation') == 'Esthétique' ? 'selected' : '' }}>Esthétique</option>
+                        <option value="Boulangerie" {{ old('troisieme_choix_formation') == 'Boulangerie' ? 'selected' : '' }}>Boulangerie</option>
+                        <option value="Patisserie" {{ old('troisieme_choix_formation') == 'Patisserie' ? 'selected' : '' }}>Patisserie</option>
+                        <option value="Conducteur de presse" {{ old('troisieme_choix_formation') == 'Conducteur de presse' ? 'selected' : '' }}>Conducteur de presse</option>
+                        <option value="Installation de parabole" {{ old('troisieme_choix_formation') == 'Installation de parabole' ? 'selected' : '' }}>Installation de parabole et equipement TNT</option>
+                        <option value="Staff" {{ old('troisieme_choix_formation') == 'Staff' ? 'selected' : '' }}>Staff</option>
+                        <option value="Vulcanisateur" {{ old('troisieme_choix_formation') == 'Vulcanisateur' ? 'selected' : '' }}>Vulcanisateur</option>
                     </select>
                     @error('troisieme_choix_formation')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -456,9 +480,9 @@
                 
                 <div>
                     <label for="adresse_email" class="block text-sm font-medium text-gray-700">
-                        Adresse email <span class="text-red-500">*</span>
+                        Adresse email <span class="text-red-500"></span>
                     </label>
-                    <input type="email" name="adresse_email" id="adresse_email" value="{{ old('adresse_email') }}" required 
+                    <input type="email" name="adresse_email" id="adresse_email" value="{{ old('adresse_email') }}"  
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('adresse_email') border-red-300 @enderror">
                     @error('adresse_email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -505,8 +529,11 @@
                         <option value="">Sélectionnez un lien</option>
                         <option value="pere" {{ old('lien_parente') == 'pere' ? 'selected' : '' }}>Père</option>
                         <option value="mere" {{ old('lien_parente') == 'mere' ? 'selected' : '' }}>Mère</option>
+                        <option value="frere" {{ old('lien_parente') == 'frere' ? 'selected' : '' }}>Frère</option>
+                        <option value="soeur" {{ old('lien_parente') == 'soeur' ? 'selected' : '' }}>Soeur</option>
                         <option value="oncle" {{ old('lien_parente') == 'oncle' ? 'selected' : '' }}>Oncle</option>
                         <option value="tante" {{ old('lien_parente') == 'tante' ? 'selected' : '' }}>Tante</option>
+                        <option value="conjoint" {{ old('lien_parente') == 'conjoint' ? 'selected' : '' }}>Conjoint(e)</option>
                         <option value="grand-mere" {{ old('lien_parente') == 'grand-mere' ? 'selected' : '' }}>Grand-Mère</option>
                         <option value="grand-pere" {{ old('lien_parente') == 'grand-pere' ? 'selected' : '' }}>Grand-Père</option>
                     </select>

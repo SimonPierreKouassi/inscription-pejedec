@@ -29,18 +29,18 @@ class UpdateAppointmentRequest extends FormRequest
             // Informations personnelles
             'nom' => 'sometimes|required|string|max:255',
             'prenom' => 'sometimes|required|string|max:255',
-            'civilite' => 'sometimes|required|in:MR,Mme',
+            'civilite' => 'sometimes|required|in:Mr,Mme,Mlle',
             'sexe' => 'sometimes|required|in:homme,femme',
             'date_naissance' => 'sometimes|required|date|before:today',
             'lieu_naissance' => 'sometimes|required|string|max:255',
-            'numero_cmu' => 'sometimes|required|string|max:255',
-            'nationalite' => 'sometimes|required|in:ivoirienne,etrangere',
-            'situation_matrimoniale' => 'sometimes|required|in:celibataire,marie',
+            'numero_cmu' => 'sometimes|string|max:255',
+            'nationalite' => 'sometimes|required|in:ivoirienne',
+            'situation_matrimoniale' => 'sometimes|required|in:celibataire,marie,concubinage,veuf(ve)',
             'nombre_enfants' => 'sometimes|required|integer|min:0',
-            'chez_qui' => 'sometimes|required|in:pere,mere,grand-mere',
+            'chez_qui' => 'sometimes|required|in:pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
             
             // Pièces d'identité
-            'type_piece' => 'sometimes|required|in:CNI,passeport',
+            'type_piece' => 'sometimes|required|in:CNI,certificat de nationalité,attestation d_identité,récépissé d_enrolement,extrait de naissance',
             'numero_piece' => [
                 'sometimes',
                 'required',

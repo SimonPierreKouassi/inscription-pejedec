@@ -181,7 +181,7 @@
         </div>
 
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Votre Organisation. Tous droits réservés.</p>
+            <p>&copy; {{ date('Y') }} Agefop . Tous droits réservés.</p>
             <p>Ce document est généré automatiquement et ne nécessite pas de signature.</p>
         </div>
     </div>

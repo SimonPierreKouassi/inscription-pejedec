@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         // Créer un administrateur par défaut
         User::create([
             'name' => 'Administrateur',
-            'email' => 'admin@rdvmanager.com',
-            'password' => Hash::make('password'),
+            'email' => 'admin@prise2rdv.com',
+            'password' => Hash::make('jesuisl_admin'),
             'role' => 'admin',
             'is_active' => true,
             'email_verified_at' => now(),
@@ -29,8 +29,8 @@ class UserSeeder extends Seeder
         // Créer un manager par défaut
         User::create([
             'name' => 'Manager',
-            'email' => 'manager@rdvmanager.com',
-            'password' => Hash::make('password'),
+            'email' => 'manager@prise2rdv.com',
+            'password' => Hash::make('jesuisl_admin'),
             'role' => 'manager',
             'is_active' => true,
             'email_verified_at' => now(),

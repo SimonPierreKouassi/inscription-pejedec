@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // Page d'accueil
-Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/login_adminP2rdv', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -93,7 +93,6 @@
                         <option value="">Tous</option>
                         <option value="zone_4c" >Siège Marcory zone 4C</option>
                         <option value="yop" >Lycée professionnel de Yopougon</option>
-                        <option value="bouake" >Bouaké</option>
                     </select>
                 </div>
             </div>

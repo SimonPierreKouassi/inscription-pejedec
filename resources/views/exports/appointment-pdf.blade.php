@@ -171,7 +171,7 @@
 
         <div class="section-title">Personne à Contacter en Cas d'Urgence</div>
         <div class="detail-row">
-            <strong>Nom & Prénom:</strong> <span>{{ $appointment->nom_personne_contact }} {{ $appointment->prenom_personne_contact }}</span>
+            <strong>Nom & Prénoms:</strong> <span>{{ $appointment->nom_personne_contact }} {{ $appointment->prenom_personne_contact }}</span>
         </div>
         <div class="detail-row">
             <strong>Lien de Parenté:</strong> <span>{{ $appointment->lien_parente }}</span>

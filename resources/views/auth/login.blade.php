@@ -119,17 +119,17 @@
                 </div>
             </form>
 
-            <div class="mt-6 border-t border-gray-200 pt-6">
+          <!-- <div class="mt-6 border-t border-gray-200 pt-6">
                 <div class="text-center">
                     <p class="text-sm text-gray-600">
                         Comptes de démonstration :
                     </p>
                     <div class="mt-2 space-y-1 text-xs text-gray-500">
-                        <p><strong>Admin :</strong> admin@rdvmanager.com / password</p>
-                        <p><strong>Manager :</strong> manager@rdvmanager.com / password</p>
+                        <p><strong>Admin :</strong> admin@prise2rdv.com / jesuisl_admin</p>
+                        <p><strong>Manager :</strong> manager@rdvmanager.com / jesuisl_admin</p>
                     </div>
                 </div>
-            </div>
+            </div>--> 
         </x-card>
     </div>
 </div>

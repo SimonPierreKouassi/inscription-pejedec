@@ -37,7 +37,7 @@ class UpdateAppointmentRequest extends FormRequest
             'nationalite' => 'sometimes|required|in:ivoirienne',
             'situation_matrimoniale' => 'sometimes|required|in:celibataire,marie,concubinage,veuf(ve)',
             'nombre_enfants' => 'sometimes|required|integer|min:0',
-            'chez_qui' => 'sometimes|required|in:pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
+            'chez_qui' => 'sometimes|required|in:chez moi,pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
             
             // Pièces d'identité
             'type_piece' => 'sometimes|required|in:CNI,certificat de nationalité,attestation d_identité,récépissé d_enrolement,extrait de naissance',
@@ -60,7 +60,7 @@ class UpdateAppointmentRequest extends FormRequest
             
             // Informations académiques/professionnelles
             'occupation_actuelle' => 'sometimes|required|string|max:255',
-            'niveau_actuel' => 'sometimes|required|in:primaire,college,lycee',
+            'niveau_actuel' => 'sometimes|required|in:primaire,college,lycee,cours du soir',
             
             // Contact
             'numero_phone' => 'sometimes|required|string|max:20',
@@ -74,7 +74,7 @@ class UpdateAppointmentRequest extends FormRequest
             
             // Personne à contacter
             'nom_personne_contact' => 'sometimes|required|string|max:255',
-            'prenom_personne_contact' => 'sometimes|required|string|max:255',
+            'prenom_personne_contact' => 'nullable|string|max:255',
             'lien_parente' => 'sometimes|required',
             'numero_personne_contact' => 'sometimes|required|string|max:20',
             

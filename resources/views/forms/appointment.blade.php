@@ -30,9 +30,8 @@
                     <select name="prise_en_charge" id="prise_en_charge" required  x-on:change="loadTimeSlots()" x-model="prise_en_charge"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('prise_en_charge') border-red-300 @enderror">
                         <option value="">Sélectionnez une zone de prise en charge</option>
-                        <option value="zone_4c" >Siège Marcory zone 4C</option>
-                        <option value="yop" >Lycée professionnel de Yopougon</option>
-                        <option value="bouake" >Bouaké</option>
+                        <option value="zone_4c" >Siège Agefop Marcory zone 4C</option>
+                        <option value="yop" >Antenne Agefop Lycée professionnel Industriel de Yopougon (Siporex)</option>
 
                     </select>
                     @error('prise_en_charge')
@@ -56,7 +55,7 @@
                     <select name="civilite" id="civilite" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('civilite') border-red-300 @enderror">
                         <option value="">Sélectionnez une civilité</option>
-                        <option value="MR" {{ old('civilite') == 'MR' ? 'selected' : '' }}>Monsieur</option>
+                        <option value="Mr" {{ old('civilite') == 'Mr' ? 'selected' : '' }}>Monsieur</option>
                         <option value="Mme" {{ old('civilite') == 'Mme' ? 'selected' : '' }}>Madame</option>
                         <option value="Mlle" {{ old('civilite') == 'Mlle' ? 'selected' : '' }}>Mademoiselle</option>
                     </select>
@@ -182,6 +181,8 @@
                     <select name="chez_qui" id="chez_qui" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('chez_qui') border-red-300 @enderror">
                         <option value="">Sélectionnez une option</option>
+                        chez moi
+                        <option value="chez moi" {{ old('chez_qui') == 'chez moi' ? 'selected' : '' }}>Chez moi</option>
                         <option value="pere" {{ old('chez_qui') == 'pere' ? 'selected' : '' }}>Père</option>
                         <option value="mere" {{ old('chez_qui') == 'mere' ? 'selected' : '' }}>Mère</option>
                         <option value="mere" {{ old('chez_qui') == 'frere' ? 'selected' : '' }}>Frère</option>
@@ -444,7 +445,7 @@
                 
                 <div>
                     <label for="niveau_actuel" class="block text-sm font-medium text-gray-700">
-                        Niveau actuel <span class="text-red-500">*</span>
+                        Niveau d'étude <span class="text-red-500">*</span>
                     </label>
                     <select name="niveau_actuel" id="niveau_actuel" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('niveau_actuel') border-red-300 @enderror">
@@ -452,6 +453,7 @@
                         <option value="primaire" {{ old('niveau_actuel') == 'primaire' ? 'selected' : '' }}>Primaire</option>
                         <option value="college" {{ old('niveau_actuel') == 'college' ? 'selected' : '' }}>Collège</option>
                         <option value="lycee" {{ old('niveau_actuel') == 'lycee' ? 'selected' : '' }}>Lycée</option>
+                         <option value="cours du soir" {{ old('niveau_actuel') == 'cours du soir' ? 'selected' : '' }}>Cours du soir</option>
                     </select>
                     @error('niveau_actuel')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -500,7 +502,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label for="nom_personne_contact" class="block text-sm font-medium text-gray-700">
-                        Nom de la personne à contacter <span class="text-red-500">*</span>
+                        Nom & Prénoms de la personne à contacter <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="nom_personne_contact" id="nom_personne_contact" value="{{ old('nom_personne_contact') }}" required 
                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('nom_personne_contact') border-red-300 @enderror">
@@ -509,7 +511,7 @@
                     @enderror
                 </div>
                 
-                <div>
+               <!-- <div>
                     <label for="prenom_personne_contact" class="block text-sm font-medium text-gray-700">
                         Prénom de la personne à contacter <span class="text-red-500">*</span>
                     </label>
@@ -518,7 +520,7 @@
                     @error('prenom_personne_contact')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
-                </div>
+                </div>-->
                 
                 <div>
                     <label for="lien_parente" class="block text-sm font-medium text-gray-700">

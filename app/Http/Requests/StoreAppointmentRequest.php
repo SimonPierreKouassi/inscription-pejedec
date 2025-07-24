@@ -54,7 +54,7 @@ class StoreAppointmentRequest extends FormRequest
             
             // Informations académiques/professionnelles
             'occupation_actuelle' => 'required|string|max:255',
-            'niveau_actuel' => 'required|in:primaire,college,lycee',
+            'niveau_actuel' => 'required|in:primaire,college,lycee,cours du soir',
             
             // Contact
             'numero_phone' => 'required|string|max:20',
@@ -62,7 +62,7 @@ class StoreAppointmentRequest extends FormRequest
             
             // Personne à contacter
             'nom_personne_contact' => 'required|string|max:255',
-            'prenom_personne_contact' => 'required|string|max:255',
+            'prenom_personne_contact' => 'nullable|string|max:255',
             'lien_parente' => 'required',
             'numero_personne_contact' => 'required|string|max:20',
             

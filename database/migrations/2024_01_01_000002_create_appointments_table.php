@@ -51,7 +51,7 @@ return new class extends Migration
             
             // Personne à contacter
             $table->string('nom_personne_contact');
-            $table->string('prenom_personne_contact');
+            $table->string('prenom_personne_contact')->nullable();
             $table->string('lien_parente');
             $table->string('numero_personne_contact');
             

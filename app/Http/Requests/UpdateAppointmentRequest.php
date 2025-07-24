@@ -37,7 +37,7 @@ class UpdateAppointmentRequest extends FormRequest
             'nationalite' => 'sometimes|required|in:ivoirienne',
             'situation_matrimoniale' => 'sometimes|required|in:celibataire,marie,concubinage,veuf(ve)',
             'nombre_enfants' => 'sometimes|required|integer|min:0',
-            'chez_qui' => 'sometimes|required|in:chez moi,pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
+            'chez_qui' => 'sometimes|required|in:chez_moi,pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
             
             // Pièces d'identité
             'type_piece' => 'sometimes|required|in:CNI,certificat de nationalité,attestation d_identité,récépissé d_enrolement,extrait de naissance',

@@ -37,7 +37,7 @@ class StoreAppointmentRequest extends FormRequest
             'nationalite' => 'required|in:ivoirienne',
             'situation_matrimoniale' => 'required|in:celibataire,marie,concubinage,veuf(ve)',
             'nombre_enfants' => 'required|integer|min:0',
-            'chez_qui' => 'required|in:pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
+            'chez_qui' => 'required|in:chez_moi,pere,mere,grand-mere,grand-pere,frere,soeur,oncle,tante',
             
             // Pièces d'identité
             'type_piece' => 'required|in:CNI,certificat de nationalité,attestation d_identité,récépissé d_enrolement,extrait de naissance',

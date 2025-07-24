@@ -181,8 +181,8 @@
                     <select name="chez_qui" id="chez_qui" required 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 @error('chez_qui') border-red-300 @enderror">
                         <option value="">Sélectionnez une option</option>
-                        chez moi
-                        <option value="chez moi" {{ old('chez_qui') == 'chez moi' ? 'selected' : '' }}>Chez moi</option>
+                       
+                        <option value="chez_moi" {{ old('chez_qui') == 'chez_moi' ? 'selected' : '' }}>Chez moi</option>
                         <option value="pere" {{ old('chez_qui') == 'pere' ? 'selected' : '' }}>Père</option>
                         <option value="mere" {{ old('chez_qui') == 'mere' ? 'selected' : '' }}>Mère</option>
                         <option value="mere" {{ old('chez_qui') == 'frere' ? 'selected' : '' }}>Frère</option>

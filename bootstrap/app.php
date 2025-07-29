@@ -13,8 +13,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->statefulApi();
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
+        $middleware->web( [
+            \App\Http\Middleware\CustomFrameGuard::class,
+            \Spatie\Csp\AddCspHeaders::class, 
+        ]);
+ 
+        $middleware->api( [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

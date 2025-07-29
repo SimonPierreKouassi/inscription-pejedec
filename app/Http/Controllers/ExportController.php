@@ -54,6 +54,7 @@ class ExportController extends Controller
      */
     public function pdf(Appointment $appointment): Response
     {
+        // $appointment = Appointment::findOrFail()
         return $this->exportService->generatePDF($appointment);
     }
 

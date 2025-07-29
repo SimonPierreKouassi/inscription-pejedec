@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 // Page d'accueil
 Route::get('/login_adminP2rdv', [LoginController::class, 'login'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login_Black_Soul', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/logout_takopii_happian', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // // Routes pour les rendez-vous
@@ -24,7 +24,7 @@ Route::prefix('appointment')->name('appointment.')->group(function () {
 });
 
 // // Routes pour le dashboard (nécessitent une authentification en production)
-Route::get('/dashboard', [DashboardWebController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/dashboard', [DashboardWebController::class, 'index'])->name('dashboard')->middleware(['auth']);
 
 // // Routes pour les exports
 Route::prefix('exports')->name('exports.')->group(function () {

@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost:8000','https://inscription-pejedec.agefop.ci/'],
 
     'allowed_origins_patterns' => [],
 

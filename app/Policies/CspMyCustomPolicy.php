@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
-use Spatie\Csp\Presets\Preset;
+use Spatie\Csp\Preset;
 
 class CspMyCustomPolicy implements Preset
 {

@@ -32,8 +32,11 @@ class AppointmentService
 
         // Envoyer l'email de confirmation (optionnel)
         // $this->sendConfirmationEmail($appointment);
-
+        if (!$appointment) {
+                throw new \Exception('La création du rendez-vous a échoué.');
+            }
         return $appointment;
+        
     }
 
     /**

@@ -23,6 +23,7 @@
                             Nouveau rendez-vous
                         </a>
                     </li>
+                    <!-- Liens rapides 
                     @auth
                     <li>
                         <a href="{{ route('dashboard') }}" class="hover:text-white transition-colors">
@@ -33,7 +34,7 @@
                         <a href="{{ route('exports.index') }}" class="hover:text-white transition-colors">
                             Exports
                         </a>
-                    </li>
+                    </li>-->
                     @endauth
                     <li>
                         <a href="#" class="hover:text-white transition-colors">

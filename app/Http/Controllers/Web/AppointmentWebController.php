@@ -34,12 +34,12 @@ class AppointmentWebController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->appointmentService->createAppointment($request->validated());
+             $appointment = $this->appointmentService->createAppointment($request->validated()); // <-- stocker le résultat
 
             DB::commit();
 
             return redirect()
-                ->route('appointment.success')
+                ->route('appointment.success', ['id' => $appointment->id]) // <-- adaptation ici
                 ->with('success', 'Votre rendez-vous a été créé avec succès! Un email de confirmation vous a été envoyé.');
 
         } catch (\Exception $e) {
@@ -54,9 +54,9 @@ class AppointmentWebController extends Controller
     /**
      * Afficher la page de succès
      */
-    public function success()
+    public function success($id)
     {
-        $appointment = Appointment::first(); 
+        $appointment = Appointment::find($id); 
         return view('forms.success', compact('appointment'));
     }
 }

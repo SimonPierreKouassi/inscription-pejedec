@@ -20,7 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('appointment')->name('appointment.')->group(function () {
     Route::get('/', [AppointmentWebController::class, 'create'])->name('form');
     Route::post('/', [AppointmentWebController::class, 'store'])->name('store');
-    Route::get('/success', [AppointmentWebController::class, 'success'])->name('success');
+    Route::get('/success/{id}', [AppointmentWebController::class, 'success'])->name('success');
 });
 
 // // Routes pour le dashboard (nécessitent une authentification en production)

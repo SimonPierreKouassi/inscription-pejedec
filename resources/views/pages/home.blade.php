@@ -61,7 +61,7 @@
                     </svg>
                     Prendre un rendez-vous
                 </x-button>
-                
+                <!-- 
                 @auth
                 <x-button href="{{ route('dashboard') }}" variant="secondary" size="lg" class="flex items-center">
                     <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,6 +70,7 @@
                     Accéder au dashboard
                 </x-button>
                 @endauth
+                -->
             </div>
         </div>
     </section>

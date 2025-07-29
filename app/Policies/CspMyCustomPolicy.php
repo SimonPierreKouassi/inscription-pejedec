@@ -4,16 +4,13 @@ namespace App\Policies;
 
 use Spatie\Csp\Directive;
 use Spatie\Csp\Keyword;
+use Spatie\Csp\Policy;
 use Spatie\Csp\Preset;
 
 class CspMyCustomPolicy implements Preset
 {
-    public function configure(): array
+    public function configure(Policy $policy):void
     {
-        return [
-            Directive::FRAME_ANCESTORS => [Keyword::NONE],
-            Directive::SCRIPT_SRC => [Keyword::SELF],
-            Directive::STYLE_SRC => [Keyword::SELF],
-        ];
+        $policy->add(Directive::FRAME_ANCESTORS, Keyword::NONE);
     }
 }

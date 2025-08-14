@@ -85,14 +85,14 @@
         <div class="detail-row">
             <strong>Créneau Horaire:</strong> <span>{{ $appointment->creneau_horaire }}</span>
         </div>
-        <div class="detail-row">
+       <!-- <div class="detail-row">
             <strong>Statut:</strong>
             <span>
                 <span class="status-badge status-{{ strtolower($appointment->status) }}">
                     {{ $appointment->status_label }}
                 </span>
             </span>
-        </div>
+        </div>-->
         @if ($appointment->notes)
         <div class="detail-row">
             <strong>Notes:</strong> <span>{{ $appointment->notes }}</span>
@@ -179,9 +179,29 @@
         <div class="detail-row">
             <strong>Téléphone:</strong> <span>{{ $appointment->numero_personne_contact }}</span>
         </div>
-
+        <div class="detail-row">
+            <strong></strong> <span></span>
+        </div>
+        <div class="row">    
+            <strong style="color:red">Merci de bien vouloir vous présenter à la date indiquée avec les dossiers à fournir. <br>
+                 Cela nous permettra d’organiser au mieux votre accueil et de vous servir 
+                 dans les meilleures conditions. <br>                    
+            </strong> 
+        </div>
+         <div class="row">    
+            <strong style="">
+                Dossier à fournir : <br>
+                    - Pièce d’identité (ou récépissé, ou certificat de nationalité + extrait) <br>
+                    - Si tu es mineur(e) : extrait de naissance + pièce d’un parent ivoirien<br>
+                    - Document prouvant ton niveau d’études (bulletin, certificat, collante, etc.)<br>
+                    - Carte CMU (si tu l’as)<br>
+                     Tenue exigée : décente et propre<br>
+                    
+            </strong> 
+        </div>
         <div class="footer">
             <p>&copy; {{ date('Y') }} Agefop . Tous droits réservés.</p>
+            <p>Infoline : 1606</p>
             <p>Ce document est généré automatiquement et ne nécessite pas de signature.</p>
         </div>
     </div>

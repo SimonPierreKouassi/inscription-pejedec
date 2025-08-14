@@ -44,7 +44,15 @@
         
         <div class="mt-8 pt-6 border-t border-gray-200">
             <p class="text-sm text-gray-500">
-                Vous recevrez un rappel 24h avant votre rendez-vous.
+                Rendez-vous a votre lieu de prise en charge avec :<br>
+                originaux + photocopies : <br>
+                ✅ Pièce d’identité (ou récépissé, ou certificat de nationalité + extrait) <br>
+                ✅ Si tu es mineur(e) : extrait de naissance + pièce d’un parent ivoirien<br>
+                ✅ Document prouvant ton niveau d’études (bulletin, certificat, collante, etc.)<br>
+                ✅ Carte CMU (si tu l’as)<br>
+                👗 Tenue exigée : décente et propre<br>
+                ❌ Pas de culotte, pas de sandales, pas de jean déchiré<br>
+                💇‍♀️ Cheveux bien coiffés<br>
             </p>
         </div>
     </x-card>
